@@ -16,13 +16,15 @@ public class item implements Serializable {
     itemTypes type;
 
     public String itemCode;
+    public String itemName;//different items with same type
 
     public item() {
         itemCode = "-1";
     }
 
-    public item(String new_temCode) {
-        itemCode = new_temCode;
+    public item(String new_temCode,String itemName) {
+        this.itemCode = new_temCode;
+        this.itemName = itemName;
     }
 
     public String printItem() {
