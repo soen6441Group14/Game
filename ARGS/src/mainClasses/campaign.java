@@ -8,5 +8,7 @@ import java.util.ArrayList;
 public class campaign {
 	
 	ArrayList<map> maps = new ArrayList<map>();
+	
+	int i;
 
 }
