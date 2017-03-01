@@ -1,9 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panels;
+
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,11 +11,55 @@ package panels;
  */
 public class itemEditorMain extends javax.swing.JPanel {
 
+    String[] choices = {"abc", "def"};
+    CardLayout cardlayout;
+
     /**
      * Creates new form itemEditorMain
      */
     public itemEditorMain() {
+
         initComponents();
+        DisplayPanel.setVisible(false);
+        combobox_type.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                myBox(evt);
+            }
+        });
+        cardlayout = (CardLayout) panel_itemType.getLayout();
+        //String[] choices = {"abc", "abc"};
+    }
+
+    protected void myBox(ActionEvent evt) {
+        if (combobox_type.getSelectedItem().equals("Helmet")) {
+            panel_itemType.setVisible(true);
+            cardlayout.show(panel_itemType, "card4");
+        }
+        if (combobox_type.getSelectedItem().equals("Weapon")) {
+            panel_itemType.setVisible(true);
+            cardlayout.show(panel_itemType, "card2");
+        }
+        if (combobox_type.getSelectedItem().equals("Shield")) {
+            panel_itemType.setVisible(true);
+            cardlayout.show(panel_itemType, "card3");
+        }
+        if (combobox_type.getSelectedItem().equals("Armor")) {
+            panel_itemType.setVisible(true);
+            cardlayout.show(panel_itemType, "card5");
+        }
+        if (combobox_type.getSelectedItem().equals("Belt")) {
+            panel_itemType.setVisible(true);
+            cardlayout.show(panel_itemType, "card7");
+        }
+        if (combobox_type.getSelectedItem().equals("Ring")) {
+            panel_itemType.setVisible(true);
+            cardlayout.show(panel_itemType, "card8");
+        }
+        if (combobox_type.getSelectedItem().equals("Boots")) {
+            panel_itemType.setVisible(true);
+            cardlayout.show(panel_itemType, "card6");
+        }
     }
 
     /**
@@ -31,6 +75,7 @@ public class itemEditorMain extends javax.swing.JPanel {
         button_new = new javax.swing.JButton();
         button_edit = new javax.swing.JButton();
         button_delete = new javax.swing.JButton();
+        button_save = new javax.swing.JButton();
         DisplayPanel = new javax.swing.JPanel();
         label_name = new javax.swing.JLabel();
         textfield_name = new javax.swing.JTextField();
@@ -78,10 +123,49 @@ public class itemEditorMain extends javax.swing.JPanel {
         textfield_ring_cra_bns = new javax.swing.JTextField();
 
         button_new.setText("New");
+        button_new.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_newActionPerformed(evt);
+            }
+        });
 
         button_edit.setText("Edit");
+        button_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_editActionPerformed(evt);
+            }
+        });
 
         button_delete.setText(" Delete");
+
+        button_save.setText("Save");
+
+        javax.swing.GroupLayout ControlPanelLayout = new javax.swing.GroupLayout(ControlPanel);
+        ControlPanel.setLayout(ControlPanelLayout);
+        ControlPanelLayout.setHorizontalGroup(
+            ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ControlPanelLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(button_new)
+                .addGap(40, 40, 40)
+                .addComponent(button_edit)
+                .addGap(191, 191, 191)
+                .addComponent(button_save)
+                .addGap(57, 57, 57)
+                .addComponent(button_delete)
+                .addContainerGap(717, Short.MAX_VALUE))
+        );
+        ControlPanelLayout.setVerticalGroup(
+            ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ControlPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(button_new)
+                    .addComponent(button_edit)
+                    .addComponent(button_delete)
+                    .addComponent(button_save))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
 
         label_name.setText("Name");
 
@@ -89,7 +173,7 @@ public class itemEditorMain extends javax.swing.JPanel {
 
         label_type.setText("Type");
 
-        combobox_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combobox_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Helmet", "Weapon", "Shield", "Armor", "Belt", "Ring", "Boots" }));
 
         panel_itemType.setLayout(new java.awt.CardLayout());
 
@@ -432,54 +516,40 @@ public class itemEditorMain extends javax.swing.JPanel {
                 .addContainerGap(540, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout ControlPanelLayout = new javax.swing.GroupLayout(ControlPanel);
-        ControlPanel.setLayout(ControlPanelLayout);
-        ControlPanelLayout.setHorizontalGroup(
-            ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ControlPanelLayout.createSequentialGroup()
-                .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ControlPanelLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(button_new)
-                        .addGap(71, 71, 71)
-                        .addComponent(button_edit)
-                        .addGap(87, 87, 87)
-                        .addComponent(button_delete))
-                    .addGroup(ControlPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        ControlPanelLayout.setVerticalGroup(
-            ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ControlPanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(button_new)
-                    .addComponent(button_edit)
-                    .addComponent(button_delete))
-                .addGap(18, 18, 18)
-                .addComponent(DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_editActionPerformed
+        String input = (String) JOptionPane.showInputDialog(null, "Choose item to edit", "Item Select", JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
+        DisplayPanel.setVisible(true);
+        panel_itemType.setVisible(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_editActionPerformed
+
+    private void button_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_newActionPerformed
+        DisplayPanel.setVisible(true);
+        panel_itemType.setVisible(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_newActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -488,6 +558,7 @@ public class itemEditorMain extends javax.swing.JPanel {
     private javax.swing.JButton button_delete;
     private javax.swing.JButton button_edit;
     private javax.swing.JButton button_new;
+    private javax.swing.JButton button_save;
     private javax.swing.JComboBox<String> combobox_type;
     private javax.swing.JLabel label_armor_arm_cls;
     private javax.swing.JLabel label_belt_cns_bns;
@@ -533,4 +604,5 @@ public class itemEditorMain extends javax.swing.JPanel {
     private javax.swing.JTextField textfield_weapon_atk_bns;
     private javax.swing.JTextField textfield_weapon_dmg_bns;
     // End of variables declaration//GEN-END:variables
+
 }

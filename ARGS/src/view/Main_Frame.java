@@ -4,6 +4,8 @@ import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import panels.mapEditorDimensions;
 import panels.charcterEditorMain;
+import panels.itemEditorMain;
+import panels.mapEditorMain;
 
 /**
  *
@@ -20,8 +22,10 @@ public class Main_Frame extends javax.swing.JFrame {
     public Main_Frame() {
         initComponents();
         pnlTopContainer.setVisible(false);
-        pnlTopContainer.add(new charcterEditorMain(), "card4");
-        //pnlTopContainer.add(this);
+        pnlTopContainer.add(new charcterEditorMain(), "card1");
+        pnlTopContainer.add(new itemEditorMain(), "card2");
+        pnlTopContainer.add(new mapEditorMain(), "card3");
+        //pnlTopContainer.add(new charcterEditorMain(), "card4");
         cardlayout = (CardLayout) pnlTopContainer.getLayout();
     }
 
@@ -34,180 +38,67 @@ public class Main_Frame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         pnlTopContainer = new javax.swing.JPanel();
-        pnlMapEditor = new javax.swing.JPanel();
-        pnlMapEditorDisplay = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        pnlMapEditorEdit = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        pnlCharcterEditor = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        menubar_main_frame = new javax.swing.JMenuBar();
+        menu_mainframe_Play = new javax.swing.JMenu();
+        menu_mainframe_play_new = new javax.swing.JMenuItem();
+        menu_mainframe_play_save = new javax.swing.JMenuItem();
+        menu_mainframe_play_load = new javax.swing.JMenuItem();
+        menu_mainframe_Editor = new javax.swing.JMenu();
+        menu_mainframe_editor_char = new javax.swing.JMenuItem();
+        menu_mainframe_editor_item = new javax.swing.JMenuItem();
+        menu_mainframe_editor_map = new javax.swing.JMenuItem();
+        menu_mainframe_editor_campaign = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
-
-        jButton1.setText("map editor");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton1);
-
-        jButton2.setText("character editor");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton2);
-
-        jButton3.setText("empty button");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton3);
-
         pnlTopContainer.setLayout(new java.awt.CardLayout());
 
-        pnlMapEditor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        menu_mainframe_Play.setText("Play");
 
-        jLabel1.setText("Dispay here");
+        menu_mainframe_play_new.setText("New");
+        menu_mainframe_Play.add(menu_mainframe_play_new);
 
-        javax.swing.GroupLayout pnlMapEditorDisplayLayout = new javax.swing.GroupLayout(pnlMapEditorDisplay);
-        pnlMapEditorDisplay.setLayout(pnlMapEditorDisplayLayout);
-        pnlMapEditorDisplayLayout.setHorizontalGroup(
-            pnlMapEditorDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMapEditorDisplayLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(341, Short.MAX_VALUE))
-        );
-        pnlMapEditorDisplayLayout.setVerticalGroup(
-            pnlMapEditorDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMapEditorDisplayLayout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(430, Short.MAX_VALUE))
-        );
+        menu_mainframe_play_save.setText("Save");
+        menu_mainframe_Play.add(menu_mainframe_play_save);
 
-        pnlMapEditor.add(pnlMapEditorDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 734));
+        menu_mainframe_play_load.setText("Load");
+        menu_mainframe_Play.add(menu_mainframe_play_load);
 
-        jLabel2.setText("Edit Here");
+        menubar_main_frame.add(menu_mainframe_Play);
 
-        javax.swing.GroupLayout pnlMapEditorEditLayout = new javax.swing.GroupLayout(pnlMapEditorEdit);
-        pnlMapEditorEdit.setLayout(pnlMapEditorEditLayout);
-        pnlMapEditorEditLayout.setHorizontalGroup(
-            pnlMapEditorEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMapEditorEditLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel2)
-                .addContainerGap(190, Short.MAX_VALUE))
-        );
-        pnlMapEditorEditLayout.setVerticalGroup(
-            pnlMapEditorEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMapEditorEditLayout.createSequentialGroup()
-                .addGap(237, 237, 237)
-                .addComponent(jLabel2)
-                .addContainerGap(483, Short.MAX_VALUE))
-        );
+        menu_mainframe_Editor.setText("Editor");
 
-        pnlMapEditor.add(pnlMapEditorEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 11, -1, -1));
+        menu_mainframe_editor_char.setText("Character");
+        menu_mainframe_editor_char.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_mainframe_editor_charActionPerformed(evt);
+            }
+        });
+        menu_mainframe_Editor.add(menu_mainframe_editor_char);
 
-        pnlTopContainer.add(pnlMapEditor, "card2");
+        menu_mainframe_editor_item.setText("Item");
+        menu_mainframe_editor_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_mainframe_editor_itemActionPerformed(evt);
+            }
+        });
+        menu_mainframe_Editor.add(menu_mainframe_editor_item);
 
-        pnlCharcterEditor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        menu_mainframe_editor_map.setText("Map");
+        menu_mainframe_editor_map.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_mainframe_editor_mapActionPerformed(evt);
+            }
+        });
+        menu_mainframe_Editor.add(menu_mainframe_editor_map);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 51, 51)));
+        menu_mainframe_editor_campaign.setText("Campaign");
+        menu_mainframe_Editor.add(menu_mainframe_editor_campaign);
 
-        jLabel3.setText("panel1");
+        menubar_main_frame.add(menu_mainframe_Editor);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(jLabel3)
-                .addContainerGap(211, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(208, 208, 208)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        pnlCharcterEditor.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 734));
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel4.setText("panel2");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addComponent(jLabel4)
-                .addContainerGap(215, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(219, 219, 219)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        pnlCharcterEditor.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 11, -1, 734));
-
-        jLabel5.setText("panel3");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jLabel5)
-                .addContainerGap(179, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(246, 246, 246)
-                .addComponent(jLabel5)
-                .addContainerGap(474, Short.MAX_VALUE))
-        );
-
-        pnlCharcterEditor.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(791, 11, -1, -1));
-
-        pnlTopContainer.add(pnlCharcterEditor, "card3");
+        setJMenuBar(menubar_main_frame);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -215,70 +106,38 @@ public class Main_Frame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlTopContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlTopContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlTopContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlTopContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void menu_mainframe_editor_charActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_mainframe_editor_charActionPerformed
+        pnlTopContainer.setVisible(true);
+        cardlayout.show(pnlTopContainer, "card1");
 
-        boolean abc = true;
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_mainframe_editor_charActionPerformed
 
-        int input;
-
-        do {
-            mapEditorDimensions dp = new mapEditorDimensions();
-            int x = JOptionPane.showConfirmDialog(null, dp, "title here", JOptionPane.PLAIN_MESSAGE);
-
-            if (x == JOptionPane.CLOSED_OPTION) {
-                System.out.println("cancel button is pressed");
-                return;
-            }
-
-            try {
-                input = Integer.parseInt(dp.getInput()[0]) * Integer.parseInt(dp.getInput()[1]);
-                System.out.println(input);
-            } catch (Exception e) {
-                abc = true;
-                continue;
-            }
-            abc = false;
-        } while (abc);
-
+    private void menu_mainframe_editor_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_mainframe_editor_itemActionPerformed
         pnlTopContainer.setVisible(true);
         cardlayout.show(pnlTopContainer, "card2");
-        /*pnlMapEditor.setVisible(true);
-        pnlCharcterEditor.setVisible(false);*/
+// TODO add your handling code here:
+    }//GEN-LAST:event_menu_mainframe_editor_itemActionPerformed
 
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void menu_mainframe_editor_mapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_mainframe_editor_mapActionPerformed
         pnlTopContainer.setVisible(true);
         cardlayout.show(pnlTopContainer, "card3");
-        /* pnlMapEditor.setVisible(false);
-        pnlCharcterEditor.setVisible(true);*/
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        pnlTopContainer.setVisible(true);
-        cardlayout.show(pnlTopContainer, "card4");
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_menu_mainframe_editor_mapActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,22 +177,16 @@ public class Main_Frame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JPanel pnlCharcterEditor;
-    private javax.swing.JPanel pnlMapEditor;
-    private javax.swing.JPanel pnlMapEditorDisplay;
-    private javax.swing.JPanel pnlMapEditorEdit;
+    private javax.swing.JMenu menu_mainframe_Editor;
+    private javax.swing.JMenu menu_mainframe_Play;
+    private javax.swing.JMenuItem menu_mainframe_editor_campaign;
+    private javax.swing.JMenuItem menu_mainframe_editor_char;
+    private javax.swing.JMenuItem menu_mainframe_editor_item;
+    private javax.swing.JMenuItem menu_mainframe_editor_map;
+    private javax.swing.JMenuItem menu_mainframe_play_load;
+    private javax.swing.JMenuItem menu_mainframe_play_new;
+    private javax.swing.JMenuItem menu_mainframe_play_save;
+    private javax.swing.JMenuBar menubar_main_frame;
     private javax.swing.JPanel pnlTopContainer;
     // End of variables declaration//GEN-END:variables
 }
