@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import panels.mapEditorDimensions;
+import panels.charcterEditorMain;
 
 /**
  *
@@ -14,12 +11,18 @@ import panels.mapEditorDimensions;
  */
 public class Main_Frame extends javax.swing.JFrame {
 
+    CardLayout cardlayout;
+    //charcterEditorMain chrct;
+
     /**
      * Creates new form Main_Frame
      */
     public Main_Frame() {
         initComponents();
         pnlTopContainer.setVisible(false);
+        pnlTopContainer.add(new charcterEditorMain(), "card4");
+        //pnlTopContainer.add(this);
+        cardlayout = (CardLayout) pnlTopContainer.getLayout();
     }
 
     /**
@@ -89,7 +92,7 @@ public class Main_Frame extends javax.swing.JFrame {
 
         pnlTopContainer.setLayout(new java.awt.CardLayout());
 
-        //pnlMapEditor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlMapEditor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Dispay here");
 
@@ -110,7 +113,7 @@ public class Main_Frame extends javax.swing.JFrame {
                 .addContainerGap(430, Short.MAX_VALUE))
         );
 
-        //pnlMapEditor.add(pnlMapEditorDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 734));
+        pnlMapEditor.add(pnlMapEditorDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 734));
 
         jLabel2.setText("Edit Here");
 
@@ -131,11 +134,13 @@ public class Main_Frame extends javax.swing.JFrame {
                 .addContainerGap(483, Short.MAX_VALUE))
         );
 
-       // pnlMapEditor.add(pnlMapEditorEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 11, -1, -1));
+        pnlMapEditor.add(pnlMapEditorEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 11, -1, -1));
 
         pnlTopContainer.add(pnlMapEditor, "card2");
 
-        //pnlCharcterEditor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlCharcterEditor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 51, 51)));
 
         jLabel3.setText("panel1");
 
@@ -156,7 +161,9 @@ public class Main_Frame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        //pnlCharcterEditor.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 734));
+        pnlCharcterEditor.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 734));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setText("panel2");
 
@@ -177,7 +184,7 @@ public class Main_Frame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-     //   pnlCharcterEditor.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 11, -1, 734));
+        pnlCharcterEditor.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 11, -1, 734));
 
         jLabel5.setText("panel3");
 
@@ -198,7 +205,7 @@ public class Main_Frame extends javax.swing.JFrame {
                 .addContainerGap(474, Short.MAX_VALUE))
         );
 
-      //  pnlCharcterEditor.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(791, 11, -1, -1));
+        pnlCharcterEditor.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(791, 11, -1, -1));
 
         pnlTopContainer.add(pnlCharcterEditor, "card3");
 
@@ -252,21 +259,24 @@ public class Main_Frame extends javax.swing.JFrame {
         } while (abc);
 
         pnlTopContainer.setVisible(true);
-        pnlMapEditor.setVisible(true);
-        pnlCharcterEditor.setVisible(false);
+        cardlayout.show(pnlTopContainer, "card2");
+        /*pnlMapEditor.setVisible(true);
+        pnlCharcterEditor.setVisible(false);*/
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         pnlTopContainer.setVisible(true);
-        pnlMapEditor.setVisible(false);
-        pnlCharcterEditor.setVisible(true);
+        cardlayout.show(pnlTopContainer, "card3");
+        /* pnlMapEditor.setVisible(false);
+        pnlCharcterEditor.setVisible(true);*/
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        pnlTopContainer.setVisible(false);
+        pnlTopContainer.setVisible(true);
+        cardlayout.show(pnlTopContainer, "card4");
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -295,6 +305,7 @@ public class Main_Frame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

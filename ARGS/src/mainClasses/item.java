@@ -22,8 +22,7 @@ public class item implements Serializable {
     }
 
     public item(String new_temCode) {
-        this.itemCode = new_temCode;
-        
+        itemCode = new_temCode;
     }
 
     public String printItem() {

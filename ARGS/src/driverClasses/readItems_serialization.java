@@ -21,7 +21,7 @@ public class readItems_serialization {
         //character temp = (character) ois.readObject();
         hashmap = (HashMap<String, ArrayList<item>>) ois.readObject();
 
-        System.out.println("sadds");
+        System.out.println("");
     }
 
 }

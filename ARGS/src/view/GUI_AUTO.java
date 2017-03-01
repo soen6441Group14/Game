@@ -146,6 +146,7 @@ public class GUI_AUTO extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI_AUTO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         int x = 10;
@@ -225,7 +226,7 @@ public class GUI_AUTO extends javax.swing.JFrame {
                     case EMPTY:
                         matrix[i][j].setBackground(Color.LIGHT_GRAY);
                         break;
-                    case CHARCTERS:
+                    case CHARCTER:
                         matrix[i][j].setBackground(Color.GREEN);
                         break;
                     case WALL:

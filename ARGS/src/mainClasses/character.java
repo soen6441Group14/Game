@@ -8,6 +8,10 @@ import java.util.Random;
 /**
  * @author SNaKeRUBIN
  */
+//
+//  use strategy pattern for character orientation, use interface object to access neutral and offensive NPCs
+//
+//
 public class character implements Serializable {
 
     orientation orient;

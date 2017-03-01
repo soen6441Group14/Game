@@ -68,7 +68,7 @@ public class GUI {
                     case EMPTY:
                         matrix[i][j].setBackground(Color.LIGHT_GRAY);
                         break;
-                    case CHARCTERS:
+                    case CHARCTER:
                         matrix[i][j].setBackground(Color.GREEN);
                         break;
                     case WALL:
