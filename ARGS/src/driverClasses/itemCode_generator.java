@@ -15,13 +15,13 @@ public class itemCode_generator {
             minHeap.add(i);
         }
 
-        item weapon1 = new item("a" + String.format("%03d", minHeap.remove()));
-        item weapon2 = new item("a" + String.format("%03d", minHeap.remove()));
-        item weapon3 = new item("a" + String.format("%03d", minHeap.remove()));
+//        item weapon1 = new item("a" + String.format("%03d", minHeap.remove()));
+//        item weapon2 = new item("a" + String.format("%03d", minHeap.remove()));
+//        item weapon3 = new item("a" + String.format("%03d", minHeap.remove()));
 
-        System.out.println(weapon1.printItem());
-        System.out.println(weapon2.printItem());
-        System.out.println(weapon3.printItem());
+//        System.out.println(weapon1.printItem());
+//        System.out.println(weapon2.printItem());
+//        System.out.println(weapon3.printItem());
     }
 
 }
