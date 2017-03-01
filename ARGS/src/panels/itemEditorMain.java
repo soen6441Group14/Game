@@ -3,7 +3,10 @@ package panels;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import mainClasses.item;
 
 /**
  *
@@ -13,10 +16,19 @@ public class itemEditorMain extends javax.swing.JPanel {
 
     String[] choices = {"abc", "def"};
     CardLayout cardlayout;
-
+    ArrayList<item> helmetArrayList = new ArrayList<item>();
+    ArrayList<item> weaponArrayList = new ArrayList<item>();
+    ArrayList<item> shieldArrayList = new ArrayList<item>();
+    ArrayList<item> armorArrayList = new ArrayList<item>();
+    ArrayList<item> ringArrayList = new ArrayList<item>();
+    ArrayList<item> beltArrayList = new ArrayList<item>();
+    ArrayList<item> bootArrayList = new ArrayList<item>();
+    HashMap<String, ArrayList<item>> hashmap = new HashMap<>();
+    
     /**
      * Creates new form itemEditorMain
      */
+    
     public itemEditorMain() {
 
         initComponents();
@@ -139,6 +151,11 @@ public class itemEditorMain extends javax.swing.JPanel {
         button_delete.setText(" Delete");
 
         button_save.setText("Save");
+        button_save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_saveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ControlPanelLayout = new javax.swing.GroupLayout(ControlPanel);
         ControlPanel.setLayout(ControlPanelLayout);
@@ -550,6 +567,39 @@ public class itemEditorMain extends javax.swing.JPanel {
         panel_itemType.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_button_newActionPerformed
+
+    private void button_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_saveActionPerformed
+        // TODO add your handling code here:
+        if (combobox_type.getSelectedItem().equals("Helmet")) {
+           helmetArrayList.add(new item(textfield_name.getName(),Integer.parseInt(label_helmet_int_bns.getName())));
+           hashmap.put("Helmet", helmetArrayList);
+        }
+        if (combobox_type.getSelectedItem().equals("Weapon")) {
+           weaponArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_weapon_dmg_bns.getName())));
+           hashmap.put("Weapon", weaponArrayList);
+        }
+        if (combobox_type.getSelectedItem().equals("Shield")) {
+            shieldArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_shield_arm_cls.getName())));
+            hashmap.put("Shield", shieldArrayList);
+        }
+        if (combobox_type.getSelectedItem().equals("Armor")) {
+          armorArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_armor_arm_cls.getName())));
+          hashmap.put("Armor", armorArrayList);
+        }
+        if (combobox_type.getSelectedItem().equals("Belt")) {
+            beltArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_belt_str_bns.getName())));
+            hashmap.put("Belt", beltArrayList);
+        }
+        if (combobox_type.getSelectedItem().equals("Ring")) {
+           ringArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_ring_wis_bns.getName())));
+           hashmap.put("Ring", ringArrayList);
+        }
+        if (combobox_type.getSelectedItem().equals("Boots")) {
+           bootArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_boots_dex_bns.getName())));
+           hashmap.put("Boot", bootArrayList);
+        }
+        
+    }//GEN-LAST:event_button_saveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
