@@ -13,7 +13,7 @@ import mainClasses.item;
  */
 public class readItems_serialization {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public HashMap<String, ArrayList<item>> readItems() throws IOException, ClassNotFoundException {
         HashMap<String, ArrayList<item>> hashmap = new HashMap<>();
 
         File input = new File("D:\\_item.txt");
@@ -21,7 +21,7 @@ public class readItems_serialization {
         //character temp = (character) ois.readObject();
         hashmap = (HashMap<String, ArrayList<item>>) ois.readObject();
 
-        System.out.println("");
+       return hashmap;
     }
 
 }
