@@ -5,17 +5,30 @@
  */
 package panels;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import mainClasses.character;
+
 /**
  *
  * @author SNaKeRUBIN
  */
 public class charcterEditorMain extends javax.swing.JPanel {
 
+    ArrayList<character> characterList;
+    character currentChar;
+
     /**
      * Creates new form charcterEditorMain
      */
-    public charcterEditorMain() {
+    public charcterEditorMain(ArrayList<character> new_characterList) {
         initComponents();
+        characterList = new_characterList;
+        DisplayPanel.setVisible(false);
+        SelectPanel.setVisible(false);
+        button_delete.setEnabled(false);
+
+        System.out.println("");
     }
 
     /**
@@ -31,6 +44,7 @@ public class charcterEditorMain extends javax.swing.JPanel {
         button_new = new javax.swing.JButton();
         button_edit = new javax.swing.JButton();
         button_delete = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
         DisplayPanel = new javax.swing.JPanel();
         label_image = new javax.swing.JLabel();
         label_helmet = new javax.swing.JLabel();
@@ -67,6 +81,7 @@ public class charcterEditorMain extends javax.swing.JPanel {
         combobox_inv_9 = new javax.swing.JComboBox<>();
         label_inv_10 = new javax.swing.JLabel();
         combobox_inv_10 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
         SelectPanel = new javax.swing.JPanel();
         label_name = new javax.swing.JLabel();
         label_lvl = new javax.swing.JLabel();
@@ -88,8 +103,18 @@ public class charcterEditorMain extends javax.swing.JPanel {
         button_randomize = new javax.swing.JButton();
 
         button_new.setText("New");
+        button_new.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_newActionPerformed(evt);
+            }
+        });
 
         button_edit.setText("Edit");
+        button_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_editActionPerformed(evt);
+            }
+        });
 
         button_delete.setText("Delete");
 
@@ -238,7 +263,7 @@ public class charcterEditorMain extends javax.swing.JPanel {
                                 .addComponent(label_inv_10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(combobox_inv_10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         DisplayPanelLayout.setVerticalGroup(
             DisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,6 +329,8 @@ public class charcterEditorMain extends javax.swing.JPanel {
                 .addGap(158, 158, 158))
         );
 
+        jScrollPane2.setViewportView(DisplayPanel);
+
         javax.swing.GroupLayout ControlPanelLayout = new javax.swing.GroupLayout(ControlPanel);
         ControlPanel.setLayout(ControlPanelLayout);
         ControlPanelLayout.setHorizontalGroup(
@@ -317,8 +344,8 @@ public class charcterEditorMain extends javax.swing.JPanel {
                         .addComponent(button_edit)
                         .addGap(95, 95, 95)
                         .addComponent(button_delete))
-                    .addComponent(DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1014, Short.MAX_VALUE))
+                .addContainerGap())
         );
         ControlPanelLayout.setVerticalGroup(
             ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,17 +356,15 @@ public class charcterEditorMain extends javax.swing.JPanel {
                     .addComponent(button_edit)
                     .addComponent(button_delete))
                 .addGap(18, 18, 18)
-                .addComponent(DisplayPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 887, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         label_name.setText("Name");
 
         label_lvl.setText("Level");
 
-        textfield_name.setText("jTextField1");
-
-        combobox_lvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combobox_lvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }));
 
         label_str.setText("Strength");
 
@@ -353,21 +378,19 @@ public class charcterEditorMain extends javax.swing.JPanel {
 
         label_charis.setText("Charisma");
 
-        textfield_str.setText("jTextField1");
-
-        textfield_consti.setText("jTextField2");
-
-        textfield_intelli.setText("jTextField3");
-
-        textfield_dex.setText("jTextField4");
-
-        textfield_wis.setText("jTextField5");
-
-        textfield_charis.setText("jTextField6");
-
         button_save.setText("Save");
+        button_save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_saveActionPerformed(evt);
+            }
+        });
 
         button_randomize.setText("Randomize");
+        button_randomize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_randomizeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout SelectPanelLayout = new javax.swing.GroupLayout(SelectPanel);
         SelectPanel.setLayout(SelectPanelLayout);
@@ -378,51 +401,50 @@ public class charcterEditorMain extends javax.swing.JPanel {
                     .addGroup(SelectPanelLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(SelectPanelLayout.createSequentialGroup()
-                                    .addComponent(label_lvl)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(combobox_lvl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(SelectPanelLayout.createSequentialGroup()
-                                    .addComponent(label_name)
-                                    .addGap(41, 41, 41)
-                                    .addComponent(textfield_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(SelectPanelLayout.createSequentialGroup()
-                                .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGap(62, 62, 62)
+                                .addComponent(button_randomize))
+                            .addGroup(SelectPanelLayout.createSequentialGroup()
+                                .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(SelectPanelLayout.createSequentialGroup()
-                                        .addComponent(label_intelli)
+                                        .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(label_consti)
+                                            .addComponent(label_str))
+                                        .addGap(33, 33, 33)
+                                        .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(textfield_consti, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                                            .addComponent(textfield_str)))
+                                    .addGroup(SelectPanelLayout.createSequentialGroup()
+                                        .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(SelectPanelLayout.createSequentialGroup()
+                                                .addComponent(label_lvl)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(combobox_lvl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(label_name)
+                                            .addComponent(label_intelli))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textfield_intelli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SelectPanelLayout.createSequentialGroup()
-                                        .addComponent(label_consti)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textfield_consti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SelectPanelLayout.createSequentialGroup()
-                                        .addComponent(label_str)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textfield_str, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(textfield_intelli, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                                            .addComponent(textfield_name))))
                                 .addGap(18, 18, 18)
                                 .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(SelectPanelLayout.createSequentialGroup()
                                         .addComponent(label_charis)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(textfield_charis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(SelectPanelLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(textfield_charis, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 2, Short.MAX_VALUE))
+                                    .addGroup(SelectPanelLayout.createSequentialGroup()
+                                        .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(label_wis)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(textfield_wis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(SelectPanelLayout.createSequentialGroup()
-                                            .addComponent(label_dex)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(textfield_dex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(SelectPanelLayout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addComponent(button_randomize))))
+                                            .addComponent(label_dex))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(textfield_wis)
+                                            .addComponent(textfield_dex)))))))
                     .addGroup(SelectPanelLayout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(button_save)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
         SelectPanelLayout.setVerticalGroup(
             SelectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -457,8 +479,10 @@ public class charcterEditorMain extends javax.swing.JPanel {
                 .addComponent(button_randomize)
                 .addGap(134, 134, 134)
                 .addComponent(button_save)
-                .addContainerGap(495, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
+
+        jScrollPane1.setViewportView(SelectPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -466,23 +490,73 @@ public class charcterEditorMain extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1040, 1040, 1040)
-                        .addComponent(SelectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(ControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addComponent(ControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(SelectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_newActionPerformed
+        currentChar = new character();
+
+        textfield_name.setText("");
+        textfield_charis.setText("");
+        textfield_consti.setText("");
+        textfield_dex.setText("");
+        textfield_intelli.setText("");
+        textfield_str.setText("");
+        textfield_wis.setText("");
+
+        textfield_charis.setEditable(false);
+        textfield_consti.setEditable(false);
+        textfield_dex.setEditable(false);
+        textfield_intelli.setEditable(false);
+        textfield_str.setEditable(false);
+        textfield_wis.setEditable(false);
+
+        DisplayPanel.setVisible(true);
+        SelectPanel.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_newActionPerformed
+
+    private void button_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_editActionPerformed
+        String[] choices = new String[characterList.size()];
+        for (int i = 0; i < characterList.size(); i++) {
+            choices[i] = characterList.get(i).name;
+        }
+        String input = (String) JOptionPane.showInputDialog(null, "Choose item to edit", "Item Select", JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
+
+        for (character temp : characterList) {
+            if (temp.name.equals(input)) {
+                currentChar = temp;
+                break;
+            }
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_editActionPerformed
+
+    private void button_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_saveActionPerformed
+        System.out.println(textfield_name.getText());
+// TODO add your handling code here:
+    }//GEN-LAST:event_button_saveActionPerformed
+
+    private void button_randomizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_randomizeActionPerformed
+        currentChar.randomize();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_randomizeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -512,6 +586,8 @@ public class charcterEditorMain extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> combobox_ring;
     private javax.swing.JComboBox<String> combobox_shield;
     private javax.swing.JComboBox<String> combobox_weapon;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label_armour;
     private javax.swing.JLabel label_belt;
     private javax.swing.JLabel label_boots;
