@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import mainClasses.item;
@@ -14,23 +15,54 @@ import mainClasses.item;
  */
 public class itemEditorMain extends javax.swing.JPanel {
 
-    String[] choices = {"abc", "def"};
+    String[] choices ;
+    String input;
     CardLayout cardlayout;
-    ArrayList<item> helmetArrayList = new ArrayList<item>();
-    ArrayList<item> weaponArrayList = new ArrayList<item>();
-    ArrayList<item> shieldArrayList = new ArrayList<item>();
-    ArrayList<item> armorArrayList = new ArrayList<item>();
-    ArrayList<item> ringArrayList = new ArrayList<item>();
-    ArrayList<item> beltArrayList = new ArrayList<item>();
-    ArrayList<item> bootArrayList = new ArrayList<item>();
-    HashMap<String, ArrayList<item>> hashmap = new HashMap<>();
+    ArrayList<item> helmetArrayList ;
+    ArrayList<item> weaponArrayList ;
+    ArrayList<item> shieldArrayList ;
+    ArrayList<item> armorArrayList ;
+    ArrayList<item> ringArrayList ;
+    ArrayList<item> beltArrayList ;
+    ArrayList<item> bootArrayList ;
+    HashMap<String, ArrayList<item>> myhashmap = new HashMap<>();
     
     /**
      * Creates new form itemEditorMain
      */
     
-    public itemEditorMain() {
-
+    public itemEditorMain(HashMap<String, ArrayList<item>> hashmap) {
+        myhashmap = hashmap;
+        if(hashmap!=null)
+        {
+        Collection<ArrayList<item>> collection = hashmap.values();
+        collection.toArray(choices);
+        }
+        if(hashmap.get("Helmet")!=null){
+        helmetArrayList =  hashmap.get("Helmet");
+        }
+        if(hashmap.get("Weapon")!=null){
+        weaponArrayList =  hashmap.get("Weapon");
+        }
+        if(hashmap.get("Shield")!=null){
+        shieldArrayList =  hashmap.get("Shield");
+        }
+        if(hashmap.get("Armor")!=null){
+        armorArrayList =  hashmap.get("Armor");
+        }
+        if(hashmap.get("Ring")!=null){
+        ringArrayList =  hashmap.get("Ring");
+        }
+        if(hashmap.get("Belt")!=null){
+        beltArrayList =  hashmap.get("Belt");
+        }
+        if(hashmap.get("Boot")!=null){
+         bootArrayList =  hashmap.get("Boot");
+        }
+        
+  
+        
+        
         initComponents();
         DisplayPanel.setVisible(false);
         combobox_type.addActionListener(new ActionListener() {
@@ -556,9 +588,10 @@ public class itemEditorMain extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_editActionPerformed
-        String input = (String) JOptionPane.showInputDialog(null, "Choose item to edit", "Item Select", JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
+        input = (String) JOptionPane.showInputDialog(null, "Choose item to edit", "Item Select", JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
         DisplayPanel.setVisible(true);
         panel_itemType.setVisible(false);
+        textfield_name.setText(input);
         // TODO add your handling code here:
     }//GEN-LAST:event_button_editActionPerformed
 
@@ -571,32 +604,47 @@ public class itemEditorMain extends javax.swing.JPanel {
     private void button_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_saveActionPerformed
         // TODO add your handling code here:
         if (combobox_type.getSelectedItem().equals("Helmet")) {
-           helmetArrayList.add(new item(textfield_name.getName(),Integer.parseInt(label_helmet_int_bns.getName())));
-           hashmap.put("Helmet", helmetArrayList);
+            for(item item:helmetArrayList ){
+                if(item.getItemCode().equals(textfield_name.getText())){
+                    item.setItemvalue(Integer.parseInt(label_helmet_int_bns.getName()));
+                    break;
+                }
+                else
+                    helmetArrayList.add(new item(textfield_name.getName(),Integer.parseInt(label_helmet_int_bns.getName())));
+            }
+           myhashmap.put("Helmet", helmetArrayList);
         }
         if (combobox_type.getSelectedItem().equals("Weapon")) {
+              for(item item:weaponArrayList ){
+                if(item.getItemCode().equals(textfield_name.getText())){
+                    item.setItemvalue(Integer.parseInt(textfield_weapon_dmg_bns.getName()));
+                    break;
+                }
+                else
+                    weaponArrayList.add(new item(textfield_name.getName(),Integer.parseInt(label_helmet_int_bns.getName())));
+            }
            weaponArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_weapon_dmg_bns.getName())));
-           hashmap.put("Weapon", weaponArrayList);
+           myhashmap.put("Weapon", weaponArrayList);
         }
         if (combobox_type.getSelectedItem().equals("Shield")) {
             shieldArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_shield_arm_cls.getName())));
-            hashmap.put("Shield", shieldArrayList);
+            myhashmap.put("Shield", shieldArrayList);
         }
         if (combobox_type.getSelectedItem().equals("Armor")) {
           armorArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_armor_arm_cls.getName())));
-          hashmap.put("Armor", armorArrayList);
+          myhashmap.put("Armor", armorArrayList);
         }
         if (combobox_type.getSelectedItem().equals("Belt")) {
             beltArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_belt_str_bns.getName())));
-            hashmap.put("Belt", beltArrayList);
+            myhashmap.put("Belt", beltArrayList);
         }
         if (combobox_type.getSelectedItem().equals("Ring")) {
            ringArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_ring_wis_bns.getName())));
-           hashmap.put("Ring", ringArrayList);
+           myhashmap.put("Ring", ringArrayList);
         }
         if (combobox_type.getSelectedItem().equals("Boots")) {
            bootArrayList.add(new item(textfield_name.getName(),Integer.parseInt(textfield_boots_dex_bns.getName())));
-           hashmap.put("Boot", bootArrayList);
+           myhashmap.put("Boot", bootArrayList);
         }
         
     }//GEN-LAST:event_button_saveActionPerformed
