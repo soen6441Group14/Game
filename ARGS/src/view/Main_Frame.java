@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -29,6 +30,7 @@ public class Main_Frame extends javax.swing.JFrame {
     ArrayList<character> characterList;
     ArrayList<campaign> campaignList;
     ArrayList<map> mapList;
+    HashMap<String, ArrayList<item>> itemList = new HashMap<>();
 
     //charcterEditorMain chrct;
     /**
@@ -201,7 +203,7 @@ public class Main_Frame extends javax.swing.JFrame {
     public void loadCharacters() {
         ObjectInputStream ois = null;
         try {
-            File inputCharacters = new File("InputFiles\\_character.txt");
+            File inputCharacters = new File("D:\\_character.txt");
             ois = new ObjectInputStream(new FileInputStream(inputCharacters));
             characterList = (ArrayList<character>) ois.readObject();
         } catch (IOException ex) {
@@ -215,11 +217,14 @@ public class Main_Frame extends javax.swing.JFrame {
     public void loadItems() {
         ObjectInputStream ois = null;
         try {
-            File inputMaps = new File("InputFiles\\_item.txt");
+            File inputMaps = new File("D:\\_item.txt");
             ois = new ObjectInputStream(new FileInputStream(inputMaps));
+            itemList = (HashMap<String, ArrayList<item>>) ois.readObject();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
 
@@ -230,7 +235,7 @@ public class Main_Frame extends javax.swing.JFrame {
     public void loadMaps() {
         ObjectInputStream ois = null;
         try {
-            File inputMaps = new File("InputFiles\\_maps.txt");
+            File inputMaps = new File("D:\\_maps.txt");
             ois = new ObjectInputStream(new FileInputStream(inputMaps));
             mapList = (ArrayList<map>) ois.readObject();
         } catch (FileNotFoundException ex) {
@@ -246,7 +251,7 @@ public class Main_Frame extends javax.swing.JFrame {
     public void loadCampaign() {
         ObjectInputStream ois = null;
         try {
-            File inputCampaign = new File("InputFiles\\_campaign.txt");
+            File inputCampaign = new File("D:\\_campaign.txt");
             ois = new ObjectInputStream(new FileInputStream(inputCampaign));
             campaignList = (ArrayList<campaign>) ois.readObject();
         } catch (IOException ex) {
