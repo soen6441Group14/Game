@@ -13,23 +13,23 @@ import mainClasses.item;
  */
 public class writeItems_serialization {
 
-    public static void main(String[] args) throws IOException {
+    public void writeItems(HashMap<String, ArrayList<item>> hashmap) throws IOException {
 
-        HashMap<String, ArrayList<item>> hashmap = new HashMap<>();
-        ArrayList<item> weaponlist = new ArrayList<>();
-        ArrayList<item> shieldlist = new ArrayList<>();
+//        HashMap<String, ArrayList<item>> hashmap = new HashMap<>();
+//        ArrayList<item> weaponlist = new ArrayList<>();
+//        ArrayList<item> shieldlist = new ArrayList<>();
 
-        item weapon1 = new item();
-        item weapon2 = new item();
-        weaponlist.add(weapon1);
-        weaponlist.add(weapon2);
-        hashmap.put("weapon", weaponlist);
-
-        item shield1 = new item();
-        item shield2 = new item();
-        shieldlist.add(shield1);
-        shieldlist.add(shield2);
-        hashmap.put("shield", shieldlist);
+//        item weapon1 = new item();
+//        item weapon2 = new item();
+//        weaponlist.add(weapon1);
+//        weaponlist.add(weapon2);
+//        hashmap.put("weapon", weaponlist);
+//
+//        item shield1 = new item();
+//        item shield2 = new item();
+//        shieldlist.add(shield1);
+//        shieldlist.add(shield2);
+//        hashmap.put("shield", shieldlist);
 
         File output = new File("D:\\_item.txt");
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(output));
@@ -37,7 +37,6 @@ public class writeItems_serialization {
         oos.flush();
         oos.close();
 
-        System.out.println("");
     }
 
 }

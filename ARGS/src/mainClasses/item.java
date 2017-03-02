@@ -15,8 +15,8 @@ public class item implements Serializable {
 
     itemTypes type;
 
-    public String itemCode;
-    public int itemvalue;
+    private String itemCode;
+    private int itemvalue;
 
     public item() {
         itemCode = "-1";
@@ -33,11 +33,39 @@ public class item implements Serializable {
     }
 
     public String printItem() {
-        if (itemCode.equals("-1")) {
+        if (getItemCode().equals("-1")) {
             return "null";
         }
 
+        return getItemCode();
+    }
+
+    /**
+     * @return the itemCode
+     */
+    public String getItemCode() {
         return itemCode;
+    }
+
+    /**
+     * @param itemCode the itemCode to set
+     */
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    /**
+     * @return the itemvalue
+     */
+    public int getItemvalue() {
+        return itemvalue;
+    }
+
+    /**
+     * @param itemvalue the itemvalue to set
+     */
+    public void setItemvalue(int itemvalue) {
+        this.itemvalue = itemvalue;
     }
 
 }
