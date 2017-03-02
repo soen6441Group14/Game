@@ -6,26 +6,26 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import mainClasses.character;
+import mainClasses.map;
 
 /**
  * @author SNaKeRUBIN
  */
-public class writeCharacter_serialization {
+public class writeMaps {
 
     public static void main(String[] args) throws IOException {
 
-        ArrayList<character> list = new ArrayList<>();
+        ArrayList<map> list = new ArrayList<>();
 
-        character a = new character("fake1");
-        character b = new character("fake2");
-        character c = new character("fake3");
+        map a = new map();
+        map b = new map();
+        map c = new map();
 
         list.add(a);
         list.add(b);
         list.add(c);
 
-        File output = new File("D:\\_character.txt");
+        File output = new File("D:\\_maps.txt");
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(output));
         oos.writeObject(list);
         oos.flush();

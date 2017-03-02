@@ -5,27 +5,27 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
-import mainClasses.character;
+import mainClasses.campaign;
 
 /**
  * @author SNaKeRUBIN
  */
-public class writeCharacter_serialization {
+
+public class writeCampaigns {
 
     public static void main(String[] args) throws IOException {
 
-        ArrayList<character> list = new ArrayList<>();
+        ArrayList<campaign> list = new ArrayList<>();
 
-        character a = new character("fake1");
-        character b = new character("fake2");
-        character c = new character("fake3");
+        campaign a = new campaign();
+        campaign b = new campaign();
+        campaign c = new campaign();
 
         list.add(a);
         list.add(b);
         list.add(c);
 
-        File output = new File("D:\\_character.txt");
+        File output = new File("D:\\_campaign.txt");
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(output));
         oos.writeObject(list);
         oos.flush();
