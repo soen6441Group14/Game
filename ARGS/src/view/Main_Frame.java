@@ -1,11 +1,23 @@
 package view;
 
 import java.awt.CardLayout;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import panels.mapEditorDimensions;
 import panels.charcterEditorMain;
 import panels.itemEditorMain;
 import panels.mapEditorMain;
+import mainClasses.character;
+import mainClasses.campaign;
+import mainClasses.item;
+import mainClasses.map;
 
 /**
  *
@@ -14,8 +26,11 @@ import panels.mapEditorMain;
 public class Main_Frame extends javax.swing.JFrame {
 
     CardLayout cardlayout;
-    //charcterEditorMain chrct;
+    ArrayList<character> characterList;
+    ArrayList<campaign> campaignList;
+    ArrayList<map> mapList;
 
+    //charcterEditorMain chrct;
     /**
      * Creates new form Main_Frame
      */
@@ -27,6 +42,13 @@ public class Main_Frame extends javax.swing.JFrame {
         pnlTopContainer.add(new mapEditorMain(), "card3");
         //pnlTopContainer.add(new charcterEditorMain(), "card4");
         cardlayout = (CardLayout) pnlTopContainer.getLayout();
+
+        loadCharacters();
+        loadMaps();
+        loadCampaign();
+        loadItems();
+
+        System.out.println("");
     }
 
     /**
@@ -174,6 +196,65 @@ public class Main_Frame extends javax.swing.JFrame {
 
             }
         });
+    }
+
+    public void loadCharacters() {
+        ObjectInputStream ois = null;
+        try {
+            File inputCharacters = new File("InputFiles\\_character.txt");
+            ois = new ObjectInputStream(new FileInputStream(inputCharacters));
+            characterList = (ArrayList<character>) ois.readObject();
+        } catch (IOException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }
+
+    public void loadItems() {
+        ObjectInputStream ois = null;
+        try {
+            File inputMaps = new File("InputFiles\\_item.txt");
+            ois = new ObjectInputStream(new FileInputStream(inputMaps));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+        }
+
+    }
+
+    public void loadMaps() {
+        ObjectInputStream ois = null;
+        try {
+            File inputMaps = new File("InputFiles\\_maps.txt");
+            ois = new ObjectInputStream(new FileInputStream(inputMaps));
+            mapList = (ArrayList<map>) ois.readObject();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }
+
+    public void loadCampaign() {
+        ObjectInputStream ois = null;
+        try {
+            File inputCampaign = new File("InputFiles\\_campaign.txt");
+            ois = new ObjectInputStream(new FileInputStream(inputCampaign));
+            campaignList = (ArrayList<campaign>) ois.readObject();
+        } catch (IOException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
