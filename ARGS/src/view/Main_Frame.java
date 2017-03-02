@@ -40,7 +40,7 @@ public class Main_Frame extends javax.swing.JFrame {
         initComponents();
         pnlTopContainer.setVisible(false);
         pnlTopContainer.add(new charcterEditorMain(), "card1");
-        pnlTopContainer.add(new itemEditorMain(), "card2");
+        pnlTopContainer.add(new itemEditorMain(itemList), "card2");
         pnlTopContainer.add(new mapEditorMain(), "card3");
         //pnlTopContainer.add(new charcterEditorMain(), "card4");
         cardlayout = (CardLayout) pnlTopContainer.getLayout();
