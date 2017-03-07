@@ -21,13 +21,13 @@ public class item implements Serializable {
     public item() {
         itemCode = "-1";
     }
-    
+
     public item(String new_temCode) {
         itemCode = new_temCode;
     }
-    
+
     // i add a new constructor here, since it needs the value of item
-    public item(String new_temCode,int value) {
+    public item(String new_temCode, int value) {
         itemCode = new_temCode;
         itemvalue = value;
     }

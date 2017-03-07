@@ -3,7 +3,9 @@ package mainClasses;
 import enumClasses.orientation;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Observable;
 import java.util.Random;
+import java.util.Observable;
 
 /**
  * @author SNaKeRUBIN
@@ -12,7 +14,7 @@ import java.util.Random;
 //  use strategy pattern for character orientation, use interface object to access neutral and offensive NPCs
 //
 //
-public class character implements Serializable {
+public class character extends Observable implements Serializable {
 
     orientation orient;
     public String name;
@@ -114,5 +116,8 @@ public class character implements Serializable {
         modInt = intelligence / 3;
         modWis = wisdom / 3;
         modCha = charisma / 3;
+
+        setChanged();
+        notifyObservers(this);
     }
 }

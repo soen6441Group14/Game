@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panels;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JOptionPane;
 import mainClasses.character;
 
@@ -13,10 +10,13 @@ import mainClasses.character;
  *
  * @author SNaKeRUBIN
  */
-public class charcterEditorMain extends javax.swing.JPanel {
+public class charcterEditorMain extends javax.swing.JPanel implements Observer {
 
     ArrayList<character> characterList;
     character currentChar;
+
+    int indexChar;
+    Boolean isNewChar = false;
 
     /**
      * Creates new form charcterEditorMain
@@ -29,6 +29,7 @@ public class charcterEditorMain extends javax.swing.JPanel {
         button_delete.setEnabled(false);
 
         System.out.println("");
+
     }
 
     /**
@@ -479,7 +480,7 @@ public class charcterEditorMain extends javax.swing.JPanel {
                 .addComponent(button_randomize)
                 .addGap(134, 134, 134)
                 .addComponent(button_save)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(318, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(SelectPanel);
@@ -503,13 +504,16 @@ public class charcterEditorMain extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(110, 110, 110)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_newActionPerformed
         currentChar = new character();
+        currentChar.addObserver(this);
+
+        isNewChar = true;
 
         textfield_name.setText("");
         textfield_charis.setText("");
@@ -541,6 +545,8 @@ public class charcterEditorMain extends javax.swing.JPanel {
         for (character temp : characterList) {
             if (temp.name.equals(input)) {
                 currentChar = temp;
+                indexChar = characterList.indexOf(temp);
+
                 break;
             }
         }
@@ -549,7 +555,15 @@ public class charcterEditorMain extends javax.swing.JPanel {
     }//GEN-LAST:event_button_editActionPerformed
 
     private void button_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_saveActionPerformed
-        System.out.println(textfield_name.getText());
+
+        if (isNewChar) {
+            characterList.add(currentChar);
+        } else {
+            characterList.remove(indexChar);
+            characterList.add(currentChar);
+        }
+
+        //System.out.println(textfield_name.getText());
 // TODO add your handling code here:
     }//GEN-LAST:event_button_saveActionPerformed
 
@@ -558,6 +572,16 @@ public class charcterEditorMain extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_button_randomizeActionPerformed
 
+    @Override
+    public void update(Observable o, Object arg) {
+
+        textfield_charis.setText(Integer.toString(currentChar.charisma));
+        textfield_consti.setText(Integer.toString(currentChar.constitution));
+        textfield_dex.setText(Integer.toString(currentChar.dexterity));
+        textfield_intelli.setText(Integer.toString(currentChar.intelligence));
+        textfield_str.setText(Integer.toString(currentChar.strength));
+        textfield_wis.setText(Integer.toString(currentChar.wisdom));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ControlPanel;
@@ -622,4 +646,5 @@ public class charcterEditorMain extends javax.swing.JPanel {
     private javax.swing.JTextField textfield_str;
     private javax.swing.JTextField textfield_wis;
     // End of variables declaration//GEN-END:variables
+
 }
