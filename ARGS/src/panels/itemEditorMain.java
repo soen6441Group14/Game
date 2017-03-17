@@ -4,10 +4,18 @@
  * and open the template in the editor.
  */
 package panels;
+import javax.swing.GroupLayout.Alignment;
+
+import java.util.ArrayList;
+
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import mainClasses.item;
 
 /**
  *
- * @author SNaKeRUBIN
+ * @author SNaKeRUBIN  
  */
 public class itemEditorMain extends javax.swing.JPanel {
 
@@ -26,7 +34,7 @@ public class itemEditorMain extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    	ArrayList<item> itemArraylist = new ArrayList<>();
         ControlPanel = new javax.swing.JPanel();
         button_new = new javax.swing.JButton();
         button_edit = new javax.swing.JButton();
@@ -433,35 +441,35 @@ public class itemEditorMain extends javax.swing.JPanel {
         );
 
         javax.swing.GroupLayout ControlPanelLayout = new javax.swing.GroupLayout(ControlPanel);
-        ControlPanel.setLayout(ControlPanelLayout);
         ControlPanelLayout.setHorizontalGroup(
-            ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ControlPanelLayout.createSequentialGroup()
-                .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ControlPanelLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(button_new)
-                        .addGap(71, 71, 71)
-                        .addComponent(button_edit)
-                        .addGap(87, 87, 87)
-                        .addComponent(button_delete))
-                    .addGroup(ControlPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	ControlPanelLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(ControlPanelLayout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(DisplayPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addComponent(button_new)
+        			.addGap(71)
+        			.addComponent(button_edit)
+        			.addGap(87)
+        			.addComponent(button_delete)
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ControlPanelLayout.setVerticalGroup(
-            ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ControlPanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(button_new)
-                    .addComponent(button_edit)
-                    .addComponent(button_delete))
-                .addGap(18, 18, 18)
-                .addComponent(DisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	ControlPanelLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(ControlPanelLayout.createSequentialGroup()
+        			.addGroup(ControlPanelLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(ControlPanelLayout.createSequentialGroup()
+        					.addGap(23)
+        					.addGroup(ControlPanelLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(button_new)
+        						.addComponent(button_edit)
+        						.addComponent(button_delete)))
+        				.addGroup(ControlPanelLayout.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(DisplayPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap(183, Short.MAX_VALUE))
         );
+        ControlPanel.setLayout(ControlPanelLayout);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
