@@ -326,13 +326,13 @@ public class CharacterFrame {
 			public void actionPerformed(ActionEvent e) {
 				Director director;
 				Scores scores;
-				ArrayList< String> arrayList = new ArrayList<>();
-				arrayList.add(strength.getText());
-				arrayList.add(constitution.getText());
-				arrayList.add(dexterity.getText());
-				arrayList.add(intelligence.getText());
-				arrayList.add(charisma.getText());
-				arrayList.add(wisdom.getText());
+				ArrayList<Integer> arrayList = new ArrayList<Integer>();
+				arrayList.add(Integer.parseInt(strength.getText()));
+				arrayList.add(Integer.parseInt(constitution.getText()));
+				arrayList.add(Integer.parseInt(dexterity.getText()));
+				arrayList.add(Integer.parseInt(intelligence.getText()));
+				arrayList.add(Integer.parseInt(charisma.getText()));
+				arrayList.add(Integer.parseInt(wisdom.getText()));
 				
 				FighterBulider bully = new BullyBuilder();
 				FighterBulider nimble = new NimbleBuilder();

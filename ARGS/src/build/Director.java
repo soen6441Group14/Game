@@ -20,7 +20,7 @@ public class Director {
 	 * and each part is built by calling the same method
 	 * though what these specific methods do may be different
 	 */
-	public void constructScores(ArrayList<String> arrayList){
+	public void constructScores(ArrayList<Integer> arrayList){
 		fighterBulider.createNewScores();
 		fighterBulider.sort(arrayList);
 		

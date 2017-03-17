@@ -27,6 +27,6 @@ public abstract class FighterBulider {
 		scores = new Scores();
 	}
 	
-	abstract void sort(ArrayList<String> arrayList);
+	abstract void sort(ArrayList<Integer> arrayList);
 
 }
