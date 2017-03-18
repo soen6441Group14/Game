@@ -54,22 +54,6 @@ public class Equip {
 		
 	}
 	
-	@Test
-	public void test_Equip(){
-		assertTrue(testmap.equipWeapon("Weapon"));
-		
-	}
-	
-	@Test
-	public void test_Equip2(){
-		assertTrue(testmap.equipShield("Shield"));
-	}
-	
-	@Test
-	public void test_influence(){
-		assertTrue(testmap.influence(10, 1, 2));
-	}
-	
 	
 	
 }

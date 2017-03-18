@@ -204,6 +204,7 @@ public class ItemFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				if(jComboBox.getSelectedItem().toString().equals("Helmet"))
 					cardLayout.show(main, "Helmet");
 				else if(jComboBox.getSelectedItem().toString().equals("Ring"))

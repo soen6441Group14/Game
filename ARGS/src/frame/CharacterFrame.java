@@ -40,6 +40,7 @@ public class CharacterFrame {
 	public Map map;
 //	public ArrayList<Items> newItemArrayList = new ArrayList<Items>();//显示创建人物时的物品下拉框
 	Characters characters = null;
+	JComboBox<String> fighter = new JComboBox<String>();
 	
 	private JTextField name = new JTextField();
 	private JTextField level = new JTextField();
@@ -94,7 +95,7 @@ public class CharacterFrame {
 		JButton Modify = new JButton("Modify");
 		JButton loadItem = new JButton("Load an item");
 		JComboBox<String> jComboBox = new JComboBox<String>();
-		JComboBox<String> fighter = new JComboBox<String>();
+		
 		JLabel nameLabel = new JLabel("Name");
 		JLabel levelLabel = new JLabel("Level");
 		JLabel hitpointsLabel = new JLabel("Hitpoint");
@@ -324,8 +325,7 @@ public class CharacterFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Director director;
-				Scores scores;
+				
 				ArrayList<Integer> arrayList = new ArrayList<Integer>();
 				arrayList.add(Integer.parseInt(strength.getText()));
 				arrayList.add(Integer.parseInt(constitution.getText()));
@@ -334,27 +334,7 @@ public class CharacterFrame {
 				arrayList.add(Integer.parseInt(charisma.getText()));
 				arrayList.add(Integer.parseInt(wisdom.getText()));
 				
-				FighterBulider bully = new BullyBuilder();
-				FighterBulider nimble = new NimbleBuilder();
-				FighterBulider tank = new TankBuilder();
-				
-				director = new Director();
-				
-				if(fighter.getSelectedItem().toString().equals("Bully")){
-					director.setBuilder(bully);
-					director.constructScores(arrayList);
-					scores = director.getScores();
-				}
-				else if(fighter.getSelectedItem().toString().equals("Nimble")){
-					director.setBuilder(nimble);
-					director.constructScores(arrayList);
-					scores = director.getScores();
-				}
-				else{
-					director.setBuilder(tank);
-					director.constructScores(arrayList);
-					scores = director.getScores();
-				}
+				Scores scores = setFighter(arrayList);
 				
 				strength.setText(String.valueOf(scores.getStrength()));
 				constitution.setText(String.valueOf(scores.getConstitution()));
@@ -369,9 +349,9 @@ public class CharacterFrame {
 				modCon.setText(String.valueOf(Integer.parseInt(constitution.getText())/3));
 				modInt.setText(String.valueOf(Integer.parseInt(intelligence.getText())/3));
 				modCha.setText(String.valueOf(Integer.parseInt(charisma.getText())/3));
-				
-				
 			}
+
+			
 		});
 		
 		// load an existed character 
@@ -380,12 +360,8 @@ public class CharacterFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				try {
-					characters = new LoadCharacter().loadcharacter(name.getText(), characterArrayList);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				characters = load(characterArrayList,name.getText());
+				
 				
 				if(characters == null)
 					JOptionPane.showMessageDialog(null, "There is no such a character", "Alert", JOptionPane.ERROR_MESSAGE);
@@ -428,10 +404,10 @@ public class CharacterFrame {
 					boot.setText(String.valueOf(characters.getInventory().get(6).getValue()));
 					
 				}
-					
-				
 				
 			}
+
+			
 		});
 		
 		// change the attribute of character because of some items and modifiers
@@ -570,9 +546,6 @@ public class CharacterFrame {
 				int index = characterArrayList.indexOf(oldcharacters);
 				characterArrayList.set(index,characters);
 				
-//				characterArrayList.remove(oldcharacters);
-//				characterArrayList.add(characters);
-				
 			}
 			
 			
@@ -600,33 +573,66 @@ public class CharacterFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				int values = getValues();
 				strength.setText(String.valueOf(values));
-//				modStr.setText(String.valueOf(values/3));
 				values = getValues();
 				dexterity.setText(String.valueOf(values));
-//				modDex.setText(String.valueOf(values/3));
 				values = getValues();
 				wisdom.setText(String.valueOf(values));
-//				modWis.setText(String.valueOf(values/3));
 				values = getValues();
 				constitution.setText(String.valueOf(values));
-//				modCon.setText(String.valueOf(values/3));
 				values = getValues();
 				intelligence.setText(String.valueOf(values));
-//				modInt.setText(String.valueOf(values/3));
 				values = getValues();
 				charisma.setText(String.valueOf(values));
-//				modCha.setText(String.valueOf(values/3));
 			}
-
 			
 		});
-		
-
-		
+	}
+	
+	private Characters load(ArrayList<Characters> characterArrayList, String text) {
+		try {
+			characters = new LoadCharacter().loadcharacter(name.getText(), characterArrayList);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return characters;
 	}
 
+	private Scores setFighter(ArrayList<Integer> arrayList) {
+		
+		Director director;
+		Scores scores;
+		
+		FighterBulider bully = new BullyBuilder();
+		FighterBulider nimble = new NimbleBuilder();
+		FighterBulider tank = new TankBuilder();
+		
+		director = new Director();
+		
+		if(fighter.getSelectedItem().toString().equals("Bully")){
+			director.setBuilder(bully);
+			director.constructScores(arrayList);
+			scores = director.getScores();
+		}
+		else if(fighter.getSelectedItem().toString().equals("Nimble")){
+			director.setBuilder(nimble);
+			director.constructScores(arrayList);
+			scores = director.getScores();
+		}
+		else{
+			director.setBuilder(tank);
+			director.constructScores(arrayList);
+			scores = director.getScores();
+		}
+		
+		
+		
+		return scores;
+	}
+	
 	public int getValues() {
 		Random random = new Random();
 		int[] array = new int[4];

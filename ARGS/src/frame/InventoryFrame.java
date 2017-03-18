@@ -73,14 +73,10 @@ public class InventoryFrame {
 					JOptionPane.showMessageDialog(null, "Please choose a player", "Alert", JOptionPane.ERROR_MESSAGE);
 				
 				if(oldCharacter != null){
+					
+					
+				backpackValue = getBackpackValue(backpackString,oldCharacter);	
 				
-				// 获得backpack物品的value
-				// get value of selected item in the backpack
-				for(Items backpack: oldCharacter.getBackpack()){
-					if(backpack.getName().equals(backpackString)){
-						backpackValue = backpack.getValue();
-					}
-				}
 				
 				// 在inventory中寻找和backpack中对应的物品，如果有，则返回对应物品，如果无，就返回空
 				/* search corresponding item in the inventory with the same type of selected one.
@@ -100,16 +96,8 @@ public class InventoryFrame {
 					}
 				}
 				
-				//将backpack中的物品换成inventory中的物品
-				// change the the item in the backpack to the item of inventory
-				for(Items backpack:oldCharacter.getBackpack()){
-					//如果有两个相同名字的物品，则会出问题 break可以解决问题
-					if(backpack.getName().equals(backpackString)){
-						backpack.setName(invetoryString);
-						backpack.setValue(inventoryValue);
-						break;
-					}
-				}
+				setBackpackValue(oldCharacter,backpackString,invetoryString,inventoryValue);
+				
 				
 				//将inventory中的物品换成backpack中的物品，并修改对应的属性
 				// change the item in the inventory to the item of backpack and change the attribute of player
@@ -157,15 +145,7 @@ public class InventoryFrame {
 				}
 				
 				
-				//删除原有的player之后再保存现在的
-				// delete original player and save the edited one
-//				for(Characters characters: characterArrayList){
-//					if(characters.getName().startsWith("P")||characters.getName().startsWith("p")){
-//						
-////						characterArrayList.remove(characters);
-//						break;
-//					}
-//				}
+
 				
 				//替代原有的character
 				int index = characterArrayList.indexOf(oldCharacter);
@@ -186,12 +166,41 @@ public class InventoryFrame {
 				drawBackpackBox();
 				
 			}
+
+
+
+		
 		});
-		 
-		
-		
 		
 	}
+	
+	private void setBackpackValue(Characters oldCharacter, String backpackString, String invetoryString,
+			int inventoryValue) {
+		
+		//将backpack中的物品换成inventory中的物品
+		// change the the item in the backpack to the item of inventory
+		for(Items backpack:oldCharacter.getBackpack()){
+			//如果有两个相同名字的物品，则会出问题 break可以解决问题
+			if(backpack.getName().equals(backpackString)){
+				backpack.setName(invetoryString);
+				backpack.setValue(inventoryValue);
+				break;
+			}
+		}
+		
+	}
+	
+	private int getBackpackValue(String backpackString, Characters oldCharacter) {
+		// 获得backpack物品的value
+		// get value of selected item in the backpack
+		for(Items backpack: oldCharacter.getBackpack()){
+			if(backpack.getName().equals(backpackString)){
+				  return backpack.getValue();
+			}
+		}
+		return 0;
+	}
+	
 	
 	 /**
 	 * show the backpack of Player

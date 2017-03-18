@@ -263,11 +263,11 @@ public class Map {
 	 */
 	public void drawInformation(){
 		Characters characters = null;
+		//读取characters
+		/* when the character box in the main frame was selected, 
+		 * then we get corresponding character object from the file
+		 */
 		try {
-			//读取characters
-			/* when the character box in the main frame was selected, 
-			 * then we get corresponding character object from the file
-			 */
 			if(characterBox.getSelectedItem() !=null)//如果下拉框不为空
 			characters = new LoadCharacter().loadcharacter(characterBox.getSelectedItem().toString(),characterArrayList);
 		} catch (IOException e1) {
@@ -397,6 +397,7 @@ public class Map {
 
 		 drawMap(1); //initialize map the first
 		 
+		 
 		 CharacterObserver characterObserver = new CharacterObserver(Map.this);
 		 
 			characterBox.addActionListener(new ActionListener() {
@@ -478,20 +479,12 @@ public class Map {
 				int flagEntry = 0;
 				int flagExit = 0;
 				int flagHero = 0;
-				//遍历整个地图，判断是否有出口，入口和人物
-				// traverse whole map to judge whether there is exit, entry or Hero
-				for(int i=0;i<numRows;i++){
-					for(int j=0;j<numCols;j++){
-						if(map[i][j].getTileType().equals(TileType.ENTRY))
-							flagEntry = 1;
-						 if (map[i][j].getTileType().equals(TileType.EXIT))
-							flagExit = 1;	
-						 if (map[i][j].getTileType().equals(TileType.HERO))
-							flagHero = 1;
-						
-					}
-					
-				}
+				
+				int[] flag = verifyMap(flagEntry,flagExit,flagHero);
+				
+				flagEntry = flag[0];
+				flagExit = flag[1];
+				flagHero = flag[2];
 				
 				if(flagEntry==0)
 					JOptionPane.showMessageDialog(null, "There is no Entry", "Alert", JOptionPane.ERROR_MESSAGE);
@@ -509,6 +502,8 @@ public class Map {
 				
 				
 			}
+
+			
 			
 		});
 		
@@ -605,29 +600,26 @@ public class Map {
 
 	}
 	
-	
-	public boolean influence(int value,int inventory, int backpack){
-		if(value+inventory+backpack != value)
-		return true;
-		else
-		return false;
-	}
-	
-	public boolean equipWeapon(String name){
-		if(name.equalsIgnoreCase("WEAPON"))
-			return true;
-		else
-		return false;
+	private int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
 		
+		
+		//遍历整个地图，判断是否有出口，入口和人物
+		// traverse whole map to judge whether there is exit, entry or Hero
+		for(int i=0;i<numRows;i++){
+			for(int j=0;j<numCols;j++){
+				if(map[i][j].getTileType().equals(TileType.ENTRY))
+					flagEntry = 1;
+				 if (map[i][j].getTileType().equals(TileType.EXIT))
+					flagExit = 1;	
+				 if (map[i][j].getTileType().equals(TileType.HERO))
+					flagHero = 1;
+			}
+		}
+		int[] flag = {flagEntry,flagExit,flagHero};
+		return flag;
 	}
 	
-	public boolean equipShield(String name){
-		if(name.equalsIgnoreCase("SHIELD"))
-			return true;
-		else
-		return false;
-		
-	}
+	
 
 	public boolean exitGlobal(Cells[][] map2){
 		for (int i = 0; i < map2.length; i++) {
