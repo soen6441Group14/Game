@@ -401,13 +401,15 @@ public class Map {
 
 		 drawMap(1); //initialize map the first
 		 
-		 panelContainer.addKeyListener(new PanelListener(Map.this,map));
+		
 		 
 		 
 		 startGame.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				panelContainer.addKeyListener(new PanelListener(Map.this));
 				panelContainer.requestFocus();
 			}
 		});
@@ -439,6 +441,7 @@ public class Map {
 				
 				new InventoryFrame(Map.this, jFrame,characterArrayList,character);
 				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
 			}
 		});
 		 
@@ -451,6 +454,7 @@ public class Map {
 			public void actionPerformed(ActionEvent e) {
 				new CampaignFrame(Map.this,jFrame, allMaps,campaigns);
 				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
 			}
 		});
 		 
@@ -462,7 +466,7 @@ public class Map {
 				panel.removeAll();
 				new RowColFrame(Map.this,jFrame); //open RowColFrame
 				jFrame.setEnabled(false);
-
+				panelContainer.requestFocus();
 			}
 		});
 		
@@ -473,6 +477,7 @@ public class Map {
 			public void actionPerformed(ActionEvent e) {
 				new ItemFrame(Map.this,jFrame,itemArrayList);//open ItemFrame
 				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
 			}
 		});
 
@@ -483,6 +488,7 @@ public class Map {
 			public void actionPerformed(ActionEvent e) {
 				new CharacterFrame(Map.this,jFrame,characterArrayList,itemArrayList);//open CharacterFrame
 				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
 			}
 		});
 		
