@@ -408,7 +408,6 @@ public class Map {
 		 
 		
 		 
-		 int index=0;
 		 startGame.addActionListener(new ActionListener() {
 			
 			@Override
@@ -422,18 +421,10 @@ public class Map {
 					e1.printStackTrace();
 				}
 				
+				int numberMap = playingCampaign.getCampaign().size()-1;
 				
-				Cells[][] newMap = playingCampaign.getCampaign().get(index).getMap();
-				numRows = newMap[0][0].getX();
-				numCols = newMap[0][0].getY();
-				setMap(newMap, numRows, numCols);
-				for(int i=0;i<numRows;i++)
-					for(int j=0;j<numCols;j++){
-						if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO)
-							characterMapBox.addItem(map[i][j].getCharacters().getName());
-					}
-				
-				drawMap(2);
+				if(playingIndex<numberMap)
+				drawCampaignMap();
 				
 				panelContainer.addKeyListener(new PanelListener(Map.this));
 				panelContainer.requestFocus();
@@ -716,10 +707,22 @@ public class Map {
 	/**
 	 * The method is to initialize the game
 	 */
-	public void initGameMap(){
+	public void drawCampaignMap(){
 		playingIndex+=1;
-		map=playingCampaign.getCampaign().get(playingIndex).getMap();
-
+//		map=playingCampaign.getCampaign().get(playingIndex).getMap();
+		
+		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
+		numRows = newMap[0][0].getX();
+		numCols = newMap[0][0].getY();
+		setMap(newMap, numRows, numCols);
+		
+		characterMapBox.removeAllItems();
+		for(int i=0;i<numRows;i++)
+			for(int j=0;j<numCols;j++){
+				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO)
+					characterMapBox.addItem(map[i][j].getCharacters().getName());
+			}
+		
 		drawMap(2);
 
 	}

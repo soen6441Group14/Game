@@ -142,6 +142,8 @@ public class PanelListener implements KeyListener {
 				 }
 				 else{
 					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+					 map[xHero][yHero-1].getCharacters().setHitpoints(0);
+					 //重新draw information
 					 map[xHero][yHero-1] = new Cells(TileType.HERO, numRows, numCols, hero);
 				 }
 			 }
@@ -172,6 +174,8 @@ public class PanelListener implements KeyListener {
 				 }
 				 else{
 					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+					 map[xHero-1][yHero].getCharacters().setHitpoints(0);
+					 //重新draw information
 					 map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
 				 }
 			 }
@@ -203,6 +207,8 @@ public class PanelListener implements KeyListener {
 				 }
 				 else{
 					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+					 map[xHero+1][yHero].getCharacters().setHitpoints(0);
+					 //重新draw information
 					 map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
 				 }
 			 }
