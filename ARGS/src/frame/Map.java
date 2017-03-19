@@ -277,8 +277,8 @@ public class Map {
 		 * then we get corresponding character object from the file
 		 */
 		try {
-			if(characterBox.getSelectedItem() !=null)//如果下拉框不为空
-			characters = new LoadCharacter().loadcharacter(characterBox.getSelectedItem().toString(),characterArrayList);
+			if(characterMapBox.getSelectedItem() !=null)//如果下拉框不为空
+			characters = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(),characterArrayList);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -408,7 +408,7 @@ public class Map {
 		 
 		
 		 
-		 
+		 int index=0;
 		 startGame.addActionListener(new ActionListener() {
 			
 			@Override
@@ -421,7 +421,20 @@ public class Map {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-
+				
+				
+				Cells[][] newMap = playingCampaign.getCampaign().get(index).getMap();
+				numRows = newMap[0][0].getX();
+				numCols = newMap[0][0].getY();
+				setMap(newMap, numRows, numCols);
+				for(int i=0;i<numRows;i++)
+					for(int j=0;j<numCols;j++){
+						if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO)
+							characterMapBox.addItem(map[i][j].getCharacters().getName());
+					}
+				
+				drawMap(2);
+				
 				panelContainer.addKeyListener(new PanelListener(Map.this));
 				panelContainer.requestFocus();
 			}
@@ -429,7 +442,7 @@ public class Map {
 		 
 		 CharacterObserver characterObserver = new CharacterObserver(Map.this);
 		 
-			characterBox.addActionListener(new ActionListener() {
+			characterMapBox.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
