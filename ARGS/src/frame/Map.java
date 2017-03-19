@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -20,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import actionListener.PanelListener;
 import actionListener.MapListener;
 import enumclass.TileType;
 import load.LoadCampaign;
@@ -61,6 +64,7 @@ public class Map {
 	public String title;
 	public JFrame jFrame;
 	public JButton jButton;
+	public JButton startGame = new JButton("Start Game");
 	public JButton inventoryInformation = new JButton("Inventory Information");
 	public JPanel panel = new JPanel();
 	public JPanel panelContainer = new JPanel(); // contain the panel which contains the map
@@ -230,19 +234,19 @@ public class Map {
 			for (int j = 0; j < numCols; j++) {
 				// draw the map according to different kind of TileType
 				if (map[i][j].getTileType() == TileType.GROUND)
-					jButton = new JButton("", new ImageIcon(Image.class.getResource("/textures/Ground.png")));
+					jButton = new JButton("", new ImageIcon("res/textures/Ground.png"));
 				else if (map[i][j].getTileType() == TileType.WALL) 
-					jButton = new JButton("", new ImageIcon(Image.class.getResource("/textures/Wall.png")));
+					jButton = new JButton("", new ImageIcon("res/textures/Wall.png"));
 				 else if (map[i][j].getTileType() == TileType.CHEST)
-					jButton = new JButton("", new ImageIcon(Image.class.getResource("/textures/Chest.png")));
+					jButton = new JButton("", new ImageIcon("res/textures/Chest.png"));
 				else if (map[i][j].getTileType() == TileType.HERO)
-					jButton = new JButton("", new ImageIcon(Image.class.getResource("/textures/Hero.png")));
+					jButton = new JButton("", new ImageIcon("res/textures/Hero.png"));
 				else if (map[i][j].getTileType() == TileType.MONSTER)
-					jButton = new JButton("", new ImageIcon(Image.class.getResource("/textures/Monster.png")));
+					jButton = new JButton("", new ImageIcon("res/textures/Monster.png"));
 				else if (map[i][j].getTileType() == TileType.EXIT)
-					jButton = new JButton("", new ImageIcon(Image.class.getResource("/textures/Exit.png")));
+					jButton = new JButton("", new ImageIcon("res/textures/Exit.png"));
 				else if (map[i][j].getTileType() == TileType.ENTRY)
-					jButton = new JButton("", new ImageIcon(Image.class.getResource("/textures/Entry.png")));
+					jButton = new JButton("", new ImageIcon("res/textures/Entry.png"));
 				
 				jButton.putClientProperty("Rows", i);// set a attribute for every button
 				jButton.putClientProperty("Cols", j);
@@ -397,6 +401,16 @@ public class Map {
 
 		 drawMap(1); //initialize map the first
 		 
+		 panelContainer.addKeyListener(new PanelListener(Map.this,map));
+		 
+		 
+		 startGame.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelContainer.requestFocus();
+			}
+		});
 		 
 		 CharacterObserver characterObserver = new CharacterObserver(Map.this);
 		 
@@ -547,6 +561,7 @@ public class Map {
 		showPanel.add(mapBox);
 		showPanel.add(campaignBoxLabel);
 		showPanel.add(campaignBox);
+		showPanel.add(startGame);
 		showPanel.add(inventoryInformation);
 		characterPanel.setLayout(new FlowLayout(0, 30, 30));//0向左对齐，30代表左右间距，30代表上下间距
 		characterPanel.add(name);
@@ -599,6 +614,9 @@ public class Map {
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+	
+	
+	
 	
 	private int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
 		
