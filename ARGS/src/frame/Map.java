@@ -130,6 +130,13 @@ public class Map {
 	public JLabel inventory5 = new JLabel("Inventory5");
 	public JLabel inventory6 = new JLabel("Inventory6");
 	public JLabel inventory7 = new JLabel("Inventory7");
+
+
+	/*playing game*/
+	private Characters playingHero;
+	private Campaigns playingCampaign;
+	private int playingIndex=-1; //recoed the index of map the player is playing,start with 0 ;
+
 	
 	/**
 	 *  get map method
@@ -408,10 +415,17 @@ public class Map {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				//TODO
+				String selectedCharacter=characterBox.getSelectedItem().toString();
+				String selectedCampaign=campaignBox.getSelectedItem().toString();
+				try {
+					Map.this.playingHero=new LoadCharacter().loadcharacter(selectedCharacter, characterArrayList);
+					Map.this.playingCampaign=new LoadCampaign().loadCampaign(campaigns,selectedCampaign);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				panelContainer.addKeyListener(new PanelListener(Map.this));
 				panelContainer.requestFocus();
-				System.out.println();
 			}
 		});
 		 
@@ -644,7 +658,6 @@ public class Map {
 		return flag;
 	}
 	
-	
 
 	public boolean exitGlobal(Cells[][] map2){
 		for (int i = 0; i < map2.length; i++) {
@@ -684,6 +697,14 @@ public class Map {
 		return false;
 		
 	}
-	
+
+	/**
+	 * The method is to initialize the game
+	 */
+	public void initGameMap(){
+		playingIndex+=1;
+		map=playingCampaign.getCampaign().get(playingIndex).getMap();
+		drawMap(2);
+	}
 
 }
