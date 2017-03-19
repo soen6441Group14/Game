@@ -425,6 +425,10 @@ public class Map {
 				
 				if(playingIndex<numberMap)
 				drawCampaignMap();
+				else{
+					JOptionPane.showMessageDialog(null, "There is no map anymore", "Alert", JOptionPane.ERROR_MESSAGE);
+					playingIndex = -1;
+				}
 				
 				panelContainer.addKeyListener(new PanelListener(Map.this));
 				panelContainer.requestFocus();

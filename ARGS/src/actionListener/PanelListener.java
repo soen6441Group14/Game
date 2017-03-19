@@ -50,26 +50,24 @@ public class PanelListener implements KeyListener {
 		 
 		 if(e.getKeyCode() == KeyEvent.VK_S){
 			boolean flag =  moveDown(xHero,yHero,hero);
-			 
+			 mapFrame.setMap(map, numRows, numCols);
 			 mapFrame.drawMap(2);
 		 }
 		 else if (e.getKeyCode() == KeyEvent.VK_W){
 			 boolean flag =  moveUp(xHero,yHero,hero);
-			
+			 mapFrame.setMap(map, numRows, numCols);
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_A){
 			 boolean flag =  moveLeft(xHero,yHero,hero);
-			 
-			 
+			 mapFrame.setMap(map, numRows, numCols);
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_D){
 			 boolean flag =  moveRight(xHero,yHero,hero);
-			 
-			 
+			 mapFrame.setMap(map, numRows, numCols);
 			 mapFrame.drawMap(2);
 			 
 		 }
