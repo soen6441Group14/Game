@@ -28,6 +28,7 @@ import load.LoadItem;
  * @author grey
  * @version 1.0
  */
+
 public class MapListener implements ActionListener{
 	public Map map;
 	Cells[][] newMap;
