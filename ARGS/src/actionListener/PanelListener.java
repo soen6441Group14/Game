@@ -8,6 +8,9 @@ import frame.Map;
 import objects.Cells;
 import objects.Characters;
 import objects.Ground;
+import objects.Items;
+
+
 
 public class PanelListener implements KeyListener {
 	Map mapFrame;
@@ -26,6 +29,13 @@ public class PanelListener implements KeyListener {
 		// TODO Auto-generated method stub
 
 	}
+	
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -39,124 +49,170 @@ public class PanelListener implements KeyListener {
 		
 		 
 		 if(e.getKeyCode() == KeyEvent.VK_S){
-			 if(xHero+1<numRows){
-				 if(map[xHero+1][yHero].getTileType() == TileType.GROUND){
-					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-					 map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
-				 }
-				 else if(map[xHero+1][yHero].getTileType() == TileType.WALL){
-				 }
-				 else if(map[xHero+1][yHero].getTileType() == TileType.CHEST){
-					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-					 map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
-				 }
-				 else if(map[xHero+1][yHero].getTileType() == TileType.MONSTER){
-					 if(map[xHero+1][yHero].getCharacters().getOrient() == Orientation.FRIENDLY){
-						 
-					 }
-					 else{
-						 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-						 map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
-					 }
-				 }
-				 else if(map[xHero+1][yHero].getTileType() == TileType.EXIT){
-					 
-				 }
-			 }
+			boolean flag =  moveDown(xHero,yHero,hero);
+			 
 			 mapFrame.drawMap(2);
 		 }
 		 else if (e.getKeyCode() == KeyEvent.VK_W){
-			 if(xHero-1>=0){
-				 if(map[xHero-1][yHero].getTileType() == TileType.GROUND){
-					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-					 map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
-				 }
-				 else if(map[xHero-1][yHero].getTileType() == TileType.WALL){
-				 }
-				 else if(map[xHero-1][yHero].getTileType() == TileType.CHEST){
-					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-					 map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
-				 }
-				 else if(map[xHero-1][yHero].getTileType() == TileType.MONSTER){
-					 if(map[xHero-1][yHero].getCharacters().getOrient() == Orientation.FRIENDLY){
-						 
-					 }
-					 else{
-						 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-						 map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
-					 }
-				 }
-				 else if(map[xHero-1][yHero].getTileType() == TileType.EXIT){
-					 
-				 }
-			 }
+			 boolean flag =  moveUp(xHero,yHero,hero);
+			
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_A){
-			 if(yHero-1>=0){
-				 if(map[xHero][yHero-1].getTileType() == TileType.GROUND){
-					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-					 map[xHero][yHero-1] = new Cells(TileType.HERO, numRows, numCols, hero);
-				 }
-				 else if(map[xHero][yHero-1].getTileType() == TileType.WALL){
-				 }
-				 else if(map[xHero][yHero-1].getTileType() == TileType.CHEST){
-					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-					 map[xHero][yHero-1] = new Cells(TileType.HERO, numRows, numCols, hero);
-				 }
-				 else if(map[xHero][yHero-1].getTileType() == TileType.MONSTER){
-					 if(map[xHero][yHero-1].getCharacters().getOrient() == Orientation.FRIENDLY){
-						 
-					 }
-					 else{
-						 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-						 map[xHero][yHero-1] = new Cells(TileType.HERO, numRows, numCols, hero);
-					 }
-				 }
-				 else if(map[xHero][yHero-1].getTileType() == TileType.EXIT){
-					 
-				 }
-			 }
+			 boolean flag =  moveLeft(xHero,yHero,hero);
+			 
+			 
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_D){
-			 if(yHero+1<numCols){
-				 if(map[xHero][yHero+1].getTileType() == TileType.GROUND){
-					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-					 map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
-				 }
-				 else if(map[xHero][yHero+1].getTileType() == TileType.WALL){
-				 }
-				 else if(map[xHero][yHero+1].getTileType() == TileType.CHEST){
-					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-					 map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
-				 }
-				 else if(map[xHero][yHero+1].getTileType() == TileType.MONSTER){
-					 if(map[xHero][yHero+1].getCharacters().getOrient() == Orientation.FRIENDLY){
-						 
-					 }
-					 else{
-						 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-						 map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
-					 }
-				 }
-				 else if(map[xHero][yHero+1].getTileType() == TileType.EXIT){
-					 
-				 }
-			 }
+			 boolean flag =  moveRight(xHero,yHero,hero);
+			 
+			 
 			 mapFrame.drawMap(2);
 			 
 		 }
 	}
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 
+	private boolean moveRight(int xHero, int yHero, Characters hero) {
+		boolean flag = false;
+		if(yHero+1<numCols){
+			 if(map[xHero][yHero+1].getTileType() == TileType.GROUND){
+				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+				 map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
+			 }
+			 else if(map[xHero][yHero+1].getTileType() == TileType.WALL){
+			 }
+			 else if(map[xHero][yHero+1].getTileType() == TileType.CHEST){
+				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+				 map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
+				 Items item = map[xHero][yHero+1].getItems();
+				 if(hero.getBackpack().size()<=10)
+				 {
+					 for(Items items :hero.getBackpack())
+						 if(items.getName().equals("EMPTY")){
+							 int index = hero.getBackpack().indexOf(items);
+							 hero.getBackpack().set(index, item);
+							 break;
+						 }
+				 }
+				 //需要重新更新玩家背包
+			 }
+			 else if(map[xHero][yHero+1].getTileType() == TileType.MONSTER){
+				 if(map[xHero][yHero+1].getCharacters().getOrient() == Orientation.FRIENDLY){
+					 
+				 }
+				 else{
+					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+					 map[xHero][yHero+1].getCharacters().setHitpoints(0);
+					 //重新draw information
+					 map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
+					 
+				 }
+			 }
+			 else if(map[xHero][yHero+1].getTileType() == TileType.EXIT){
+				 //完成object之后才能离开
+				 int level = hero.getLevel();
+				 hero.setLevel(level+1);
+				//重新draw information
+			 }
+			 flag = true;
+		 }
+		return flag;
 	}
 
+	private boolean moveLeft(int xHero, int yHero, Characters hero) {
+		boolean flag = false;
+		if(yHero-1>=0){
+			 if(map[xHero][yHero-1].getTileType() == TileType.GROUND){
+				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+				 map[xHero][yHero-1] = new Cells(TileType.HERO, numRows, numCols, hero);
+			 }
+			 else if(map[xHero][yHero-1].getTileType() == TileType.WALL){
+			 }
+			 else if(map[xHero][yHero-1].getTileType() == TileType.CHEST){
+				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+				 map[xHero][yHero-1] = new Cells(TileType.HERO, numRows, numCols, hero);
+			 }
+			 else if(map[xHero][yHero-1].getTileType() == TileType.MONSTER){
+				 if(map[xHero][yHero-1].getCharacters().getOrient() == Orientation.FRIENDLY){
+					 
+				 }
+				 else{
+					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+					 map[xHero][yHero-1] = new Cells(TileType.HERO, numRows, numCols, hero);
+				 }
+			 }
+			 else if(map[xHero][yHero-1].getTileType() == TileType.EXIT){
+				 
+			 }
+			 flag = true;
+		 }
+		return flag;
+	}
+
+	private boolean moveUp(int xHero, int yHero, Characters hero) {
+		boolean flag = false;
+		 if(xHero-1>=0){
+			 if(map[xHero-1][yHero].getTileType() == TileType.GROUND){
+				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+				 map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+			 }
+			 else if(map[xHero-1][yHero].getTileType() == TileType.WALL){
+			 }
+			 else if(map[xHero-1][yHero].getTileType() == TileType.CHEST){
+				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+				 map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+			 }
+			 else if(map[xHero-1][yHero].getTileType() == TileType.MONSTER){
+				 if(map[xHero-1][yHero].getCharacters().getOrient() == Orientation.FRIENDLY){
+					 
+				 }
+				 else{
+					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+					 map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+				 }
+			 }
+			 else if(map[xHero-1][yHero].getTileType() == TileType.EXIT){
+				 
+			 }
+			 flag = true;
+		 }
+		return flag;
+	}
+
+	
+	private boolean moveDown(int xHero, int yHero, Characters hero) {
+		boolean flag = false;
+		if(xHero+1<numRows){
+			 if(map[xHero+1][yHero].getTileType() == TileType.GROUND){
+				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+				 map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+			 }
+			 else if(map[xHero+1][yHero].getTileType() == TileType.WALL){
+			 }
+			 else if(map[xHero+1][yHero].getTileType() == TileType.CHEST){
+				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+				 map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+			 }
+			 else if(map[xHero+1][yHero].getTileType() == TileType.MONSTER){
+				 if(map[xHero+1][yHero].getCharacters().getOrient() == Orientation.FRIENDLY){
+					 
+				 }
+				 else{
+					 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+					 map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+				 }
+			 }
+			 else if(map[xHero+1][yHero].getTileType() == TileType.EXIT){
+				 
+			 }
+			 flag = true;
+		 }
+		return flag;
+	}
 	
 	private int[] getLocation() {
 		int[] position = new int[10];
@@ -171,6 +227,4 @@ public class PanelListener implements KeyListener {
 		
 		return position;
 	}
-
-
 }

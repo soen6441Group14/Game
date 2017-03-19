@@ -5,11 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -79,6 +76,8 @@ public class Map {
 	public JLabel mapBoxLabel =  new JLabel("Created Maps");
 	public JComboBox<String> campaignBox = new JComboBox<String>();// show created character in the file
 	public JLabel campaignBoxLabel =  new JLabel("Created Campaigns");
+	public JComboBox<String> characterMapBox = new JComboBox<String>();// show created character in the map
+	public JLabel characterMapLabel =  new JLabel("Characters in the map");
 	
 	public JMenuBar jMenuBar = new JMenuBar();
 	public JMenu jMenu = new JMenu("Menu");
@@ -131,13 +130,12 @@ public class Map {
 	public JLabel inventory6 = new JLabel("Inventory6");
 	public JLabel inventory7 = new JLabel("Inventory7");
 
-
 	/*playing game*/
 	private Characters playingHero;
 	private Campaigns playingCampaign;
 	private int playingIndex=-1; //recoed the index of map the player is playing,start with 0 ;
 
-	
+
 	/**
 	 *  get map method
 	 * @return  2 dimension Cells array
@@ -415,7 +413,6 @@ public class Map {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO
 				String selectedCharacter=characterBox.getSelectedItem().toString();
 				String selectedCampaign=campaignBox.getSelectedItem().toString();
 				try {
@@ -424,6 +421,7 @@ public class Map {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+
 				panelContainer.addKeyListener(new PanelListener(Map.this));
 				panelContainer.requestFocus();
 			}
@@ -436,6 +434,7 @@ public class Map {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					characterObserver.start();
+					panelContainer.requestFocus();
 				}
 			});;
 			
@@ -583,6 +582,8 @@ public class Map {
 		showPanel.add(campaignBoxLabel);
 		showPanel.add(campaignBox);
 		showPanel.add(startGame);
+		showPanel.add(characterMapLabel);
+		showPanel.add(characterMapBox);
 		showPanel.add(inventoryInformation);
 		characterPanel.setLayout(new FlowLayout(0, 30, 30));//0向左对齐，30代表左右间距，30代表上下间距
 		characterPanel.add(name);
@@ -658,6 +659,7 @@ public class Map {
 		return flag;
 	}
 	
+	
 
 	public boolean exitGlobal(Cells[][] map2){
 		for (int i = 0; i < map2.length; i++) {
@@ -704,7 +706,11 @@ public class Map {
 	public void initGameMap(){
 		playingIndex+=1;
 		map=playingCampaign.getCampaign().get(playingIndex).getMap();
+
 		drawMap(2);
+
 	}
+
+
 
 }
