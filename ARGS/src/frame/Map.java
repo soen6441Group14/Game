@@ -411,6 +411,7 @@ public class Map {
 				
 				panelContainer.addKeyListener(new PanelListener(Map.this));
 				panelContainer.requestFocus();
+				System.out.println();
 			}
 		});
 		 
