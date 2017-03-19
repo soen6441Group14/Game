@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -20,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import actionListener.PanelListener;
 import actionListener.MapListener;
 import enumclass.TileType;
 import load.LoadCampaign;
@@ -61,6 +64,7 @@ public class Map {
 	public String title;
 	public JFrame jFrame;
 	public JButton jButton;
+	public JButton startGame = new JButton("Start Game");
 	public JButton inventoryInformation = new JButton("Inventory Information");
 	public JPanel panel = new JPanel();
 	public JPanel panelContainer = new JPanel(); // contain the panel which contains the map
@@ -397,6 +401,18 @@ public class Map {
 
 		 drawMap(1); //initialize map the first
 		 
+		
+		 
+		 
+		 startGame.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				panelContainer.addKeyListener(new PanelListener(Map.this));
+				panelContainer.requestFocus();
+			}
+		});
 		 
 		 CharacterObserver characterObserver = new CharacterObserver(Map.this);
 		 
@@ -425,6 +441,7 @@ public class Map {
 				
 				new InventoryFrame(Map.this, jFrame,characterArrayList,character);
 				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
 			}
 		});
 		 
@@ -437,6 +454,7 @@ public class Map {
 			public void actionPerformed(ActionEvent e) {
 				new CampaignFrame(Map.this,jFrame, allMaps,campaigns);
 				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
 			}
 		});
 		 
@@ -448,7 +466,7 @@ public class Map {
 				panel.removeAll();
 				new RowColFrame(Map.this,jFrame); //open RowColFrame
 				jFrame.setEnabled(false);
-
+				panelContainer.requestFocus();
 			}
 		});
 		
@@ -459,6 +477,7 @@ public class Map {
 			public void actionPerformed(ActionEvent e) {
 				new ItemFrame(Map.this,jFrame,itemArrayList);//open ItemFrame
 				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
 			}
 		});
 
@@ -469,6 +488,7 @@ public class Map {
 			public void actionPerformed(ActionEvent e) {
 				new CharacterFrame(Map.this,jFrame,characterArrayList,itemArrayList);//open CharacterFrame
 				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
 			}
 		});
 		
@@ -547,6 +567,7 @@ public class Map {
 		showPanel.add(mapBox);
 		showPanel.add(campaignBoxLabel);
 		showPanel.add(campaignBox);
+		showPanel.add(startGame);
 		showPanel.add(inventoryInformation);
 		characterPanel.setLayout(new FlowLayout(0, 30, 30));//0向左对齐，30代表左右间距，30代表上下间距
 		characterPanel.add(name);
@@ -599,6 +620,9 @@ public class Map {
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+	
+	
+	
 	
 	private int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
 		
