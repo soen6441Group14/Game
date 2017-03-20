@@ -33,6 +33,7 @@ import objects.Ground;
 import objects.Items;
 import objects.Matrix;
 import observer.CharacterObserver;
+import play.Adaptor;
 
 /**
  * 
@@ -134,8 +135,13 @@ public class Map {
 	/*playing game*/
 	private Characters playingHero;
 	private Campaigns playingCampaign;
-	private int playingIndex=-1; //recoed the index of map the player is playing,start with 0 ;
-
+	private int numberMap; //record the maps num of selected campaign
+	private int playingIndex; //recoed the index of map the player is playing,start with 0
+	
+	public int getPlayingIndex(){
+		return playingIndex;
+	}
+	
 
 	/**
 	 *  get map method
@@ -218,7 +224,7 @@ public class Map {
 		
 		drawItemBox(); //show items in the file
 		drawcharacterBox();// show characters in the file
-		drawInformation();
+//		drawInformation();
 		drawMapBox();
 		drawCampaignBox();
 		
@@ -277,15 +283,15 @@ public class Map {
 		/* when the character box in the main frame was selected, 
 		 * then we get corresponding character object from the file
 		 */
-		try {
-			if(characterMapBox.getSelectedItem() !=null)//如果下拉框不为空
-			characters = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(),characterArrayList);
-     	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			if(characterMapBox.getSelectedItem() !=null)//如果下拉框不为空
+//			characters = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(),characterArrayList);
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
-	//	characters = getCharacterMap();
+		characters = getCharacterMap();
 		
 		
 		
@@ -427,15 +433,9 @@ public class Map {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				
-				int numberMap = playingCampaign.getCampaign().size()-1;
-				
-				if(playingIndex<numberMap)
-				drawCampaignMap();
-				else{
-					JOptionPane.showMessageDialog(null, "There is no map anymore", "Alert", JOptionPane.ERROR_MESSAGE);
-					playingIndex = -1;
-				}
+
+				initCampaign();
+				numberMap = playingCampaign.getCampaign().size()-1;
 
 			}
 		});
@@ -449,7 +449,7 @@ public class Map {
 					characterObserver.start();
 					panelContainer.requestFocus();
 				}
-			});
+			});;
 			
 		 
 		 //显示下拉框选中的人物的信息
@@ -471,12 +471,12 @@ public class Map {
 				
 				character = getCharacterMap();
 				
-				try {
-					character = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(), characterArrayList);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+//				try {
+//					character = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(), characterArrayList);
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 				
 				new InventoryFrame(Map.this, jFrame,characterMapArrayList,character);
 				characterMapArrayList.clear();;
@@ -559,8 +559,8 @@ public class Map {
 				new SaveMapFrame(Map.this,map,jFrame,allMaps); //open SaveMapFrame
 				jFrame.setEnabled(false);
 				}
-
-
+				
+				
 			}
 
 			
@@ -678,7 +678,9 @@ public class Map {
 		return characters;
 	}
 	
-
+	
+	
+	
 	private int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
 		
 		
@@ -742,43 +744,82 @@ public class Map {
 	/**
 	 * The method is to initialize the game
 	 */
-	public void drawCampaignMap(){
-		playingIndex+=1;
-//		map=playingCampaign.getCampaign().get(playingIndex).getMap();
-		
+	public void initCampaign(){
+		playingIndex=0;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
+		System.out.println(playingCampaign.getCampaign().get(playingIndex).getName());
+		
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
+		System.out.println(numRows+"--"+numCols);
 		setMap(newMap, numRows, numCols);
-		
-		characterMapBox.removeAllItems();
-		for(int i=0;i<numRows;i++)
-			for(int j=0;j<numCols;j++){
-				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO)
-					characterMapBox.addItem(map[i][j].getCharacters().getName());
-			}
-			//character show on the entry
-			showOnMap();
+		//character show on the entry
+	//	showOnMap();
+		//adapt the items and character,based on the level of hero
+		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
+		adaptor.adapting();
+        //只保存内存
 
+		updateCharacterList();
 		drawMap(2);
-		//to update the map in the Listener
-		panelContainer.addKeyListener(new PanelListener(Map.this));
+		panelContainer.addKeyListener(new PanelListener(Map.this,numberMap));
 		panelContainer.requestFocus();
 
 	}
 
+	/**
+	 * The method is used to show the hero on the map in the beginning
+	 */
 	public void showOnMap(){
-		int rowNum=map[0][0].getX();
-		int columnNum=map[0][0].getY();
-		for(int r=0; r<rowNum;r++){
-			for(int c=0; c<columnNum;c++){
-				if(this.map[r][c].getTileType()==TileType.ENTRY)
+		for(int r=0; r<numRows;r++){
+			for(int c=0; c<numCols;c++){
+				if(this.map[r][c].getTileType()==TileType.ENTRY){
+					System.out.println("hero"+r+c);
+					//Playing hero 要改变
 					this.map[r][c]=new Cells(TileType.HERO, numRows, numCols, this.playingHero);
-				if(this.map[r][c].getTileType()==TileType.HERO)
+				}
+
+				if(this.map[r][c].getTileType()==TileType.HERO){
 					this.map[r][c]=new Cells(TileType.GROUND,numRows, numCols,new Ground(TileType.GROUND));
+					System.out.println("you");
+				}
+
 			}
 		}
 	}
+	/**
+	 * The method is used to change map from exit
+	 */
+	public void changeMap(){
+		this.playingIndex+=1;
+		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
+		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
+		numRows = newMap[0][0].getX();
+		numCols = newMap[0][0].getY();
+		setMap(newMap, numRows, numCols);
+		//adapt the items and character, based on hero's level
+		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
+		adaptor.adapting();
+		showOnMap();
+		updateCharacterList();
+		drawMap(2);
+
+
+	}
+	/**
+	 * The method is to update the Jcombobox of character, according to the characters in the map
+	 */
+	public void updateCharacterList(){
+		characterMapBox.removeAllItems();
+		for(int i=0;i<numRows;i++)
+			for(int j=0;j<numCols;j++){
+				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO){
+					characterMapBox.addItem(map[i][j].getCharacters().getName());
+					System.out.println("character Jcombobox update");
+				}
+			}
+	}
+
 
 
 }

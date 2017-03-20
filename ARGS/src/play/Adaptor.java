@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class Adaptor {
 
     private Characters basedPlayer;
-    private Matrix adaptTarget;
+    private Cells[][] adaptTarget;
 
     /**
      * constructor
      */
-    public Adaptor(Matrix targetedMatrix,Characters player){
+    public Adaptor(Cells[][] targetedMatrix,Characters player){
         this.adaptTarget=targetedMatrix;
         this.basedPlayer=player;
     }
@@ -35,7 +35,7 @@ public class Adaptor {
      * The method is used to adapt the NPCs'level equal to the player
      */
     private void adaptNPC(){
-        Cells[][] targetMap = adaptTarget.getMap();
+        Cells[][] targetMap = adaptTarget;
         int rowNum=targetMap[0][0].getX();
         int columnNum=targetMap[0][0].getY();
         for(int r=0; r<rowNum;r++){
@@ -51,7 +51,7 @@ public class Adaptor {
      * The method is used to search all items on the map
      */
     private void adaptAllItemOnMap(){
-        Cells[][] targetMap = adaptTarget.getMap();
+        Cells[][] targetMap = adaptTarget;
         int rowNum=targetMap[0][0].getX();
         int columnNum=targetMap[0][0].getY();
         for(int r=0; r<rowNum;r++) {
