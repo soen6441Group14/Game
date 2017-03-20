@@ -47,6 +47,7 @@ import observer.CharacterObserver;
 
 public class Map {
 
+	// TODO: test
 	private int numRows = 0;
 	private int numCols = 1;
 	public JButton[][] jButtons = new JButton[100][100];
