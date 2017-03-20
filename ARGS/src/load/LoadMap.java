@@ -47,7 +47,7 @@ public class LoadMap {
 	public ArrayList<Matrix> readMap() throws IOException, ClassNotFoundException{
 		
 		ArrayList<Matrix> arrayList = new ArrayList<Matrix>();
-		File input = new File("file/Maps.txt");
+		File input = new File("ARGS/file/Maps.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(input));
         arrayList = (ArrayList<Matrix>) objectInputStream.readObject();
         objectInputStream.close();

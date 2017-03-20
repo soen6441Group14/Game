@@ -239,19 +239,19 @@ public class Map {
 			for (int j = 0; j < numCols; j++) {
 				// draw the map according to different kind of TileType
 				if (map[i][j].getTileType() == TileType.GROUND)
-					jButton = new JButton("", new ImageIcon("res/textures/Ground.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Ground.png"));
 				else if (map[i][j].getTileType() == TileType.WALL) 
-					jButton = new JButton("", new ImageIcon("res/textures/Wall.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Wall.png"));
 				 else if (map[i][j].getTileType() == TileType.CHEST)
-					jButton = new JButton("", new ImageIcon("res/textures/Chest.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Chest.png"));
 				else if (map[i][j].getTileType() == TileType.HERO)
-					jButton = new JButton("", new ImageIcon("res/textures/Hero.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Hero.png"));
 				else if (map[i][j].getTileType() == TileType.MONSTER)
-					jButton = new JButton("", new ImageIcon("res/textures/Monster.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Monster.png"));
 				else if (map[i][j].getTileType() == TileType.EXIT)
-					jButton = new JButton("", new ImageIcon("res/textures/Exit.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Exit.png"));
 				else if (map[i][j].getTileType() == TileType.ENTRY)
-					jButton = new JButton("", new ImageIcon("res/textures/Entry.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Entry.png"));
 				
 				jButton.putClientProperty("Rows", i);// set a attribute for every button
 				jButton.putClientProperty("Cols", j);
@@ -429,9 +429,7 @@ public class Map {
 					JOptionPane.showMessageDialog(null, "There is no map anymore", "Alert", JOptionPane.ERROR_MESSAGE);
 					playingIndex = -1;
 				}
-				
-				panelContainer.addKeyListener(new PanelListener(Map.this));
-				panelContainer.requestFocus();
+
 			}
 		});
 		 
@@ -726,9 +724,27 @@ public class Map {
 				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO)
 					characterMapBox.addItem(map[i][j].getCharacters().getName());
 			}
-		
-		drawMap(2);
+			//character show on the entry
+			showOnMap();
 
+		drawMap(2);
+		//to uodate the map in the Listener
+		panelContainer.addKeyListener(new PanelListener(Map.this));
+		panelContainer.requestFocus();
+
+	}
+
+	public void showOnMap(){
+		int rowNum=map[0][0].getX();
+		int columnNum=map[0][0].getY();
+		for(int r=0; r<rowNum;r++){
+			for(int c=0; c<columnNum;c++){
+				if(map[r][c].getTileType()==TileType.ENTRY)
+					map[r][c]=new Cells(TileType.HERO, numRows, numCols, this.playingHero);
+				if(map[r][c].getTileType()==TileType.HERO)
+					map[r][c]=new Cells(TileType.GROUND,numRows, numCols,new Ground(TileType.GROUND));
+			}
+		}
 	}
 
 

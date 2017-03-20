@@ -9,6 +9,7 @@ import objects.Cells;
 import objects.Characters;
 import objects.Ground;
 import objects.Items;
+import objects.Entry;
 
 
 
@@ -16,6 +17,8 @@ public class PanelListener implements KeyListener {
 	Map mapFrame;
 	Cells[][] map;
 	int numRows,numCols;
+	int rowOfEntry;
+	int columnOfEntry;
 	
 	public PanelListener(Map map) {
 		this.mapFrame = map;
@@ -46,7 +49,7 @@ public class PanelListener implements KeyListener {
 		 int xHero = position[0];
 		 int yHero = position[1];
 		 hero = map[xHero][yHero].getCharacters();
-		
+		 recoverTheEntry(xHero,yHero);
 		 
 		 if(e.getKeyCode() == KeyEvent.VK_S){
 			boolean flag =  moveDown(xHero,yHero,hero);
@@ -231,4 +234,24 @@ public class PanelListener implements KeyListener {
 		
 		return position;
 	}
+	/**
+	 * The method is used to get the entry of the playing map
+	 */
+	private void getEntry() {
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				if (map[i][j].getTileType() == TileType.ENTRY) {
+					rowOfEntry = i;
+					columnOfEntry = j;
+					break;
+				}
+			}
+		}
+	}
+
+	private void recoverTheEntry(int currentRow, int currentColumn){
+		if(currentRow==rowOfEntry && currentColumn==columnOfEntry)
+			map[rowOfEntry][columnOfEntry]=new Cells(TileType.ENTRY, numRows, numCols, new Entry(TileType.ENTRY));
+	}
+
 }
