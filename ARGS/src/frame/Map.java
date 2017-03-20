@@ -679,7 +679,6 @@ public class Map {
 	}
 	
 
-	
 	private int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
 		
 		
@@ -762,7 +761,7 @@ public class Map {
 			showOnMap();
 
 		drawMap(2);
-		//to uodate the map in the Listener
+		//to update the map in the Listener
 		panelContainer.addKeyListener(new PanelListener(Map.this));
 		panelContainer.requestFocus();
 
@@ -773,10 +772,10 @@ public class Map {
 		int columnNum=map[0][0].getY();
 		for(int r=0; r<rowNum;r++){
 			for(int c=0; c<columnNum;c++){
-				if(map[r][c].getTileType()==TileType.ENTRY)
-					map[r][c]=new Cells(TileType.HERO, numRows, numCols, this.playingHero);
-				if(map[r][c].getTileType()==TileType.HERO)
-					map[r][c]=new Cells(TileType.GROUND,numRows, numCols,new Ground(TileType.GROUND));
+				if(this.map[r][c].getTileType()==TileType.ENTRY)
+					this.map[r][c]=new Cells(TileType.HERO, numRows, numCols, this.playingHero);
+				if(this.map[r][c].getTileType()==TileType.HERO)
+					this.map[r][c]=new Cells(TileType.GROUND,numRows, numCols,new Ground(TileType.GROUND));
 			}
 		}
 	}

@@ -50,28 +50,32 @@ public class PanelListener implements KeyListener {
 		 int xHero = position[0];
 		 int yHero = position[1];
 		 hero = map[xHero][yHero].getCharacters();
-		 recoverTheEntry(xHero,yHero);
+
 		 
 		 if(e.getKeyCode() == KeyEvent.VK_S){
 			boolean flag =  moveDown(xHero,yHero,hero);
+			 recoverTheEntry(xHero,yHero);
 			 mapFrame.setMap(map, numRows, numCols);
 			 mapFrame.drawMap(2);
 		 }
 		 else if (e.getKeyCode() == KeyEvent.VK_W){
 			 boolean flag =  moveUp(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
+			 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_A){
 			 boolean flag =  moveLeft(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
+			 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_D){
 			 boolean flag =  moveRight(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
+			 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 			 
 		 }
