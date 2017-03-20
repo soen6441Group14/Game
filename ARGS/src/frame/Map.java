@@ -47,7 +47,6 @@ import observer.CharacterObserver;
 
 public class Map {
 
-	// TODO: test
 	private int numRows = 0;
 	private int numCols = 1;
 	public JButton[][] jButtons = new JButton[100][100];
@@ -278,15 +277,15 @@ public class Map {
 		/* when the character box in the main frame was selected, 
 		 * then we get corresponding character object from the file
 		 */
-//		try {
-//			if(characterMapBox.getSelectedItem() !=null)//如果下拉框不为空
-//			characters = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(),characterArrayList);
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+		try {
+			if(characterMapBox.getSelectedItem() !=null)//如果下拉框不为空
+			characters = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(),characterArrayList);
+     	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		characters = getCharacterMap();
+	//	characters = getCharacterMap();
 		
 		
 		
@@ -450,7 +449,7 @@ public class Map {
 					characterObserver.start();
 					panelContainer.requestFocus();
 				}
-			});;
+			});
 			
 		 
 		 //显示下拉框选中的人物的信息
@@ -472,12 +471,12 @@ public class Map {
 				
 				character = getCharacterMap();
 				
-//				try {
-//					character = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(), characterArrayList);
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+				try {
+					character = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(), characterArrayList);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				new InventoryFrame(Map.this, jFrame,characterMapArrayList,character);
 				characterMapArrayList.clear();;
@@ -560,8 +559,8 @@ public class Map {
 				new SaveMapFrame(Map.this,map,jFrame,allMaps); //open SaveMapFrame
 				jFrame.setEnabled(false);
 				}
-				
-				
+
+
 			}
 
 			
@@ -679,8 +678,7 @@ public class Map {
 		return characters;
 	}
 	
-	
-	
+
 	
 	private int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
 		
@@ -782,7 +780,6 @@ public class Map {
 			}
 		}
 	}
-
 
 
 }

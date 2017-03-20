@@ -25,6 +25,7 @@ public class PanelListener implements KeyListener {
 		this.map = map.getMap();
 		this.numRows = map.getNumRows();
 		this.numCols = map.getNumCols();
+		getEntry();
 	}
 
 	@Override
