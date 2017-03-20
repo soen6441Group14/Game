@@ -436,16 +436,16 @@ public class Map {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-<<<<<<< HEAD
+
 				panel.setVisible(true);
 				initCampaign();
-=======
+
 				
 				
-				initCampaign();
+
 				
 				
->>>>>>> origin/master
+
 			}
 		});
 		 
@@ -769,13 +769,11 @@ public class Map {
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
         //只保存内存
-<<<<<<< HEAD
-		updateCharacterList();
-=======
+
 		
 		updateCharacterList();
-		drawMap(2);
->>>>>>> origin/master
+
+
 		numberMap = playingCampaign.getCampaign().size()-1;
 		panelContainer.addKeyListener(new PanelListener(Map.this,numberMap));
 		panelContainer.requestFocus();
@@ -796,10 +794,7 @@ public class Map {
 					//Playing hero 要改变
 					this.map[r][c]=new Cells(TileType.HERO,numRows,numCols,this.playingHero);
 				}
-<<<<<<< HEAD
-=======
-				
->>>>>>> origin/master
+
 				else if(this.map[r][c].getTileType()==TileType.HERO){
 					this.map[r][c]=new Cells(TileType.GROUND,numRows, numCols,new Ground(TileType.GROUND));
 				}
@@ -832,16 +827,13 @@ public class Map {
 	 */
 	
 	public void updateCharacterList(){
-<<<<<<< HEAD
-		//characterMapBox.removeAllItems();
-=======
-//		if(characterMapBox!=null)
+
 		characterMapBox.removeActionListener(actionListener);
 			characterMapBox.removeAllItems();
 		System.out.println("numberRows: "+numRows+"numberCols: "+ numCols);
 		
 		
->>>>>>> origin/master
+
 		for(int i=0;i<numRows;i++)
 			for(int j=0;j<numCols;j++){
 				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO){

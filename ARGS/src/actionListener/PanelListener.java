@@ -309,13 +309,10 @@ public class PanelListener implements KeyListener {
 	private void lootItem(Items item, Characters hero){
 		int temp=-1;
 		for(int i=0;i<10;i++){
-<<<<<<< HEAD
-			if(hero.getBackpack().get(i).getName().equals("EMPTY")) {
-				temp = i;
-=======
+
 			if(hero.getBackpack().get(i).getName().equals("EMPTY")){
 				temp=i;
->>>>>>> origin/master
+
 				break;
 			}
 		}
@@ -357,18 +354,12 @@ public class PanelListener implements KeyListener {
 				}
 			}
 			//loot worn items
-<<<<<<< HEAD
+
 			for(int i=0; i<hostile.getInventory().size(); i++){
 				if(!hostile.getInventory().get(i).getName().equals("EMPTY")){
 					lootItem(hostile.getInventory().get(i),hero);
 					hostile.getInventory().set(i,new Items("EMPTY",0));
-=======
-			//TODO:要改 
-			for(int i=0; i<10; i++){
-				if(hostile.getBackpack().get(i)!=null){
-					lootItem(hostile.getBackpack().get(i),hero);
-					hostile.getBackpack().set(i,null);
->>>>>>> origin/master
+
 				}
 			}
 		}
@@ -382,13 +373,8 @@ public class PanelListener implements KeyListener {
 	private void exitFromMap(Characters hero){
 		int level = hero.getLevel();
 		hero.setLevel(level+1);
-<<<<<<< HEAD
 		System.out.println("map index"+playingIndex);
 
-=======
-		System.out.println("playingIndex: "+playingIndex);
-		System.out.println("numberMap: "+numberMap);
->>>>>>> origin/master
 		if(playingIndex>=numberMap){
 			JOptionPane.showMessageDialog(null, "There is no map anymore", "Alert", JOptionPane.ERROR_MESSAGE);
 			mapFrame.removePanelContainer();
