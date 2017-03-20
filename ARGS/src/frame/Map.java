@@ -427,16 +427,15 @@ public class Map {
 			public void actionPerformed(ActionEvent e) {
 				String selectedCharacter=characterBox.getSelectedItem().toString();
 				String selectedCampaign=campaignBox.getSelectedItem().toString();
+				Map.this.panel.setVisible(true);
 				try {
 					Map.this.playingHero=new LoadCharacter().loadcharacter(selectedCharacter, characterArrayList);
 					Map.this.playingCampaign=new LoadCampaign().loadCampaign(campaigns,selectedCampaign);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-
+				panel.setVisible(true);
 				initCampaign();
-				numberMap = playingCampaign.getCampaign().size()-1;
-
 			}
 		});
 		 
@@ -503,6 +502,7 @@ public class Map {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Map.this.panel.setVisible(true);
 				panel.removeAll();
 				new RowColFrame(Map.this,jFrame); //open RowColFrame
 				jFrame.setEnabled(false);
@@ -569,10 +569,9 @@ public class Map {
 		
 		//open the LoadMapFrame
 		loadMap.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Map.this.panel.setVisible(true);
 				new LoadMapFrame(Map.this,jFrame,allMaps); //open LoadMapFrame
 				jFrame.setEnabled(false);
 				
@@ -660,7 +659,6 @@ public class Map {
 		jFrame.setVisible(true);
 		jFrame.setLocationRelativeTo(null);// put the screen in the center
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 	
 	private Characters getCharacterMap() {
@@ -753,17 +751,18 @@ public class Map {
 		numCols = newMap[0][0].getY();
 		System.out.println(numRows+"--"+numCols);
 		setMap(newMap, numRows, numCols);
-		//character show on the entry
-	//	showOnMap();
+
 		//adapt the items and character,based on the level of hero
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
         //只保存内存
-
 		updateCharacterList();
-		drawMap(2);
+		numberMap = playingCampaign.getCampaign().size()-1;
 		panelContainer.addKeyListener(new PanelListener(Map.this,numberMap));
 		panelContainer.requestFocus();
+		//character show on the entry
+		showOnMap();
+		drawMap(2);
 
 	}
 
@@ -771,21 +770,20 @@ public class Map {
 	 * The method is used to show the hero on the map in the beginning
 	 */
 	public void showOnMap(){
+
 		for(int r=0; r<numRows;r++){
 			for(int c=0; c<numCols;c++){
 				if(this.map[r][c].getTileType()==TileType.ENTRY){
-					System.out.println("hero"+r+c);
 					//Playing hero 要改变
-					this.map[r][c]=new Cells(TileType.HERO, numRows, numCols, this.playingHero);
+					this.map[r][c]=new Cells(TileType.HERO,numRows,numCols,this.playingHero);
 				}
-
-				if(this.map[r][c].getTileType()==TileType.HERO){
+				else if(this.map[r][c].getTileType()==TileType.HERO){
 					this.map[r][c]=new Cells(TileType.GROUND,numRows, numCols,new Ground(TileType.GROUND));
-					System.out.println("you");
 				}
 
 			}
 		}
+
 	}
 	/**
 	 * The method is used to change map from exit
@@ -800,8 +798,8 @@ public class Map {
 		//adapt the items and character, based on hero's level
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
-		showOnMap();
 		updateCharacterList();
+		showOnMap();
 		drawMap(2);
 
 
@@ -810,7 +808,7 @@ public class Map {
 	 * The method is to update the Jcombobox of character, according to the characters in the map
 	 */
 	public void updateCharacterList(){
-		characterMapBox.removeAllItems();
+		//characterMapBox.removeAllItems();
 		for(int i=0;i<numRows;i++)
 			for(int j=0;j<numCols;j++){
 				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO){
@@ -818,6 +816,10 @@ public class Map {
 					System.out.println("character Jcombobox update");
 				}
 			}
+	}
+
+	public void removePanelContainer(){
+		this.panel.setVisible(false);
 	}
 
 

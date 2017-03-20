@@ -65,33 +65,33 @@ public class PanelListener implements KeyListener {
 		 hero = map[xHero][yHero].getCharacters();
 
 		 if(hero==null)
-		 	System.out.println("找不到hero");
+		 	System.out.println("system error: hero object missing");
 		
 		 
 		 if(e.getKeyCode() == KeyEvent.VK_S){
 			boolean flag =  moveDown(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
-			 recoverTheEntry(xHero,yHero);
+		//	 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 		 }
 		 else if (e.getKeyCode() == KeyEvent.VK_W){
 			 boolean flag =  moveUp(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
-			 recoverTheEntry(xHero,yHero);
+		//	 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_A){
 			 boolean flag =  moveLeft(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
-			 recoverTheEntry(xHero,yHero);
+		//	 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_D){
 			 boolean flag =  moveRight(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
-			 recoverTheEntry(xHero,yHero);
+		//	 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 			 
 		 }
@@ -124,8 +124,13 @@ public class PanelListener implements KeyListener {
 				 Characters target=map[xHero][yHero+1].getCharacters();
 				 if(target.getOrient() == Orientation.FRIENDLY)
 					 interactWithFriendly(target);
-				 else
-				 	interactWithHostile(target,hero);
+				 else{
+				 	if(interactWithHostile(target,hero)){}
+				 	else{
+						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+						map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
+					}
+				 }
 			}
 			 else if(map[xHero][yHero+1].getTileType() == TileType.EXIT){
 				 exitFromMap(hero);
@@ -157,8 +162,13 @@ public class PanelListener implements KeyListener {
 				Characters target = map[xHero][yHero - 1].getCharacters();
 				if (target.getOrient() == Orientation.FRIENDLY)
 					interactWithFriendly(target);
-				else
-					interactWithHostile(target,hero);
+				else{
+					if(interactWithHostile(target,hero)){}
+					else{
+						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+						map[xHero][yHero - 1] = new Cells(TileType.HERO, numRows, numCols, hero);
+					}
+				}
 			} else if (map[xHero][yHero - 1].getTileType() == TileType.EXIT) {
 				exitFromMap(hero);
 			}
@@ -194,8 +204,13 @@ public class PanelListener implements KeyListener {
 				 Characters target=map[xHero-1][yHero].getCharacters();
 				 if(target.getOrient() == Orientation.FRIENDLY)
 					 interactWithFriendly(target);
-				 else
-					 interactWithHostile(target,hero);
+				 else{
+				 	if(interactWithHostile(target,hero)){}
+				 	else{
+						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+						map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+					}
+				 }
 			 }
 			 else if(map[xHero-1][yHero].getTileType() == TileType.EXIT){
 				 exitFromMap(hero);
@@ -232,8 +247,14 @@ public class PanelListener implements KeyListener {
 				 Characters target=map[xHero+1][yHero].getCharacters();
 				 if(target.getOrient() == Orientation.FRIENDLY)
 					 interactWithFriendly(target);
-				 else
-					 interactWithHostile(target,hero);
+				 else{
+				 	if(interactWithHostile(target,hero)){}
+				 	else{
+						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+						map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+					}
+				 }
+
 			 }
 			 else if(map[xHero+1][yHero].getTileType() == TileType.EXIT){
 				 exitFromMap(hero);
@@ -288,13 +309,13 @@ public class PanelListener implements KeyListener {
 	private void lootItem(Items item, Characters hero){
 		int temp=-1;
 		for(int i=0;i<10;i++){
-			if(hero.getBackpack().get(i).getName().equals("EMPTY"))
-				temp=i;
+			if(hero.getBackpack().get(i).getName().equals("EMPTY")) {
+				temp = i;
 				break;
+			}
 		}
 		if(temp==-1){
 			System.out.println("the backpack is full,old item will be replaced");
-
 		}
 		else{
 			hero.getBackpack().set(temp,item);
@@ -313,11 +334,16 @@ public class PanelListener implements KeyListener {
 	 * The method is to interact with hostile monster
 	 * the first interaction is killing the monster
 	 * the second interaction is to loot its items
+	 * @return true if the hostile is live, false if the hostile has dead
 	 */
-	private void interactWithHostile(Characters hostile,Characters hero){
-		if(hostile.getHitpoints()>0)
+	private boolean interactWithHostile(Characters hostile,Characters hero){
+		boolean live;
+		if(hostile.getHitpoints()>0){
+			live=true;
 			hostile.setHitpoints(0);
+		}
 		else{
+			live=false;
 			//loot backpack
 			for(int i=0; i<10; i++){
 				if(hostile.getBackpack().get(i)!=null){
@@ -326,14 +352,15 @@ public class PanelListener implements KeyListener {
 				}
 			}
 			//loot worn items
-			//TODO:要改
-			for(int i=0; i<10; i++){
-				if(hostile.getBackpack().get(i)!=null){
-					lootItem(hostile.getBackpack().get(i),hero);
-					hostile.getBackpack().set(i,null);
+			for(int i=0; i<hostile.getInventory().size(); i++){
+				if(!hostile.getInventory().get(i).getName().equals("EMPTY")){
+					lootItem(hostile.getInventory().get(i),hero);
+					hostile.getInventory().set(i,new Items("EMPTY",0));
 				}
 			}
 		}
+
+		return live;
 	}
 
 	/**
@@ -342,11 +369,12 @@ public class PanelListener implements KeyListener {
 	private void exitFromMap(Characters hero){
 		int level = hero.getLevel();
 		hero.setLevel(level+1);
+		System.out.println("map index"+playingIndex);
 
 		if(playingIndex>=numberMap){
 			JOptionPane.showMessageDialog(null, "There is no map anymore", "Alert", JOptionPane.ERROR_MESSAGE);
-			mapFrame.panel.removeAll();
-			//还原
+			mapFrame.removePanelContainer();
+
 		}
 		else{
 			mapFrame.changeMap();
