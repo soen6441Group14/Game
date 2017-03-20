@@ -20,7 +20,7 @@ public class LoadItem {
 	 * @param itemArrayList ArrayList<Items>
 	 * @return Items object
 	 */
-	//在创建人物时，多选框选择一个item，则返回对应姓名的名字和值的字符串。读取人物时也需要
+
 	public Items loadItem(String string, ArrayList<Items> itemArrayList){
 		
 		for(Items items2: itemArrayList){
@@ -38,12 +38,12 @@ public class LoadItem {
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	//显示主界面的下拉框中的物品列表
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Items> readItem() throws IOException, ClassNotFoundException{
 		
 		ArrayList<Items> arrayList = new ArrayList<Items>();
-		File input = new File("ARGS/file/Items.txt");
+		File input = new File("file/Items.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(input));
         arrayList = (ArrayList<Items>) objectInputStream.readObject();
         objectInputStream.close();

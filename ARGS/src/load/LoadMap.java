@@ -47,7 +47,7 @@ public class LoadMap {
 	public ArrayList<Matrix> readMap() throws IOException, ClassNotFoundException{
 		
 		ArrayList<Matrix> arrayList = new ArrayList<Matrix>();
-		File input = new File("ARGS/file/Maps.txt");
+		File input = new File("file/Maps.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(input));
         arrayList = (ArrayList<Matrix>) objectInputStream.readObject();
         objectInputStream.close();
@@ -61,7 +61,7 @@ public class LoadMap {
  * @return Cells[][]
  * @throws IOException
  */
-	// 在读取地图时调用，根据输入的名字，加载不同的地图
+	
 	public Cells[][] loadMap(ArrayList<Matrix> allMaps, String string3) throws IOException{
 		
 		for(Matrix matrix: allMaps){
