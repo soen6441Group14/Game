@@ -138,6 +138,8 @@ public class Map {
 	private int numberMap; //record the maps num of selected campaign
 	private int playingIndex; //recoed the index of map the player is playing,start with 0
 	
+	private ActionListener actionListener;
+	
 	public int getPlayingIndex(){
 		return playingIndex;
 	}
@@ -246,19 +248,19 @@ public class Map {
 			for (int j = 0; j < numCols; j++) {
 				// draw the map according to different kind of TileType
 				if (map[i][j].getTileType() == TileType.GROUND)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Ground.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Ground.png"));
 				else if (map[i][j].getTileType() == TileType.WALL) 
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Wall.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Wall.png"));
 				 else if (map[i][j].getTileType() == TileType.CHEST)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Chest.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Chest.png"));
 				else if (map[i][j].getTileType() == TileType.HERO)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Hero.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Hero.png"));
 				else if (map[i][j].getTileType() == TileType.MONSTER)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Monster.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Monster.png"));
 				else if (map[i][j].getTileType() == TileType.EXIT)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Exit.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Exit.jpg"));
 				else if (map[i][j].getTileType() == TileType.ENTRY)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Entry.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Entry.jpg"));
 				
 				jButton.putClientProperty("Rows", i);// set a attribute for every button
 				jButton.putClientProperty("Cols", j);
@@ -433,23 +435,26 @@ public class Map {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-
+				
+				
 				initCampaign();
-				numberMap = playingCampaign.getCampaign().size()-1;
-
+				
+				
 			}
 		});
 		 
 		 CharacterObserver characterObserver = new CharacterObserver(Map.this);
 		 
-			characterMapBox.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					characterObserver.start();
-					panelContainer.requestFocus();
-				}
-			});;
+		  actionListener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				characterObserver.start();
+				panelContainer.requestFocus();
+			}
+		};
+		
+			characterMapBox.addActionListener(actionListener);;
 			
 		 
 		 //显示下拉框选中的人物的信息
@@ -592,9 +597,10 @@ public class Map {
 		jMenuBar.add(jMenuHelp);
 		jFrame.setJMenuBar(jMenuBar);
 
-		panel.setBackground(Color.gray);
+		panel.setBackground(Color.GRAY);
+		panelContainer.setBackground(Color.GRAY);
 //		panelShow.setBackground(Color.GREEN);
-		showPanel.setBackground(Color.LIGHT_GRAY);
+		showPanel.setBackground(Color.white);
 		characterPanel.setBackground(Color.white);
 		
 		panelContainer.setLayout(new BorderLayout());
@@ -759,9 +765,10 @@ public class Map {
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
         //只保存内存
-
+		
 		updateCharacterList();
 		drawMap(2);
+		numberMap = playingCampaign.getCampaign().size()-1;
 		panelContainer.addKeyListener(new PanelListener(Map.this,numberMap));
 		panelContainer.requestFocus();
 
@@ -778,8 +785,8 @@ public class Map {
 					//Playing hero 要改变
 					this.map[r][c]=new Cells(TileType.HERO, numRows, numCols, this.playingHero);
 				}
-
-				if(this.map[r][c].getTileType()==TileType.HERO){
+				
+				else if(this.map[r][c].getTileType()==TileType.HERO){
 					this.map[r][c]=new Cells(TileType.GROUND,numRows, numCols,new Ground(TileType.GROUND));
 					System.out.println("you");
 				}
@@ -809,8 +816,14 @@ public class Map {
 	/**
 	 * The method is to update the Jcombobox of character, according to the characters in the map
 	 */
+	
 	public void updateCharacterList(){
-		characterMapBox.removeAllItems();
+//		if(characterMapBox!=null)
+		characterMapBox.removeActionListener(actionListener);
+			characterMapBox.removeAllItems();
+		System.out.println("numberRows: "+numRows+"numberCols: "+ numCols);
+		
+		
 		for(int i=0;i<numRows;i++)
 			for(int j=0;j<numCols;j++){
 				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO){
@@ -818,6 +831,8 @@ public class Map {
 					System.out.println("character Jcombobox update");
 				}
 			}
+		
+		characterMapBox.addActionListener(actionListener);
 	}
 
 

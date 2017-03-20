@@ -288,9 +288,10 @@ public class PanelListener implements KeyListener {
 	private void lootItem(Items item, Characters hero){
 		int temp=-1;
 		for(int i=0;i<10;i++){
-			if(hero.getBackpack().get(i).getName().equals("EMPTY"))
+			if(hero.getBackpack().get(i).getName().equals("EMPTY")){
 				temp=i;
 				break;
+			}
 		}
 		if(temp==-1){
 			System.out.println("the backpack is full,old item will be replaced");
@@ -326,7 +327,7 @@ public class PanelListener implements KeyListener {
 				}
 			}
 			//loot worn items
-			//TODO:要改
+			//TODO:要改 
 			for(int i=0; i<10; i++){
 				if(hostile.getBackpack().get(i)!=null){
 					lootItem(hostile.getBackpack().get(i),hero);
@@ -342,7 +343,8 @@ public class PanelListener implements KeyListener {
 	private void exitFromMap(Characters hero){
 		int level = hero.getLevel();
 		hero.setLevel(level+1);
-
+		System.out.println("playingIndex: "+playingIndex);
+		System.out.println("numberMap: "+numberMap);
 		if(playingIndex>=numberMap){
 			JOptionPane.showMessageDialog(null, "There is no map anymore", "Alert", JOptionPane.ERROR_MESSAGE);
 			mapFrame.panel.removeAll();
