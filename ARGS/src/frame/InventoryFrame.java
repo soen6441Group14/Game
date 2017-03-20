@@ -28,9 +28,9 @@ public class InventoryFrame {
 	public ArrayList<Characters> characterArrayList = new ArrayList<Characters>();
 	public Characters character;
 	
-	public InventoryFrame(Map map, JFrame jFrame2, ArrayList<Characters> characterArrayList, Characters character){
+	public InventoryFrame(Map map, JFrame jFrame2, ArrayList<Characters> characterMapArrayList, Characters character){
 		
-		this.characterArrayList = characterArrayList;
+		this.characterArrayList = characterMapArrayList;
 		this.character = character;
 		JFrame jFrame = new JFrame("Backpack");
 		drawBackpackBox();
@@ -147,16 +147,16 @@ public class InventoryFrame {
 				
 
 				
-				//替代原有的character
-				int index = characterArrayList.indexOf(oldCharacter);
-				characterArrayList.set(index,oldCharacter);
+//				//替代原有的character
+//				int index = characterArrayList.indexOf(oldCharacter);
+//				characterArrayList.set(index,oldCharacter);
 				
-				try {
-					new SaveCharacter().saveCharacter(characterArrayList);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+//				try {
+//					new SaveCharacter().saveCharacter(characterArrayList);
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 				
 				}
 				
@@ -209,12 +209,12 @@ public class InventoryFrame {
 	public void drawBackpackBox() {
 		backpackBox.removeAllItems(); // remove original item list
 		
-		try {
-			backpack = new LoadCharacter().readBackpack(characterArrayList,character); // get the item list from file
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+//		try {
+//			backpack = new LoadCharacter().readBackpack(characterArrayList,character); // get the item list from file
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		backpack = character.getBackpack();
 		for(Items items:backpack)
 		{
 			backpackBox.addItem(items.getName());

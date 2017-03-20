@@ -53,6 +53,7 @@ public class Map {
 	public Cells[][] map;// the 2 dimensions Cells array
 	public ArrayList<Items> itemArrayList = new ArrayList<Items>();
 	public ArrayList<Characters> characterArrayList = new ArrayList<Characters>();
+	public ArrayList<Characters> characterMapArrayList = new ArrayList<>();
 	
 	public ArrayList<Matrix> allMaps = new ArrayList<Matrix>();
 	public ArrayList<Campaigns> campaigns = new ArrayList<Campaigns>();
@@ -276,13 +277,17 @@ public class Map {
 		/* when the character box in the main frame was selected, 
 		 * then we get corresponding character object from the file
 		 */
-		try {
-			if(characterMapBox.getSelectedItem() !=null)//如果下拉框不为空
-			characters = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(),characterArrayList);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			if(characterMapBox.getSelectedItem() !=null)//如果下拉框不为空
+//			characters = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(),characterArrayList);
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		
+		characters = getCharacterMap();
+		
+		
 		
 		//如果人物不为空
 		if(characters!=null){
@@ -315,6 +320,8 @@ public class Map {
 	
 
 	
+	
+
 	/**
 	 * show the created campaigns
 	 */
@@ -452,14 +459,27 @@ public class Map {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Characters character = null;
-				try {
-					character = new LoadCharacter().loadcharacter(characterBox.getSelectedItem().toString(), characterArrayList);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				
-				new InventoryFrame(Map.this, jFrame,characterArrayList,character);
+				for(int i=0;i<numRows;i++)
+					for(int j=0;j<numCols;j++){
+						//把所有地图中的人物加到arraylist中去
+						if(map[i][j].getTileType()==TileType.MONSTER||map[i][j].getTileType()==TileType.HERO)
+						{	
+							characterMapArrayList.add(map[i][j].getCharacters());
+						}
+					}
+				
+				character = getCharacterMap();
+				
+//				try {
+//					character = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(), characterArrayList);
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+				
+				new InventoryFrame(Map.this, jFrame,characterMapArrayList,character);
+				characterMapArrayList.clear();;
 				jFrame.setEnabled(false);
 				panelContainer.requestFocus();
 			}
@@ -641,6 +661,21 @@ public class Map {
 		jFrame.setLocationRelativeTo(null);// put the screen in the center
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+	}
+	
+	private Characters getCharacterMap() {
+		Characters characters = null;
+		for(int i=0;i<numRows;i++)
+			for(int j=0;j<numCols;j++){
+				//把所有地图中的人物加到arraylist中去
+				if(map[i][j].getTileType()==TileType.MONSTER||map[i][j].getTileType()==TileType.HERO)
+				{	
+					//获取选中的人物对象
+					if(map[i][j].getCharacters().getName().equals(characterMapBox.getSelectedItem().toString()))
+						characters = map[i][j].getCharacters();
+				}
+			}
+		return characters;
 	}
 	
 	
