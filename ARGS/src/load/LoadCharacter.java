@@ -42,7 +42,7 @@ public class LoadCharacter {
 	 * @return Characters object
 	 * @throws IOException  IOException
 	 */
-	
+	//在创建地图时，需要加入创建好的人物，这个时候需要将下拉框的名字和文件中的名字对应，返回对应的人物对象。(MapListener)
 	public Characters loadcharacter(String string, ArrayList<Characters> characterArrayList) throws IOException{
 
 
@@ -81,7 +81,7 @@ public class LoadCharacter {
 	 * @return ArrayList<Items>
 	 * @throws IOException
 	 */
-	
+	//显示主界面的backpack items
 	public ArrayList<Items> readBackpack(ArrayList<Characters> characterArrayList, Characters character) throws IOException{
 		
 		for(Characters characters: characterArrayList){

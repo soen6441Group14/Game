@@ -440,12 +440,6 @@ public class Map {
 				panel.setVisible(true);
 				initCampaign();
 
-				
-				
-
-				
-				
-
 			}
 		});
 		 
@@ -758,11 +752,10 @@ public class Map {
 	public void initCampaign(){
 		playingIndex=0;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
-		System.out.println(playingCampaign.getCampaign().get(playingIndex).getName());
+//		System.out.println(playingCampaign.getCampaign().get(playingIndex).getName());
 		
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
-		System.out.println(numRows+"--"+numCols);
 		setMap(newMap, numRows, numCols);
 
 		//adapt the items and character,based on the level of hero
@@ -809,7 +802,7 @@ public class Map {
 	public void changeMap(){
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
-		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
+//		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
 		setMap(newMap, numRows, numCols);
@@ -829,8 +822,8 @@ public class Map {
 	public void updateCharacterList(){
 
 		characterMapBox.removeActionListener(actionListener);
-			characterMapBox.removeAllItems();
-		System.out.println("numberRows: "+numRows+"numberCols: "+ numCols);
+		//在消除所有的选项之前，需要先去除监听，因为选项为空时，监听会有问题
+		characterMapBox.removeAllItems();
 		
 		
 
@@ -838,7 +831,7 @@ public class Map {
 			for(int j=0;j<numCols;j++){
 				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO){
 					characterMapBox.addItem(map[i][j].getCharacters().getName());
-					System.out.println("character Jcombobox update");
+//					System.out.println("character Jcombobox update");
 				}
 			}
 		
