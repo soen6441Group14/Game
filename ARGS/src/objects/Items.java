@@ -6,7 +6,7 @@ import enumclass.ItemType;
 /**
  *  Items class represents an Item object
  * @author grey
- *@version 1.0
+ *@version 2.0
  */
 @SuppressWarnings("serial")
 public class Items implements Serializable {

@@ -9,7 +9,7 @@ import frame.Map;
  * New a Map object to initialize the frame
  * 
  * @author grey
- * @version 1.0
+ * @version 2.0
  *  
  */
 

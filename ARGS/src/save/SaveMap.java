@@ -10,7 +10,7 @@ import objects.Matrix;
 /**
  * SaveMap class is used to save the maps to the file
  * @author grey
- *	@version 1.0
+ *	@version 2.0
  */
 public class SaveMap {
 	/**

@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * In this way, users can create a map they want
  * 
  * @author grey
- * @version 1.0
+ * @version 2.0
  */
 public class RowColFrame {
 	

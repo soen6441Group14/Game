@@ -178,12 +178,13 @@ public class InventoryFrame {
 		});
 		
 	}
+	
 	/**
-	 * 
-	 * @param oldCharacter
-	 * @param backpackString
-	 * @param invetoryString
-	 * @param inventoryValue
+	 * set the backpack item value to the inventory one
+	 * @param oldCharacter  character object
+	 * @param backpackString backpack item name
+	 * @param invetoryString inventory item name
+	 * @param inventoryValue inventory item value
 	 */
 	private void setBackpackValue(Characters oldCharacter, String backpackString, String invetoryString,
 			int inventoryValue) {
@@ -200,7 +201,12 @@ public class InventoryFrame {
 		}
 		
 	}
-	
+	/**
+	 * get backpack item value
+	 * @param backpackString backpack item name
+	 * @param oldCharacter  character object
+	 * @return if backpack item name exist then return backpack item value; otherwise return 0
+	 */
 	private int getBackpackValue(String backpackString, Characters oldCharacter) {
 		// 获得backpack物品的value
 		// get value of selected item in the backpack
@@ -214,8 +220,8 @@ public class InventoryFrame {
 	
 	
 	 /**
-	 * show the backpack of Player
-	 */
+	  * show the backpack of Player
+	  */
 	
 	public void drawBackpackBox() {
 		backpackBox.removeAllItems(); // remove original item list

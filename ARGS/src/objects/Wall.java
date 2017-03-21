@@ -6,7 +6,7 @@ import enumclass.TileType;
 /**
  * Wall class represents an wall object
  * @author grey
- *@version 1.0
+ *@version 2.0
  */
 @SuppressWarnings("serial")
 public class Wall implements Serializable{

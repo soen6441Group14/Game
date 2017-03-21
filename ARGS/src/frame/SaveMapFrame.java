@@ -21,7 +21,7 @@ import save.SaveMap;
 /**
  *  SaveMapFrame is used to save a map
  * @author grey
- * @version 1.0
+ * @version 2.0
  */
 public class SaveMapFrame {
 	

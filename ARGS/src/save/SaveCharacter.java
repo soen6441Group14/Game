@@ -10,7 +10,7 @@ import objects.Characters;
 /**
  * SaveCharacter class is used to save the characters to the file
  * @author grey
- * @version 1.0
+ * @version 2.0
  */
 public class SaveCharacter {
 	/**

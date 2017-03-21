@@ -10,7 +10,7 @@ import objects.Campaigns;
 /**
  * LoadCampaign class contains methods which get ArrayList<Campaigns> or Campaigns
  * @author grey
- *@version 1.0
+ *@version 2.0
  */
 public class LoadCampaign {
 	

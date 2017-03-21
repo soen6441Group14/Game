@@ -10,7 +10,7 @@ import objects.Items;
 /**
  * LoadItem class contains methods which return Items or ArrayList<Items>
  * @author grey
- * @version 1.0
+ * @version 2.0
  */
 public class LoadItem {
 	Items items;
