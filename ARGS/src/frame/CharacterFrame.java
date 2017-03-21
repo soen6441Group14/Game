@@ -597,7 +597,7 @@ public class CharacterFrame {
 	 * @param text the character's name in the text field
 	 * @return  the character object 
 	 */
-	private Characters load(ArrayList<Characters> characterArrayList, String text) {
+	public Characters load(ArrayList<Characters> characterArrayList, String text) {
 		try {
 			characters = new LoadCharacter().loadcharacter(name.getText(), characterArrayList);
 		} catch (IOException e1) {
@@ -612,7 +612,7 @@ public class CharacterFrame {
 	 * @param arrayList 6 attributes of character
 	 * @return scores object that contains 6 attributes of character
 	 */
-	private Scores setFighter(ArrayList<Integer> arrayList) {
+	public Scores setFighter(ArrayList<Integer> arrayList) {
 		
 		Director director;
 		Scores scores;

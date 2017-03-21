@@ -186,7 +186,7 @@ public class InventoryFrame {
 	 * @param invetoryString inventory item name
 	 * @param inventoryValue inventory item value
 	 */
-	private void setBackpackValue(Characters oldCharacter, String backpackString, String invetoryString,
+	public void setBackpackValue(Characters oldCharacter, String backpackString, String invetoryString,
 			int inventoryValue) {
 		
 		//将backpack中的物品换成inventory中的物品
@@ -207,7 +207,7 @@ public class InventoryFrame {
 	 * @param oldCharacter  character object
 	 * @return if backpack item name exist then return backpack item value; otherwise return 0
 	 */
-	private int getBackpackValue(String backpackString, Characters oldCharacter) {
+	public int getBackpackValue(String backpackString, Characters oldCharacter) {
 		// 获得backpack物品的value
 		// get value of selected item in the backpack
 		for(Items backpack: oldCharacter.getBackpack()){

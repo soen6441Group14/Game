@@ -157,7 +157,7 @@ public class CampaignFrame {
 	 * @param campaignArraylist   campaign Arraylist
 	 * @return if the campaign is edited and saved then it is true; otherwise it is false
 	 */
-	private boolean save(ArrayList<Campaigns> campaignArraylist) {
+	public boolean save(ArrayList<Campaigns> campaignArraylist) {
 		boolean flag = false;
 		//如果原来没有这个名字的campaign，则加入新的campaign。如果原来有，删除原来的，添加现在的
 		//if oldCampaign exit,delete original campaign and add new campaign. if not, just add new campaign
@@ -186,7 +186,7 @@ public class CampaignFrame {
 	 * @param allMaps  the arraylist that contains all maps
 	 * @return if the campaign does not exist, then it is true; otherwise it is false
 	 */
-	private boolean loadMap(ArrayList<Matrix> allMaps) {
+	public boolean loadMap(ArrayList<Matrix> allMaps) {
 		boolean flag = false;
 		Matrix matrix = null;
 		
@@ -210,7 +210,7 @@ public class CampaignFrame {
 	 * remove the map that is selected
 	 * @return if the map exist, then it is true; otherwise it is false
 	 */
-	private boolean remove() {
+	public boolean remove() {
 		boolean flag = false;
 		
 		for(Matrix matrix: editCampaigns.getCampaign()){

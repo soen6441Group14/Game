@@ -97,7 +97,7 @@ public class ChangeItemDialog extends JDialog{
     /**
      * The method is to change the ArrayList to String Array
      */
-    private String[] obtainItemsNames(){
+    public String[] obtainItemsNames(){
         String[] itemsNames=new String[itemsList.size()];
         for(int i=0; i<itemsList.size();i++){
             itemsNames[i]=itemsList.get(i);
