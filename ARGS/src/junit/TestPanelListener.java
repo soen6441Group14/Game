@@ -9,8 +9,11 @@ import junit.framework.Assert;
 import objects.Cells;
 import objects.Characters;
 import objects.Ground;
+import objects.Items;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -97,5 +100,67 @@ public class TestPanelListener {
     	
     	assertFalse(panelListener.checkCompleteObjective());
     	
+    }
+    
+    
+    @Test
+    public void testLootItem(){
+        Items item1=new Items("Weapon1",1);
+        Items item2=new Items("Ring1",1);
+        ArrayList<Items>testbackpack=new ArrayList<Items>();
+        for(int i=0;i<10;i++){
+            Items empty=new Items("EMPTY",0);
+            testbackpack.add(empty);
+        }
+        player.setBackpack(testbackpack);
+        //loot item
+        panelListener.lootItem(item1,player);
+        panelListener.lootItem(item2,player);
+        int i=0;
+        for(Items items: player.backpack){
+            if(!items.getName().equals("EMPTY"))
+                i++;
+        }
+        assertEquals(2,i);
+
+    }
+
+    @Test
+    public void testInteractWithChest(){
+        Items item1=new Items("Armor1",1);
+        ArrayList<Items>testbackpack=new ArrayList<Items>();
+        for(int i=0;i<10;i++){
+            Items empty=new Items("EMPTY",0);
+            testbackpack.add(empty);
+        }
+        player.setBackpack(testbackpack);
+        testCells[2][3]=new Cells(TileType.CHEST,5,5,item1);
+        panelListener.moveUp(xOriginal,yOriginal,player);
+        int i=0;
+        for(Items items: player.backpack){
+            if(items.getName().equals("Armor1"))
+                i++;
+        }
+        assertEquals(1,i);
+    }
+
+    @Test
+    public void testInteractWithChest2(){
+
+        Items item2=new Items("Helmet1",1);
+        ArrayList<Items>testbackpack=new ArrayList<Items>();
+        for(int i=0;i<10;i++){
+            Items empty=new Items("EMPTY",0);
+            testbackpack.add(empty);
+        }
+        player.setBackpack(testbackpack);
+        testCells[3][4]=new Cells(TileType.CHEST,5,5,item2);
+        panelListener.moveRight(xOriginal,yOriginal,player);
+        int i=0;
+        for(Items items: player.backpack){
+            if(items.getName().equals("Helmet1"))
+                i++;
+        }
+        assertEquals(1,i);
     }
 }
