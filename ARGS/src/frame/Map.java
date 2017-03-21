@@ -771,7 +771,7 @@ public class Map {
 
 		//set
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
-		System.out.println("enter to map :"+playingCampaign.getCampaign().get(playingIndex).getName());
+//		System.out.println("enter to map :"+playingCampaign.getCampaign().get(playingIndex).getName());
 		
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
@@ -818,7 +818,7 @@ public class Map {
 	public void changeMap(){
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
-		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
+//		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
 		setMap(newMap, numRows, numCols);
@@ -854,7 +854,7 @@ public class Map {
 
 	public void removePanelContainer(){
 
-		System.out.println("the campaign is finshed");
+//		System.out.println("the campaign is finshed");
 		panel.removeAll();
 		panel.repaint();
 

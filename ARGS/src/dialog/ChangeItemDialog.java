@@ -1,6 +1,5 @@
 package dialog;
 
-import objects.Items;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
