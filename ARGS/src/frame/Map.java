@@ -705,11 +705,14 @@ public class Map {
 	
 	
 	/**
-	 * The method is used to verify the map
+	 *  * The method is used to verify the map
 	 * in the creation of maps, an entry,exit,hero should be existed
+	 * @param flagEntry  number of entry
+	 * @param flagExit	number of exit
+	 * @param flagHero	number of hero
+	 * @return  int array contains 3 numbers
 	 */
 	public int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
-		
 		
 		//遍历整个地图，判断是否有出口，入口和人物
 		// traverse whole map to judge whether there is exit, entry or Hero
