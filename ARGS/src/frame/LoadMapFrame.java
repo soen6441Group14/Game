@@ -20,7 +20,7 @@ import objects.Matrix;
 /**
  * LoadMapFrame is used to load an existed map
  * @author grey
- * @version 1.0
+ * @version 2.0
  */
 public class LoadMapFrame {
 	

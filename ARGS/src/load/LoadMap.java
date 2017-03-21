@@ -11,7 +11,7 @@ import objects.Matrix;
 /**
  * LoadMap contains method that return Matrix or ArrayList<Matrix> or Cells[][]
  * @author grey
- *@version 1.0
+ *@version 2.0
  */
 public class LoadMap {
 	Cells[][] cells;
@@ -72,12 +72,7 @@ public class LoadMap {
 		}
 		return cells;
 		
-
-	
-		
 		
 	}
-
-
 
 }

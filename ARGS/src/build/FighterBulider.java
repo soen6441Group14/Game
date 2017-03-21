@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 /**
  * Abstract Builder class of the Builder pattern
- * 
+ * @author grey
+ *	@version 2.0
  */
+
 public abstract class FighterBulider {
 	/**
 	 * Product to be constructed by the builder

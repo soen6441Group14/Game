@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 /**
  * Director of the Builder pattern
- * 
+ * @author grey
+ * @version 2.0
  */
+
 public class Director {
 	/**
 	 * The Director is to use a specific "build plan": the FighterBuilder

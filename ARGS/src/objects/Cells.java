@@ -7,7 +7,7 @@ import enumclass.TileType;
 /**
  * Cells is the object which represents a grid of map
  * @author grey
- *	@version 1.0
+ *	@version 2.0
  */
 @SuppressWarnings("serial")
 public class Cells implements Serializable{

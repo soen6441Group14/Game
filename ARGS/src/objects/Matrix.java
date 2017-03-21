@@ -4,7 +4,7 @@ import java.io.Serializable;
 /**
  * Matrix class represents an map object
  * @author grey
- *@version 1.0
+ *@version 2.0
  */
 @SuppressWarnings("serial")
 public class Matrix implements Serializable{

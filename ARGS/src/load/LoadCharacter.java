@@ -11,7 +11,7 @@ import objects.Items;
 /**
  * LoadCharacter class contains method which return the variable in the character
  * @author grey
- *@version 1.0
+ *@version 2.0
  */
 public class LoadCharacter {
 	ArrayList<Items> inventory = new ArrayList<Items>();

@@ -23,7 +23,7 @@ import save.SaveCampaign;
 /**
  * CampaignFrame is used to create a new campaign or edit a campaign
  * @author grey
- *@version 1.0
+ *@version 2.0
  */
 public class CampaignFrame {
 	public JTextField campaignName = new JTextField();
@@ -115,10 +115,7 @@ public class CampaignFrame {
 				for(Matrix matrix: editCampaigns.getCampaign()){
 					ownMaps.addItem(matrix.getName());
 				}
-			
 			}
-
-			
 		});
 	
 		
@@ -133,8 +130,6 @@ public class CampaignFrame {
 				System.out.println(flag);
 				
 			}
-
-			
 		});
 		
 		//将campaign存入到campaigns中，再将campaigns保存到campaignArraylist
@@ -157,7 +152,11 @@ public class CampaignFrame {
 			}
 		});
 	}
-	
+	/**
+	 * save the campaign Arraylist to files
+	 * @param campaignArraylist   campaign Arraylist
+	 * @return if the campaign is edited and saved then it is true; otherwise it is false
+	 */
 	private boolean save(ArrayList<Campaigns> campaignArraylist) {
 		boolean flag = false;
 		//如果原来没有这个名字的campaign，则加入新的campaign。如果原来有，删除原来的，添加现在的
@@ -182,6 +181,11 @@ public class CampaignFrame {
 		return flag;
 	}
 	
+	/**
+	 * load specific map in the arraylist to the campaign frame
+	 * @param allMaps  the arraylist that contains all maps
+	 * @return if the campaign does not exist, then it is true; otherwise it is false
+	 */
 	private boolean loadMap(ArrayList<Matrix> allMaps) {
 		boolean flag = false;
 		Matrix matrix = null;
@@ -202,7 +206,10 @@ public class CampaignFrame {
 		}
 		return flag;
 	}
-	
+	/**
+	 * remove the map that is selected
+	 * @return if the map exist, then it is true; otherwise it is false
+	 */
 	private boolean remove() {
 		boolean flag = false;
 		
@@ -214,13 +221,14 @@ public class CampaignFrame {
 			}
 		}
 		
-
-	
-		
 		return flag;
 	}
 	
-	
+	/**
+	 * load the campaign that you select
+	 * @param campaignArraylist the arraylist that contains all the campaigns
+	 * @return  if the campaign that you select exist, then it is true; otherwise it is false
+	 */
 	public boolean loadCampaign(ArrayList<Campaigns> campaignArraylist) {
 		boolean flag = false;
 		ownMaps.removeAllItems();

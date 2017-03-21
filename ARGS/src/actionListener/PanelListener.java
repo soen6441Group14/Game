@@ -15,7 +15,12 @@ import javax.swing.JOptionPane;
 import java.util.Random;
 import dialog.ChangeItemDialog;
 
-
+/**
+ * This is the class that listen to the panel in the map frame
+ *  @author grey
+ *	@version 2.0	
+ *
+ */
 
 public class PanelListener implements KeyListener {
 	Map mapFrame;
@@ -25,6 +30,14 @@ public class PanelListener implements KeyListener {
 	int columnOfEntry;
 	int playingIndex;
 	int numberMap;
+
+
+
+	/**
+	 * The constructor method to initialize the panelListener class
+	 * @param map
+	 * @param numberMap
+	 */
 
 	public PanelListener(Map map, int numberMap) {
 		this.mapFrame = map;
@@ -42,20 +55,26 @@ public class PanelListener implements KeyListener {
 		this.playingIndex = this.mapFrame.getPlayingIndex();
 		getEntry();
 	}
-
+	/**
+	 * override method of keyListener
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 	
-
+	/**
+	 * override method of keyListener
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
-
+	/**
+	 * override method of keyListener
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
@@ -67,8 +86,8 @@ public class PanelListener implements KeyListener {
 		 hero = map[xHero][yHero].getCharacters();
 
 
-		 if(hero==null)
-		 	System.out.println("system error: hero object missing");
+//		 if(hero==null)
+//		 	System.out.println("system error: hero object missing");
 		
 		 
 		 if(e.getKeyCode() == KeyEvent.VK_S){
@@ -98,6 +117,10 @@ public class PanelListener implements KeyListener {
 
 	/**
 	 * The method is used to move right
+	 * @param xHero the X position of hero
+	 * @param yHero the Y position of hero
+	 * @param hero	the character object of hero
+	 * @return  true of false
 	 */
 	public boolean moveRight(int xHero, int yHero, Characters hero) {
 		boolean flag = false;
@@ -143,6 +166,10 @@ public class PanelListener implements KeyListener {
 
 	/**
 	 * The method is used to move left
+	 * @param xHero the X position of hero
+	 * @param yHero the Y position of hero
+	 * @param hero	the character object of hero
+	 * @return  true of false
 	 */
 	public boolean moveLeft(int xHero, int yHero, Characters hero) {
 		boolean flag = false;
@@ -182,6 +209,10 @@ public class PanelListener implements KeyListener {
 
 	/**
 	 * The method is used to move up
+	 * @param xHero the X position of hero
+	 * @param yHero the Y position of hero
+	 * @param hero	the character object of hero
+	 * @return  true of false
 	 */
 	public boolean moveUp(int xHero, int yHero, Characters hero) {
 		boolean flag = false;
@@ -227,6 +258,10 @@ public class PanelListener implements KeyListener {
 
 	/**
 	 * The method is used to move down
+	 * @param xHero the X position of hero
+	 * @param yHero the Y position of hero
+	 * @param hero	the character object of hero
+	 * @return  true of false
 	 */
 	public boolean moveDown(int xHero, int yHero, Characters hero) {
 		boolean flag = false;
@@ -270,7 +305,16 @@ public class PanelListener implements KeyListener {
 		return flag;
 	}
 	
+
 	public int[] getHeroLocation() {
+
+	/**
+	 * get the location of hero in the map
+	 * @return the X and Y in the int[]
+	 */
+	
+	private int[] getHeroLocation(){
+
 		int[] position = new int[2];
 
 		 for(int i=0;i<numRows;i++)
@@ -301,6 +345,8 @@ public class PanelListener implements KeyListener {
 
 	/**
 	 * The method is to recover the original entry after character standing on the entry
+	 * @param currentRow    row of hero
+	 * @param currentColumn column of hero
 	 */
 	private void recoverTheEntry(int currentRow, int currentColumn){
 		if(currentRow==rowOfEntry && currentColumn==columnOfEntry)
@@ -309,7 +355,10 @@ public class PanelListener implements KeyListener {
 
 	/**
 	 * The method is used to interact with chest
+	 * @param item the item in the map that you loot
+	 * @param hero  the character object of hero
 	 */
+	
 	private void lootItem(Items item, Characters hero){
 		int temp=-1;
 		for(int i=0;i<10;i++){
@@ -329,7 +378,9 @@ public class PanelListener implements KeyListener {
 	/**
 	 * The method is used to interact with friendly monsters
 	 * The interaction is changing the items with monsters
-	 */
+	 * @param friendly  the friendly monster object in the map
+	 * @param hero    the character object of hero
+	 */ 
 	private void interactWithFriendly(Characters friendly, Characters hero){
 
 		ArrayList<String> itemsNameList = new ArrayList<>();
@@ -342,9 +393,14 @@ public class PanelListener implements KeyListener {
 
 		String backpackH = changeItemDialog.getSelectedName();
 		changeItemDialog.dispose();
-
-		Items itemHero = null; //人物装备
-		int indexHero = 0; //人物装备的index
+		
+		
+		//人物装备
+		// the item in the backpack of hero that needs to be exchanged
+		Items itemHero = null; 
+		//人物装备的index
+		//the index of hero's item in the his backpack
+		int indexHero = 0; 
 		for(int i=0;i<10;i++){
 			if(hero.getBackpack().get(i).getName().equals(backpackH))
 			{
@@ -355,30 +411,42 @@ public class PanelListener implements KeyListener {
 		}
 
 		ArrayList<Items> backpackM = friendly.getBackpack();
-		int number = 10;//非空装备的个数
+		//非空装备的个数
+		//the number of item that is not empty in the backpack of friendly monster
+		int number = 10;
+		number = getNumber(backpackM,number);
+		
+		
 		int random = 0;
+		random = new Random().nextInt(number);//怪物中获取的装备的index
+		//get()本来就少一个，所以random()不加一
+		Items itemMonster = friendly.getBackpack().get(random);
+		
+		// exchange the item between hero and friendly monster
+		hero.getBackpack().set(indexHero, itemMonster);
+		friendly.getBackpack().set(random, itemHero);
+
+	}
+	/**
+	 * get the the number of item that is not empty in the backpack of friendly monster
+	 * @param backpackM the backpack of friendly monster
+	 * @param number the the number of item that is not empty
+	 * @return the the number of item that is not empty
+	 */
+	private int getNumber(ArrayList<Items> backpackM, int number) {
 		for(int i=0;i<backpackM.size();i++){
 			if(backpackM.get(i).getName().equals("EMPTY"))
 				number--;
 		}
-		random = new Random().nextInt(number);//怪物中获取的装备的index
-		//get()本来就少一个，所以random()不加一
-		Items itemMonster = friendly.getBackpack().get(random);
-
-		hero.getBackpack().set(indexHero, itemMonster);
-		friendly.getBackpack().set(random, itemHero);
-
-
-
-
-
+		return number;
 	}
-
 
 	/**
 	 * The method is to interact with hostile monster
 	 * the first interaction is killing the monster
 	 * the second interaction is to loot its items
+	 * @param hostile  the hostile monster in the map
+	 * @param hero  the character object of hero
 	 * @return true if the hostile is live, false if the hostile has dead
 	 */
 	private boolean interactWithHostile(Characters hostile,Characters hero){
@@ -396,8 +464,8 @@ public class PanelListener implements KeyListener {
 					hostile.getBackpack().set(i,new Items("EMPTY",0));
 				}
 			}
+			
 			//loot worn items
-
 			for(int i=0; i<hostile.getInventory().size(); i++){
 				if(!hostile.getInventory().get(i).getName().equals("EMPTY")){
 					lootItem(hostile.getInventory().get(i),hero);
@@ -413,7 +481,9 @@ public class PanelListener implements KeyListener {
 	/**
 	 * The method is to exit from the exit of the map
 	 * If the objective"kill all hostile monsters" is not completed, no map change, prompt information
+	 * @param hero the character object of hero
 	 */
+	
 	private void exitFromMap(Characters hero){
 		int level = hero.getLevel();
 		hero.setLevel(level+1);

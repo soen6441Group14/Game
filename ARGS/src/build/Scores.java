@@ -1,6 +1,10 @@
 package build;
 
-
+/**
+ *  the scores class that contains 6 attributes of character
+ * @author grey
+ *	@version 2.0
+ */
 public class Scores {
 	public int strength;
 	public int dexterity;//敏捷

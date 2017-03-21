@@ -10,7 +10,7 @@ import objects.Items;
 /**
  * SaveItem class is used to save the items to the file
  * @author grey
- *	@version 1.0
+ *	@version 2.0
  */
 public class SaveItem {
 

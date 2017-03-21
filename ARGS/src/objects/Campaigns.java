@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Campaigns class which contains all the campaigns
  * @author grey
- * @version 1.0
+ * @version 2.0
  */
 @SuppressWarnings("serial")
 public class Campaigns implements Serializable{

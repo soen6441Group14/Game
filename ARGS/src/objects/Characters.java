@@ -8,7 +8,7 @@ import enumclass.Orientation;
 /**
  * Character class
  * @author grey
- *	@version 1.0
+ *	@version 2.0
  */
 @SuppressWarnings("serial")
 public class Characters implements Serializable {

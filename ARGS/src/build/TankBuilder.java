@@ -2,7 +2,11 @@ package build;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ * the concrete builder of fighter builder
+ * @author grey
+ * @version 2.0
+ */
 public class TankBuilder extends FighterBulider{
 	
 	@Override
