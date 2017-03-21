@@ -64,6 +64,7 @@ public class PanelListener implements KeyListener {
 		 int yHero = position[1];
 		 hero = map[xHero][yHero].getCharacters();
 
+
 		 if(hero==null)
 		 	System.out.println("system error: hero object missing");
 		
@@ -71,27 +72,23 @@ public class PanelListener implements KeyListener {
 		 if(e.getKeyCode() == KeyEvent.VK_S){
 			boolean flag =  moveDown(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
-		//	 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 		 }
 		 else if (e.getKeyCode() == KeyEvent.VK_W){
 			 boolean flag =  moveUp(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
-		//	 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_A){
 			 boolean flag =  moveLeft(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
-		//	 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 			 
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_D){
 			 boolean flag =  moveRight(xHero,yHero,hero);
 			 mapFrame.setMap(map, numRows, numCols);
-		//	 recoverTheEntry(xHero,yHero);
 			 mapFrame.drawMap(2);
 			 
 		 }
@@ -135,6 +132,7 @@ public class PanelListener implements KeyListener {
 			 else if(map[xHero][yHero+1].getTileType() == TileType.EXIT){
 				 exitFromMap(hero);
 			 }
+			recoverTheEntry(xHero,yHero);
 			 flag = true;
 		}
 		return flag;
@@ -172,6 +170,7 @@ public class PanelListener implements KeyListener {
 			} else if (map[xHero][yHero - 1].getTileType() == TileType.EXIT) {
 				exitFromMap(hero);
 			}
+			recoverTheEntry(xHero,yHero);
 			flag = true;
 		}
 		return flag;
@@ -215,6 +214,7 @@ public class PanelListener implements KeyListener {
 			 else if(map[xHero-1][yHero].getTileType() == TileType.EXIT){
 				 exitFromMap(hero);
 			 }
+			 recoverTheEntry(xHero,yHero);
 			 flag = true;
 		 }
 		return flag;
@@ -259,7 +259,7 @@ public class PanelListener implements KeyListener {
 			 else if(map[xHero+1][yHero].getTileType() == TileType.EXIT){
 				 exitFromMap(hero);
 			 }
-
+			 recoverTheEntry(xHero,yHero);
 			 flag = true;
 		 }
 		return flag;
@@ -378,11 +378,14 @@ public class PanelListener implements KeyListener {
 		if(playingIndex>=numberMap){
 			JOptionPane.showMessageDialog(null, "There is no map anymore", "Alert", JOptionPane.ERROR_MESSAGE);
 			mapFrame.removePanelContainer();
+			mapFrame.setMap(null,0,1);
 
 		}
 		else{
 			mapFrame.changeMap();
 			setListeningMatrix();
+			mapFrame.showOnMap();
+
 		}
 
 

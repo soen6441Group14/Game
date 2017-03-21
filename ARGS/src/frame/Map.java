@@ -237,7 +237,7 @@ public class Map {
 			for (int cols = 0; cols < numCols; cols++) {
 			map[rows][cols] = new Cells(TileType.GROUND,numRows,numCols,new Ground(TileType.GROUND));
 					
-				}
+			}
 		}
 		
 		
@@ -427,9 +427,13 @@ public class Map {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				playingHero=null;
+				playingCampaign=null;
+				playingIndex=0;
+				numberMap=0;
 				String selectedCharacter=characterBox.getSelectedItem().toString();
 				String selectedCampaign=campaignBox.getSelectedItem().toString();
-				Map.this.panel.setVisible(true);
+
 				try {
 					Map.this.playingHero=new LoadCharacter().loadcharacter(selectedCharacter, characterArrayList);
 					Map.this.playingCampaign=new LoadCampaign().loadCampaign(campaigns,selectedCampaign);
@@ -437,15 +441,8 @@ public class Map {
 					e1.printStackTrace();
 				}
 
-				panel.setVisible(true);
 				initCampaign();
-
-				
-				
-
-				
-				
-
+				System.out.println("yyyy"+playingIndex+numberMap);
 			}
 		});
 		 
@@ -514,7 +511,7 @@ public class Map {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Map.this.panel.setVisible(true);
+
 				panel.removeAll();
 				new RowColFrame(Map.this,jFrame); //open RowColFrame
 				jFrame.setEnabled(false);
@@ -583,7 +580,7 @@ public class Map {
 		loadMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Map.this.panel.setVisible(true);
+
 				new LoadMapFrame(Map.this,jFrame,allMaps); //open LoadMapFrame
 				jFrame.setEnabled(false);
 				
@@ -817,9 +814,8 @@ public class Map {
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
 		updateCharacterList();
-		showOnMap();
+	//	showOnMap();
 		drawMap(2);
-
 
 	}
 	/**
@@ -846,7 +842,12 @@ public class Map {
 	}
 
 	public void removePanelContainer(){
-		this.panel.setVisible(false);
+
+		System.out.println("the campaign is finshed");
+		panel.removeAll();
+		panel.repaint();
+		System.out.println("xxxxx"+playingIndex+numberMap);
+
 	}
 
 
