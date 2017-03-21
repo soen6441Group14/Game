@@ -42,7 +42,7 @@ import play.Adaptor;
  * When player create or edit a map, character, item or campaign, then show the information on the panel
  *
  * @author grey
- * @version 1.0
+ * @version 2.0
  *
  */
 

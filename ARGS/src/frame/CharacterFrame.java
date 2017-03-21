@@ -32,7 +32,7 @@ import save.SaveCharacter;
 /**
  * CharacterFrame is used to create a new character or edit a character
  * @author grey
- *@version 1.0
+ *@version 2.0
  */
 
 public class CharacterFrame {
@@ -560,8 +560,8 @@ public class CharacterFrame {
 			map.drawcharacterBox();
 			map.drawInformation();
 			
-				jFrame2.setEnabled(true);
-				jFrame.dispose();
+			jFrame2.setEnabled(true);
+		    jFrame.dispose();
 				
 				
 				
@@ -591,6 +591,12 @@ public class CharacterFrame {
 		});
 	}
 	
+	/**
+	 * load character's information to the character frame
+	 * @param characterArrayList  arraylist that contains all the characters
+	 * @param text the character's name in the text field
+	 * @return  the character object 
+	 */
 	private Characters load(ArrayList<Characters> characterArrayList, String text) {
 		try {
 			characters = new LoadCharacter().loadcharacter(name.getText(), characterArrayList);
@@ -600,7 +606,12 @@ public class CharacterFrame {
 		}
 		return characters;
 	}
-
+	
+	/**
+	 * use the build pattern to set different kinds of character
+	 * @param arrayList 6 attributes of character
+	 * @return scores object that contains 6 attributes of character
+	 */
 	private Scores setFighter(ArrayList<Integer> arrayList) {
 		
 		Director director;
@@ -629,10 +640,12 @@ public class CharacterFrame {
 		}
 		
 		
-		
 		return scores;
 	}
-	
+	/**
+	 * 4D6 method choose 3 of highest number in 4 times of roll
+	 * @return the total amount of 3 of highest number
+	 */
 	public int getValues() {
 		Random random = new Random();
 		int[] array = new int[4];

@@ -15,7 +15,11 @@ import javax.swing.JOptionPane;
 import objects.Characters;
 import objects.Items;
 import observer.CharacterObserver;
-
+/**
+ * inventory frame shows the backpack of character
+ * @author grey
+ *	@version 2.0
+ */
 public class InventoryFrame {
 	public JComboBox<String> backpackBox= new JComboBox<String>();// show backpack of Player
 	public JLabel backpackBoxLabel =  new JLabel("Backpack");
@@ -24,7 +28,13 @@ public class InventoryFrame {
 	public ArrayList<Items> backpack = new ArrayList<Items>();
 	public ArrayList<Characters> characterArrayList = new ArrayList<Characters>();
 	public Characters character;
-	
+	/**
+	 * constructor method
+	 * @param map 		the main map object
+	 * @param jFrame2   the frame of main map
+	 * @param characterMapArrayList	 arraylist that contains all the character in the map
+	 * @param character  the character that you select
+	 */
 	public InventoryFrame(Map map, JFrame jFrame2, ArrayList<Characters> characterMapArrayList, Characters character){
 		
 		this.characterArrayList = characterMapArrayList;
@@ -164,14 +174,17 @@ public class InventoryFrame {
 				drawBackpackBox();
 				
 			}
-
-
-
 		
 		});
 		
 	}
-	
+	/**
+	 * 
+	 * @param oldCharacter
+	 * @param backpackString
+	 * @param invetoryString
+	 * @param inventoryValue
+	 */
 	private void setBackpackValue(Characters oldCharacter, String backpackString, String invetoryString,
 			int inventoryValue) {
 		
