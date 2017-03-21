@@ -193,6 +193,11 @@ public class Map {
 	public void setNumCols(int numCols) {
 		this.numCols = numCols;
 	}
+
+	public void setPlayingIndex(int playingIndex) {
+		this.playingIndex = playingIndex;
+	}
+
 	/**
 	 *  initialize the map
 	 * @param title 	name of frame
@@ -243,6 +248,14 @@ public class Map {
 		
 		if(k==2)
 			panel.removeAll();
+		if(k==3){
+			panel.removeAll();
+			panelContainer.removeAll();
+			panel.updateUI();
+			panelContainer.updateUI();
+			System.out.println(3333);
+		}
+
 
 		for (int i = 0; i < numRows; i++)
 			for (int j = 0; j < numCols; j++) {
@@ -427,10 +440,12 @@ public class Map {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//initialization
 				playingHero=null;
 				playingCampaign=null;
-				playingIndex=0;
 				numberMap=0;
+				playingIndex=0;
+
 				String selectedCharacter=characterBox.getSelectedItem().toString();
 				String selectedCampaign=campaignBox.getSelectedItem().toString();
 
@@ -442,11 +457,7 @@ public class Map {
 				}
 
 				initCampaign();
-<<<<<<< HEAD
-				System.out.println("yyyy"+playingIndex+numberMap);
-=======
 
->>>>>>> origin/master
 			}
 		});
 		 
@@ -757,9 +768,10 @@ public class Map {
 	 * The method is to initialize the game
 	 */
 	public void initCampaign(){
-		playingIndex=0;
+
+		//set
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
-//		System.out.println(playingCampaign.getCampaign().get(playingIndex).getName());
+		System.out.println("enter to map :"+playingCampaign.getCampaign().get(playingIndex).getName());
 		
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
@@ -768,11 +780,8 @@ public class Map {
 		//adapt the items and character,based on the level of hero
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
-        //只保存内存
 
-		
 		updateCharacterList();
-
 
 		numberMap = playingCampaign.getCampaign().size()-1;
 		panelContainer.addKeyListener(new PanelListener(Map.this,numberMap));
@@ -809,7 +818,7 @@ public class Map {
 	public void changeMap(){
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
-//		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
+		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
 		setMap(newMap, numRows, numCols);
@@ -817,7 +826,6 @@ public class Map {
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
 		updateCharacterList();
-	//	showOnMap();
 		drawMap(2);
 
 	}
@@ -849,7 +857,6 @@ public class Map {
 		System.out.println("the campaign is finshed");
 		panel.removeAll();
 		panel.repaint();
-		System.out.println("xxxxx"+playingIndex+numberMap);
 
 	}
 

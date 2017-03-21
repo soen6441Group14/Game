@@ -12,6 +12,8 @@ import objects.Ground;
 import objects.Items;
 import objects.Entry;
 import javax.swing.JOptionPane;
+import java.util.Random;
+import dialog.ChangeItemDialog;
 
 
 
@@ -120,12 +122,13 @@ public class PanelListener implements KeyListener {
 			 else if(map[xHero][yHero+1].getTileType() == TileType.MONSTER){
 				 Characters target=map[xHero][yHero+1].getCharacters();
 				 if(target.getOrient() == Orientation.FRIENDLY)
-					 interactWithFriendly(target);
+					 interactWithFriendly(target,hero);
 				 else{
 				 	if(interactWithHostile(target,hero)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
+						mapFrame.updateCharacterList();
 					}
 				 }
 			}
@@ -159,12 +162,13 @@ public class PanelListener implements KeyListener {
 			} else if (map[xHero][yHero - 1].getTileType() == TileType.MONSTER) {
 				Characters target = map[xHero][yHero - 1].getCharacters();
 				if (target.getOrient() == Orientation.FRIENDLY)
-					interactWithFriendly(target);
+					interactWithFriendly(target,hero);
 				else{
 					if(interactWithHostile(target,hero)){}
 					else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero][yHero - 1] = new Cells(TileType.HERO, numRows, numCols, hero);
+						mapFrame.updateCharacterList();
 					}
 				}
 			} else if (map[xHero][yHero - 1].getTileType() == TileType.EXIT) {
@@ -202,12 +206,13 @@ public class PanelListener implements KeyListener {
 			 else if(map[xHero-1][yHero].getTileType() == TileType.MONSTER){
 				 Characters target=map[xHero-1][yHero].getCharacters();
 				 if(target.getOrient() == Orientation.FRIENDLY)
-					 interactWithFriendly(target);
+					 interactWithFriendly(target,hero);
 				 else{
 				 	if(interactWithHostile(target,hero)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+						mapFrame.updateCharacterList();
 					}
 				 }
 			 }
@@ -246,12 +251,13 @@ public class PanelListener implements KeyListener {
 			 else if(map[xHero+1][yHero].getTileType() == TileType.MONSTER){
 				 Characters target=map[xHero+1][yHero].getCharacters();
 				 if(target.getOrient() == Orientation.FRIENDLY)
-					 interactWithFriendly(target);
+					 interactWithFriendly(target,hero);
 				 else{
 				 	if(interactWithHostile(target,hero)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
+						mapFrame.updateCharacterList();
 					}
 				 }
 			 }
@@ -324,16 +330,50 @@ public class PanelListener implements KeyListener {
 	 * The method is used to interact with friendly monsters
 	 * The interaction is changing the items with monsters
 	 */
-	private void interactWithFriendly(Characters friendly){
-		//TODO:给他一件指定的，他还你一件随机的
+	private void interactWithFriendly(Characters friendly, Characters hero){
+
+		ArrayList<String> itemsNameList = new ArrayList<>();
+		for(int i=0;i<10;i++){
+			if(!hero.getBackpack().get(i).getName().equals("EMPTY"))
+				itemsNameList.add(hero.getBackpack().get(i).getName());
+		}
+
+		ChangeItemDialog changeItemDialog = new ChangeItemDialog(itemsNameList);
+
+		String backpackH = changeItemDialog.getSelectedName();
+		changeItemDialog.dispose();
+
+		Items itemHero = null; //人物装备
+		int indexHero = 0; //人物装备的index
+		for(int i=0;i<10;i++){
+			if(hero.getBackpack().get(i).getName().equals(backpackH))
+			{
+				itemHero = hero.getBackpack().get(i);
+				indexHero = i;
+				break;
+			}
+		}
+
 		ArrayList<Items> backpackM = friendly.getBackpack();
-		int number = 10;
+		int number = 10;//非空装备的个数
+		int random = 0;
 		for(int i=0;i<backpackM.size();i++){
 			if(backpackM.get(i).getName().equals("EMPTY"))
 				number--;
 		}
-		System.out.println(number);
+		random = new Random().nextInt(number);//怪物中获取的装备的index
+		//get()本来就少一个，所以random()不加一
+		Items itemMonster = friendly.getBackpack().get(random);
+
+		hero.getBackpack().set(indexHero, itemMonster);
+		friendly.getBackpack().set(random, itemHero);
+
+
+
+
+
 	}
+
 
 	/**
 	 * The method is to interact with hostile monster
@@ -351,9 +391,9 @@ public class PanelListener implements KeyListener {
 			live=false;
 			//loot backpack
 			for(int i=0; i<10; i++){
-				if(hostile.getBackpack().get(i)!=null){
+				if(!hostile.getBackpack().get(i).getName().equals("EMPTY")){
 					lootItem(hostile.getBackpack().get(i),hero);
-					hostile.getBackpack().set(i,null);
+					hostile.getBackpack().set(i,new Items("EMPTY",0));
 				}
 			}
 			//loot worn items
@@ -371,28 +411,56 @@ public class PanelListener implements KeyListener {
 	}
 
 	/**
-	 * The method is to ext from the exit of the map
+	 * The method is to exit from the exit of the map
+	 * If the objective"kill all hostile monsters" is not completed, no map change, prompt information
 	 */
 	private void exitFromMap(Characters hero){
 		int level = hero.getLevel();
 		hero.setLevel(level+1);
 //		System.out.println("map index"+playingIndex);
+		if(!checkCompleteObjective())
+			JOptionPane.showMessageDialog(null, "you need to kill all hostile monsters", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+		else {
+			if (playingIndex >= numberMap) {
+				JOptionPane.showMessageDialog(null, "you successfully pass the campaign", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+				mapFrame.removePanelContainer();
+				mapFrame.setMap(null, 0, 1);
+				mapFrame.setPlayingIndex(0);
+				mapFrame.setNumRows(0);
+				mapFrame.setNumCols(1);
+				mapFrame.drawMap(3);
 
-		if(playingIndex>=numberMap){
-			JOptionPane.showMessageDialog(null, "There is no map anymore", "Alert", JOptionPane.ERROR_MESSAGE);
-			mapFrame.removePanelContainer();
-			mapFrame.setMap(null,0,1);
 
+			} else {
+				mapFrame.changeMap();
+				setListeningMatrix();
+				mapFrame.showOnMap();
+			}
 		}
-		else{
-			mapFrame.changeMap();
-			setListeningMatrix();
-			mapFrame.showOnMap();
 
+	}
+
+	/**
+	 * The method is to check whether the objective is completed or not
+	 * if the objective is completed, set the objective as true
+	 */
+	private boolean checkCompleteObjective(){
+		int count=0;
+		//count the hostile monsters on the map
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				if (map[i][j].getTileType() == TileType.MONSTER) {
+					Characters monster=map[i][j].getCharacters();
+					if(monster.getOrient()==Orientation.HOSTILE)
+						count++;
+				}
+			}
 		}
-
-
-
+		//check
+		if(count==0)
+			return true;
+		else
+			return false;
 	}
 
 

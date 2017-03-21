@@ -91,7 +91,7 @@ public class ChangeItemDialog extends JDialog{
      * The method is used to get the selected item to change in PaneListener
      * @return "EMPTY" if no select
      */
-    public String getSelectedCharacterName() {return selectedItem;}
+    public String getSelectedName() {return selectedItem;}
 
 
     /**
