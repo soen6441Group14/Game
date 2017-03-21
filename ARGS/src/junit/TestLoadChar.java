@@ -23,7 +23,7 @@ public class TestLoadChar {
 	public static void setUpBeforeClass() throws Exception {
 		
 		allChars = new LoadCharacter().readCharacter();
-				// new LoadMap().readMap();
+				
 		
 	}
 
