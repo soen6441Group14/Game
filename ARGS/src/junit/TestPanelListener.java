@@ -83,10 +83,19 @@ public class TestPanelListener {
 
    
     @Test
-    public void testExitCondition() {
+    public void testExitCondition_noMonsters() {
     	
     	assertTrue(panelListener.checkCompleteObjective());
     	
     }
 
+    @Test
+    public void testExitCondition_addedMonsters() {
+    	
+    	Characters mons = new Characters("test",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,Orientation.HOSTILE,1,1,1,null,null);
+    	testCells[1][4]=new Cells(TileType.MONSTER,5,5,mons);
+    	
+    	assertFalse(panelListener.checkCompleteObjective());
+    	
+    }
 }
