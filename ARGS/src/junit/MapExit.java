@@ -41,7 +41,7 @@ Map testmap = new Map("Map1",10,10);
 	}
 	
 	@Test
-	public void test() {
+	public void test_1() {
 		
 		testmap.map[1][9] = new Cells(TileType.ENTRY, 10, 10, new Entry(TileType.ENTRY));
 		testmap.map[2][9] = new Cells(TileType.EXIT, 10, 10, new Exit(TileType.EXIT));
