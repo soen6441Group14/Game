@@ -2,7 +2,7 @@ package actionListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+import java.util.ArrayList;
 import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
@@ -254,7 +254,6 @@ public class PanelListener implements KeyListener {
 						map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
 					}
 				 }
-
 			 }
 			 else if(map[xHero+1][yHero].getTileType() == TileType.EXIT){
 				 exitFromMap(hero);
@@ -275,7 +274,6 @@ public class PanelListener implements KeyListener {
 					position[1] = j;
 					 break;
 				 }
-
 			 }
 		return position;
 	}
@@ -309,10 +307,8 @@ public class PanelListener implements KeyListener {
 	private void lootItem(Items item, Characters hero){
 		int temp=-1;
 		for(int i=0;i<10;i++){
-
 			if(hero.getBackpack().get(i).getName().equals("EMPTY")){
 				temp=i;
-
 				break;
 			}
 		}
@@ -329,7 +325,14 @@ public class PanelListener implements KeyListener {
 	 * The interaction is changing the items with monsters
 	 */
 	private void interactWithFriendly(Characters friendly){
-		//TODO:给他一件制定的，他还你一件随机的
+		//TODO:给他一件指定的，他还你一件随机的
+		ArrayList<Items> backpackM = friendly.getBackpack();
+		int number = 10;
+		for(int i=0;i<backpackM.size();i++){
+			if(backpackM.get(i).getName().equals("EMPTY"))
+				number--;
+		}
+		System.out.println(number);
 	}
 
 	/**
@@ -373,7 +376,7 @@ public class PanelListener implements KeyListener {
 	private void exitFromMap(Characters hero){
 		int level = hero.getLevel();
 		hero.setLevel(level+1);
-		System.out.println("map index"+playingIndex);
+//		System.out.println("map index"+playingIndex);
 
 		if(playingIndex>=numberMap){
 			JOptionPane.showMessageDialog(null, "There is no map anymore", "Alert", JOptionPane.ERROR_MESSAGE);
