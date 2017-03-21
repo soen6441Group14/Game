@@ -25,7 +25,7 @@ public class PanelListener implements KeyListener {
 	int columnOfEntry;
 	int playingIndex;
 	int numberMap;
-	
+
 	public PanelListener(Map map, int numberMap) {
 		this.mapFrame = map;
 		this.numberMap = numberMap;
@@ -99,7 +99,7 @@ public class PanelListener implements KeyListener {
 	/**
 	 * The method is used to move right
 	 */
-	private boolean moveRight(int xHero, int yHero, Characters hero) {
+	public boolean moveRight(int xHero, int yHero, Characters hero) {
 		boolean flag = false;
 
 		if(yHero+1<numCols){
@@ -144,7 +144,7 @@ public class PanelListener implements KeyListener {
 	/**
 	 * The method is used to move left
 	 */
-	private boolean moveLeft(int xHero, int yHero, Characters hero) {
+	public boolean moveLeft(int xHero, int yHero, Characters hero) {
 		boolean flag = false;
 		if(yHero-1>=0) {
 			if (map[xHero][yHero - 1].getTileType() == TileType.GROUND) {
@@ -183,7 +183,7 @@ public class PanelListener implements KeyListener {
 	/**
 	 * The method is used to move up
 	 */
-	private boolean moveUp(int xHero, int yHero, Characters hero) {
+	public boolean moveUp(int xHero, int yHero, Characters hero) {
 		boolean flag = false;
 
 		 if(xHero-1>=0){
@@ -228,7 +228,7 @@ public class PanelListener implements KeyListener {
 	/**
 	 * The method is used to move down
 	 */
-	private boolean moveDown(int xHero, int yHero, Characters hero) {
+	public boolean moveDown(int xHero, int yHero, Characters hero) {
 		boolean flag = false;
 
 		if(xHero+1<numRows){
@@ -270,7 +270,7 @@ public class PanelListener implements KeyListener {
 		return flag;
 	}
 	
-	private int[] getHeroLocation() {
+	public int[] getHeroLocation() {
 		int[] position = new int[2];
 
 		 for(int i=0;i<numRows;i++)

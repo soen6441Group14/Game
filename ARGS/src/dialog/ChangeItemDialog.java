@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * The class is to construct a dialog to change the items with friendly monsters
+ * @version 2.0
  */
 public class ChangeItemDialog extends JDialog{
 

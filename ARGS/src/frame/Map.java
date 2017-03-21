@@ -41,8 +41,8 @@ import play.Adaptor;
  * When the map was changed, the map will be repainted.
  * When player create or edit a map, character, item or campaign, then show the information on the panel
  *
- * @author grey
- * @version 1.0
+ * @author grey,Tann
+ * @version 2.0
  *
  */
 
@@ -139,14 +139,17 @@ public class Map {
 	private int playingIndex; //recoed the index of map the player is playing,start with 0
 	
 	private ActionListener actionListener;
-	
+
+	/**
+	 * The getter to get the playing index
+	 * @return the index of playing map in the campaign
+	 */
 	public int getPlayingIndex(){
 		return playingIndex;
 	}
-	
 
 	/**
-	 *  get map method
+	 * get map method
 	 * @return  2 dimension Cells array
 	 */
 	public Cells[][] getMap() {
@@ -194,17 +197,19 @@ public class Map {
 		this.numCols = numCols;
 	}
 
+	/**
+	 * The setter to set the index of playing map in the campaign
+	 */
 	public void setPlayingIndex(int playingIndex) {
 		this.playingIndex = playingIndex;
 	}
 
 	/**
-	 *  initialize the map
+	 * initialize the map
 	 * @param title 	name of frame
 	 * @param width		width of frame
 	 * @param height	height of frame
 	 */
-
 	public Map(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -218,8 +223,6 @@ public class Map {
 	 * This method is used to draw the map in a panel according to different rows and columns.
 	 * @param k  k=1 create the new map, k=2 load an existed map
 	 */
-	
-	//根据地图的行和列，以及其中的对象来画地图
 	public void drawMap(int k) {
 
 		panel.setBounds(0, 0, numCols * 33,numRows * 33);// rows represents height, cols represents width
@@ -299,7 +302,7 @@ public class Map {
 		 * then we get corresponding character object from the file
 		 */
 //		try {
-//			if(characterMapBox.getSelectedItem() !=null)//如果下拉框不为空
+//			if(characterMapBox.getSelectedItem() !=null)
 //			characters = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(),characterArrayList);
 //		} catch (IOException e1) {
 //			// TODO Auto-generated catch block
@@ -310,7 +313,7 @@ public class Map {
 		
 		
 		
-		//如果人物不为空
+
 		if(characters!=null){
 			namevValue.setText(characters.getName());
 			levelValue.setText(String.valueOf(characters.getLevel()));
@@ -337,11 +340,6 @@ public class Map {
 		}
 	}
 
-	
-	
-
-	
-	
 
 	/**
 	 * show the created campaigns
@@ -383,7 +381,7 @@ public class Map {
 	/**
 	 * show created characters in the character box
 	 */
-	//在面板上显示人物列表
+	//show the characters list in jcombobox
 	public void drawcharacterBox() {
 		characterBox.removeAllItems(); // remove original character list
 		try {
@@ -406,7 +404,7 @@ public class Map {
 	/**
 	 * show created items in the item box
 	 */
-	//在面板上显示物品列表
+	//show items list in  jcombobox
 	public void drawItemBox(){
 			itemBox.removeAllItems();// remove original item list
 		
@@ -427,6 +425,7 @@ public class Map {
 	 * initialize whole frame and add listener for every menu items
 	 */
 	//初始化整个frame，并对菜单项添加相应的监听
+	//initialize the frame and add action listener
 	public void init() {
 
 		jFrame = new JFrame(title);
@@ -486,6 +485,7 @@ public class Map {
 				for(int i=0;i<numRows;i++)
 					for(int j=0;j<numCols;j++){
 						//把所有地图中的人物加到arraylist中去
+						//add all characters on the map into arrayList
 						if(map[i][j].getTileType()==TileType.MONSTER||map[i][j].getTileType()==TileType.HERO)
 						{	
 							characterMapArrayList.add(map[i][j].getCharacters());
@@ -587,8 +587,6 @@ public class Map {
 				
 			}
 
-			
-			
 		});
 		
 		//open the LoadMapFrame
@@ -691,9 +689,11 @@ public class Map {
 		for(int i=0;i<numRows;i++)
 			for(int j=0;j<numCols;j++){
 				//把所有地图中的人物加到arraylist中去
+				//add all characters on the map into arrayList
 				if(map[i][j].getTileType()==TileType.MONSTER||map[i][j].getTileType()==TileType.HERO)
 				{	
 					//获取选中的人物对象
+					//obtain the character object
 					if(map[i][j].getCharacters().getName().equals(characterMapBox.getSelectedItem().toString()))
 						characters = map[i][j].getCharacters();
 				}
@@ -703,7 +703,10 @@ public class Map {
 	
 	
 	
-	
+	/**
+	 * The method is used to verify the map
+	 * in the creation of maps, an entry,exit,hero should be existed
+	 */
 	private int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
 		
 		
@@ -801,6 +804,7 @@ public class Map {
 			for(int c=0; c<numCols;c++){
 				if(this.map[r][c].getTileType()==TileType.ENTRY){
 					//Playing hero 要改变
+					//Playing hero should change
 					this.map[r][c]=new Cells(TileType.HERO,numRows,numCols,this.playingHero);
 				}
 
@@ -812,6 +816,7 @@ public class Map {
 		}
 
 	}
+
 	/**
 	 * The method is used to change map from exit
 	 */
@@ -827,16 +832,16 @@ public class Map {
 		adaptor.adapting();
 		updateCharacterList();
 		drawMap(2);
-
 	}
+
 	/**
 	 * The method is to update the Jcombobox of character, according to the characters in the map
 	 */
-	
 	public void updateCharacterList(){
 
 		characterMapBox.removeActionListener(actionListener);
 		//在消除所有的选项之前，需要先去除监听，因为选项为空时，监听会有问题
+		//before deleting all items in jcombobox,need to delete the listener firstly
 		characterMapBox.removeAllItems();
 		
 		
@@ -852,12 +857,14 @@ public class Map {
 		characterMapBox.addActionListener(actionListener);
 	}
 
+	/**
+	 * The method is to remove the components in the panel to show the main page after playing of a campaign
+	 */
 	public void removePanelContainer(){
 
 		System.out.println("the campaign is finshed");
 		panel.removeAll();
 		panel.repaint();
-
 	}
 
 
