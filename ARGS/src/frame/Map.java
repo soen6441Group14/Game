@@ -685,7 +685,7 @@ public class Map {
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	private Characters getCharacterMap() {
+	public Characters getCharacterMap() {
 		Characters characters = null;
 		for(int i=0;i<numRows;i++)
 			for(int j=0;j<numCols;j++){
@@ -708,7 +708,7 @@ public class Map {
 	 * The method is used to verify the map
 	 * in the creation of maps, an entry,exit,hero should be existed
 	 */
-	private int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
+	public int[] verifyMap(int flagEntry, int flagExit, int flagHero) {
 		
 		
 		//遍历整个地图，判断是否有出口，入口和人物

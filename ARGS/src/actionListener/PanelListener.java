@@ -306,14 +306,13 @@ public class PanelListener implements KeyListener {
 	}
 	
 
-	public int[] getHeroLocation() {
 
 	/**
 	 * get the location of hero in the map
 	 * @return the X and Y in the int[]
 	 */
 	
-	private int[] getHeroLocation(){
+	public int[] getHeroLocation(){
 
 		int[] position = new int[2];
 
@@ -331,7 +330,7 @@ public class PanelListener implements KeyListener {
 	/**
 	 * The method is used to get the entry of the playing map
 	 */
-	private void getEntry() {
+	public void getEntry() {
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
 				if (map[i][j].getTileType() == TileType.ENTRY) {
@@ -348,7 +347,7 @@ public class PanelListener implements KeyListener {
 	 * @param currentRow    row of hero
 	 * @param currentColumn column of hero
 	 */
-	private void recoverTheEntry(int currentRow, int currentColumn){
+	public void recoverTheEntry(int currentRow, int currentColumn){
 		if(currentRow==rowOfEntry && currentColumn==columnOfEntry)
 			map[rowOfEntry][columnOfEntry]=new Cells(TileType.ENTRY, numRows, numCols, new Entry(TileType.ENTRY));
 	}
@@ -359,7 +358,7 @@ public class PanelListener implements KeyListener {
 	 * @param hero  the character object of hero
 	 */
 	
-	private void lootItem(Items item, Characters hero){
+	public void lootItem(Items item, Characters hero){
 		int temp=-1;
 		for(int i=0;i<10;i++){
 			if(hero.getBackpack().get(i).getName().equals("EMPTY")){
@@ -381,7 +380,7 @@ public class PanelListener implements KeyListener {
 	 * @param friendly  the friendly monster object in the map
 	 * @param hero    the character object of hero
 	 */ 
-	private void interactWithFriendly(Characters friendly, Characters hero){
+	public void interactWithFriendly(Characters friendly, Characters hero){
 
 		ArrayList<String> itemsNameList = new ArrayList<>();
 		for(int i=0;i<10;i++){
@@ -433,7 +432,7 @@ public class PanelListener implements KeyListener {
 	 * @param number the the number of item that is not empty
 	 * @return the the number of item that is not empty
 	 */
-	private int getNumber(ArrayList<Items> backpackM, int number) {
+	public int getNumber(ArrayList<Items> backpackM, int number) {
 		for(int i=0;i<backpackM.size();i++){
 			if(backpackM.get(i).getName().equals("EMPTY"))
 				number--;
@@ -449,7 +448,7 @@ public class PanelListener implements KeyListener {
 	 * @param hero  the character object of hero
 	 * @return true if the hostile is live, false if the hostile has dead
 	 */
-	private boolean interactWithHostile(Characters hostile,Characters hero){
+	public boolean interactWithHostile(Characters hostile,Characters hero){
 		boolean live;
 		if(hostile.getHitpoints()>0){
 			live=true;
@@ -484,7 +483,7 @@ public class PanelListener implements KeyListener {
 	 * @param hero the character object of hero
 	 */
 	
-	private void exitFromMap(Characters hero){
+	public void exitFromMap(Characters hero){
 		int level = hero.getLevel();
 		hero.setLevel(level+1);
 //		System.out.println("map index"+playingIndex);
@@ -514,7 +513,7 @@ public class PanelListener implements KeyListener {
 	 * The method is to check whether the objective is completed or not
 	 * if the objective is completed, set the objective as true
 	 */
-	private boolean checkCompleteObjective(){
+	public boolean checkCompleteObjective(){
 		int count=0;
 		//count the hostile monsters on the map
 		for (int i = 0; i < numRows; i++) {
