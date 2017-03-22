@@ -5,7 +5,6 @@ import actionListener.PanelListener;
 import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
-import junit.framework.Assert;
 import objects.Cells;
 import objects.Characters;
 import objects.Ground;

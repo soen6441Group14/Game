@@ -1,17 +1,12 @@
 package junit;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import load.LoadCharacter;
-import load.LoadMap;
 import objects.Characters;
-import objects.Matrix;
 
 public class TestLoadChar {
 
