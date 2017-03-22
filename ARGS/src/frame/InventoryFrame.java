@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import objects.Characters;
 import objects.Items;
-import observer.CharacterObserver;
 import observer.InventoryObserver;
 /**
  * inventory frame shows the backpack of character
@@ -25,7 +24,6 @@ public class InventoryFrame {
 	public JComboBox<String> backpackBox= new JComboBox<String>();// show backpack of Player
 	public JLabel backpackBoxLabel =  new JLabel("Backpack");
 	public JButton equip = new JButton("Equip item");
-	public JButton exchange = new JButton("Exchange");
 	public ArrayList<Items> backpack = new ArrayList<Items>();
 	public ArrayList<Characters> characterArrayList = new ArrayList<Characters>();
 	public Characters character;
@@ -47,7 +45,6 @@ public class InventoryFrame {
 		jFrame.add(backpackBoxLabel);
 		jFrame.add(backpackBox);
 		jFrame.add(equip);
-		jFrame.add(exchange);
 		jFrame.setLocationRelativeTo(null);//put the screen in the center
 		jFrame.setSize(new Dimension(300, 300));
 		jFrame.setVisible(true);
