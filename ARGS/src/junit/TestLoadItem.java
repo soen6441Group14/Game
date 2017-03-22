@@ -33,7 +33,7 @@ public class TestLoadItem {
 	
 	
 	@Test
-	public void test() {
+	public void testLoadItem() {
 		
 		if(loadItem.loadItem(name, itemArrayList).getValue() == 1)
 			assertTrue(true);

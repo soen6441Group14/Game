@@ -57,13 +57,11 @@ public class TestMap {
 	@Test
 	public void testVerifyMap(){
 		int[] flag = testmap.verifyMap(0, 0, 0);
-		System.out.println(flag[0]+" "+flag[1]+" "+flag[2]);
+//		System.out.println(flag[0]+" "+flag[1]+" "+flag[2]);
 		if(flag[0]==0){
 			assertTrue(true);
-			System.out.println("true");
 		}
 		else{
-			System.out.println("false");
 			assertTrue(false);
 		}
 	}
