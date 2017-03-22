@@ -367,7 +367,7 @@ public class PanelListener implements KeyListener {
 			}
 		}
 		if(temp==-1){
-			System.out.println("the backpack is full,old item will be replaced");
+//			System.out.println("the backpack is full,old item will be replaced");
 		}
 		else{
 			hero.getBackpack().set(temp,item);
@@ -492,13 +492,13 @@ public class PanelListener implements KeyListener {
 		else {
 			if (playingIndex >= numberMap) {
 				JOptionPane.showMessageDialog(null, "you successfully pass the campaign", "Prompt", JOptionPane.INFORMATION_MESSAGE);
-				mapFrame.removePanelContainer();
-				mapFrame.setMap(null, 0, 1);
-				mapFrame.setPlayingIndex(0);
-				mapFrame.setNumRows(0);
-				mapFrame.setNumCols(1);
-				mapFrame.drawMap(3);
 
+//				mapFrame.panelContainer.requestFocus(false);
+//				mapFrame.removePanelContainer();
+				mapFrame.panel.setVisible(false);
+
+//				System.out.println("playingIndex: "+playingIndex);
+//				System.out.println("numberMap: "+numberMap);
 
 			} else {
 				mapFrame.changeMap();

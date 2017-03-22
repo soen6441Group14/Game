@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import objects.Characters;
 import objects.Items;
 import observer.CharacterObserver;
+import observer.InventoryObserver;
 /**
  * inventory frame shows the backpack of character
  * @author grey
@@ -168,8 +169,8 @@ public class InventoryFrame {
 				
 				}
 				
-				CharacterObserver characterObserver = new CharacterObserver(map);
-				characterObserver.start();
+				InventoryObserver inventoryObserver = new InventoryObserver(map);
+				inventoryObserver.start();
 //				map.drawInformation();
 				drawBackpackBox();
 				

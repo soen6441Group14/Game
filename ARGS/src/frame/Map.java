@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -140,6 +141,7 @@ public class Map {
 	public int playingIndex; //recoed the index of map the player is playing,start with 0
 	
 	public ActionListener actionListener;
+	public KeyListener keyListener ;
 
 	/**
 	 * The getter to get the playing index
@@ -252,13 +254,16 @@ public class Map {
 		
 		if(k==2)
 			panel.removeAll();
-		if(k==3){
-			panel.removeAll();
-			panelContainer.removeAll();
-			panel.updateUI();
-			panelContainer.updateUI();
-			System.out.println(3333);
-		}
+//		if(k==3){
+//			panel.removeAll();
+//			panelContainer.removeAll();
+//			panelContainer.requestFocus();
+////			panel.updateUI();
+////			panelContainer.updateUI();
+//			System.out.println("333 "+playingIndex);
+//			System.out.println("333 "+numRows);
+//			System.out.println("333 "+numCols);
+//		}
 
 
 		for (int i = 0; i < numRows; i++)
@@ -443,7 +448,7 @@ public class Map {
 				//initialization
 				playingHero=null;
 				playingCampaign=null;
-				numberMap=0;
+//				numberMap=0;
 				playingIndex=0;
 
 				String selectedCharacter=characterBox.getSelectedItem().toString();
@@ -457,6 +462,8 @@ public class Map {
 				}
 
 				initCampaign();
+				System.out.println("playingIndex "+playingIndex);
+				System.out.println("numberMap "+numberMap);
 
 			}
 		});
@@ -527,7 +534,7 @@ public class Map {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				panel.setVisible(true);
 				panel.removeAll();
 				new RowColFrame(Map.this,jFrame); //open RowColFrame
 				jFrame.setEnabled(false);
@@ -594,7 +601,8 @@ public class Map {
 		loadMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
+				panel.setVisible(true);
 				new LoadMapFrame(Map.this,jFrame,allMaps); //open LoadMapFrame
 				jFrame.setEnabled(false);
 				
@@ -791,7 +799,8 @@ public class Map {
 		updateCharacterList();
 
 		numberMap = playingCampaign.getCampaign().size()-1;
-		panelContainer.addKeyListener(new PanelListener(Map.this,numberMap));
+		keyListener = new PanelListener(Map.this,numberMap);
+		panelContainer.addKeyListener(keyListener);
 		panelContainer.requestFocus();
 		//character show on the entry
 		showOnMap();
@@ -827,10 +836,13 @@ public class Map {
 	public void changeMap(){
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
-//		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
+		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
 		setMap(newMap, numRows, numCols);
+		System.out.println("playingIndex- "+playingIndex);
+		System.out.println(""+numRows);
+		System.out.println(""+numCols);
 		//adapt the items and character, based on hero's level
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
@@ -864,11 +876,15 @@ public class Map {
 	/**
 	 * The method is to remove the components in the panel to show the main page after playing of a campaign
 	 */
+	//没有使用
 	public void removePanelContainer(){
 
 //		System.out.println("the campaign is finshed");
+		setPlayingIndex(0);
+		setNumRows(0);
+		setNumCols(1);
 		panel.removeAll();
-		panel.repaint();
+		drawMap(3);
 	}
 
 
