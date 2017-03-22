@@ -24,7 +24,7 @@ import dialog.ChangeItemDialog;
 
 public class PanelListener implements KeyListener {
 	Map mapFrame;
-	Cells[][] map;
+	public Cells[][] map;
 	int numRows,numCols;
 	int rowOfEntry;
 	int columnOfEntry;

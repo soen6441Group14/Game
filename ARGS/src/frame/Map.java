@@ -134,12 +134,12 @@ public class Map {
 	public JLabel inventory7 = new JLabel("Inventory7");
 
 	/*playing game*/
-	private Characters playingHero;
-	private Campaigns playingCampaign;
-	private int numberMap; //record the maps num of selected campaign
-	private int playingIndex; //recoed the index of map the player is playing,start with 0
+	public Characters playingHero;
+	public Campaigns playingCampaign;
+	public int numberMap; //record the maps num of selected campaign
+	public int playingIndex; //recoed the index of map the player is playing,start with 0
 	
-	private ActionListener actionListener;
+	public ActionListener actionListener;
 
 	/**
 	 * The getter to get the playing index

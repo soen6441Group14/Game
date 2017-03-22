@@ -5,10 +5,8 @@ import actionListener.PanelListener;
 import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
-import objects.Cells;
-import objects.Characters;
-import objects.Ground;
-import objects.Items;
+import junit.framework.Assert;
+import objects.*;
 
 import static org.junit.Assert.*;
 
@@ -161,5 +159,34 @@ public class TestPanelListener {
                 i++;
         }
         assertEquals(1,i);
+    }
+
+    @Test
+    public void testExitFromMap(){
+        Cells[][] testCells2=new Cells[5][5];
+        for(int r=0;r<5;r++){
+            for(int c=0;c<5;c++){
+                testCells2[r][c]=new Cells(TileType.GROUND,5,5,new Ground(TileType.GROUND));
+            }
+        }
+
+        Matrix matrix1=new Matrix(testCells,"matrix1");
+        Matrix matrix2=new Matrix(testCells2,"matrix2");
+        Matrix matrix3=new Matrix(testCells,"matrix3");
+        ArrayList<Matrix>testMatricArray=new ArrayList<Matrix>();
+        testMatricArray.add(matrix1);
+        testMatricArray.add(matrix2);
+        testMatricArray.add(matrix3);
+        Campaigns testCampaign=new Campaigns(testMatricArray,"campaign1");
+        testMap.playingCampaign=testCampaign;
+        testMap.playingHero=player;
+        player.setLevel(1);
+        testMap.initCampaign();
+        panelListener=new PanelListener(testMap,3);
+        panelListener.exitFromMap(player);
+
+        Assert.assertEquals(2,player.getLevel());
+        Assert.assertEquals(testCells2,panelListener.map);
+
     }
 }

@@ -34,7 +34,7 @@ public class Adaptor {
     /**
      * The method is used to adapt the NPCs'level equal to the player
      */
-    private void adaptNPC(){
+    public void adaptNPC(){
         Cells[][] targetMap = adaptTarget;
         int rowNum=targetMap[0][0].getX();
         int columnNum=targetMap[0][0].getY();
@@ -50,7 +50,7 @@ public class Adaptor {
     /**
      * The method is used to search all items on the map
      */
-    private void adaptAllItemOnMap(){
+    public void adaptAllItemOnMap(){
         Cells[][] targetMap = adaptTarget;
         int rowNum=targetMap[0][0].getX();
         int columnNum=targetMap[0][0].getY();
