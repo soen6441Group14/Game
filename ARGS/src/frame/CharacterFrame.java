@@ -599,7 +599,7 @@ public class CharacterFrame {
 	 */
 	public Characters load(ArrayList<Characters> characterArrayList, String text) {
 		try {
-			characters = new LoadCharacter().loadcharacter(name.getText(), characterArrayList);
+			characters = new LoadCharacter().loadcharacter(text, characterArrayList);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

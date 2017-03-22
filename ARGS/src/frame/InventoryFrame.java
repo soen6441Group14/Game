@@ -37,7 +37,7 @@ public class InventoryFrame {
 	 */
 	public InventoryFrame(Map map, JFrame jFrame2, ArrayList<Characters> characterMapArrayList, Characters character){
 		
-		this.characterArrayList = characterMapArrayList;
+		this.characterArrayList = characterMapArrayList;//没有用了，不再从文件里面读取人物信息了
 		this.character = character;
 		JFrame jFrame = new JFrame("Backpack");
 		drawBackpackBox();
