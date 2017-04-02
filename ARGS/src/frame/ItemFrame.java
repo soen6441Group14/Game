@@ -9,6 +9,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -16,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import enumclass.Enchantment;
 import load.LoadItem;
 import objects.Items;
 import save.SaveItem;
@@ -28,6 +32,8 @@ public class ItemFrame {
 
 	public Map map;
 	public Items oldItems;
+	public Items items = null;
+	public int count = 0;
 	public JLabel armorarmorClassLabel = new JLabel("armorClass");
 	public JLabel helmetarmorClassLabel = new JLabel("armorClass");
 	public JLabel shieldarmorClassLabel = new JLabel("armorClass");
@@ -44,7 +50,9 @@ public class ItemFrame {
 	public JLabel dexterityLabel = new JLabel("dexterity");
 	public JLabel attackBonusLabel = new JLabel("attackBonus");
 	public JLabel damageBonusLabel = new JLabel("damageBonus");
+	public JLabel rangeLable = new JLabel("range");
 	public JTextField itemName = new JTextField();
+	public JTextField range = new JTextField();
 	public JTextField armorarmorClassValue = new JTextField();
 	public JTextField helmetarmorClassValue = new JTextField();
 	public JTextField ringarmorClassValue = new JTextField();
@@ -72,6 +80,8 @@ public class ItemFrame {
 	public ItemFrame(Map map, JFrame jFrame2, ArrayList<Items> itemArrayList) {
 		JFrame jFrame = new JFrame("Items");
 		JComboBox<String> jComboBox = new JComboBox<>();
+		JComboBox<String> enchantment = new JComboBox<>();
+		
 		JPanel main = new JPanel(new FlowLayout());
 		JPanel helmet = new JPanel();
 		JPanel armor = new JPanel();
@@ -82,44 +92,45 @@ public class ItemFrame {
 		JPanel boot = new JPanel();
 		JButton save = new JButton("Save");
 		JButton load = new JButton("Load an item");
+		JButton add = new JButton("Add enchantment");
 		
 		
+		range.setColumns(5);
 		
-		
-		itemName.setSize(new Dimension(100, 30));
+//		itemName.setSize(new Dimension(100, 30));
 		itemName.setColumns(10);
-		shieldarmorClassValue.setSize(new Dimension(100, 30));
+//		shieldarmorClassValue.setSize(new Dimension(100, 30));
 		shieldarmorClassValue.setColumns(5);
-		armorarmorClassValue.setSize(new Dimension(100, 30));
+//		armorarmorClassValue.setSize(new Dimension(100, 30));
 		armorarmorClassValue.setColumns(5);
-		ringarmorClassValue.setSize(new Dimension(100, 30));
+//		ringarmorClassValue.setSize(new Dimension(100, 30));
 		ringarmorClassValue.setColumns(5);
-		bootarmorClassValue.setSize(new Dimension(100, 30));
+//		bootarmorClassValue.setSize(new Dimension(100, 30));
 		bootarmorClassValue.setColumns(5);
-		helmetarmorClassValue.setSize(new Dimension(100, 30));
+//		helmetarmorClassValue.setSize(new Dimension(100, 30));
 		helmetarmorClassValue.setColumns(5);
 		
-		intelligenceValue.setSize(new Dimension(100, 30));
+//		intelligenceValue.setSize(new Dimension(100, 30));
 		intelligenceValue.setColumns(5);
-		ringwisdomValue.setSize(new Dimension(100, 30));
+//		ringwisdomValue.setSize(new Dimension(100, 30));
 		ringwisdomValue.setColumns(5);
-		helmetwisdomValue.setSize(new Dimension(100, 30));
+//		helmetwisdomValue.setSize(new Dimension(100, 30));
 		helmetwisdomValue.setColumns(5);
-		ringstrengthValue.setSize(new Dimension(100, 30));
+//		ringstrengthValue.setSize(new Dimension(100, 30));
 		ringstrengthValue.setColumns(5);
-		beltstrengthValue.setSize(new Dimension(100, 30));
+//		beltstrengthValue.setSize(new Dimension(100, 30));
 		beltstrengthValue.setColumns(5);
-		ringconstitutionValue.setSize(new Dimension(100, 30));
+//		ringconstitutionValue.setSize(new Dimension(100, 30));
 		ringconstitutionValue.setColumns(5);
-		beltconstitutionValue.setSize(new Dimension(100, 30));
+//		beltconstitutionValue.setSize(new Dimension(100, 30));
 		beltconstitutionValue.setColumns(5);
-		charismaValue.setSize(new Dimension(100, 30));
+//		charismaValue.setSize(new Dimension(100, 30));
 		charismaValue.setColumns(5);
-		dexterityValue.setSize(new Dimension(100, 30));
+//		dexterityValue.setSize(new Dimension(100, 30));
 		dexterityValue.setColumns(5);
-		attackBonusValue.setSize(new Dimension(100, 30));
+//		attackBonusValue.setSize(new Dimension(100, 30));
 		attackBonusValue.setColumns(5);
-		damageBonusValue.setSize(new Dimension(100, 30));
+//		damageBonusValue.setSize(new Dimension(100, 30));
 		damageBonusValue.setColumns(5);
 		
 
@@ -130,6 +141,12 @@ public class ItemFrame {
 		jComboBox.addItem("Ring");
 		jComboBox.addItem("Belt");
 		jComboBox.addItem("Boot");
+		
+		enchantment.addItem("Freezing");
+		enchantment.addItem("Burning");
+		enchantment.addItem("Slaying");
+		enchantment.addItem("Frightening");
+		enchantment.addItem("Pacifying");
 		
 		
 		
@@ -186,17 +203,38 @@ public class ItemFrame {
 		jFrame.setLayout(new FlowLayout());
 		jFrame.add(jComboBox);
 		jFrame.add(itemName);
+		jFrame.add(enchantment);
+		jFrame.add(rangeLable);
+		jFrame.add(range);
+		jFrame.add(add);
 		jFrame.add(load);
 		jFrame.add(save);
 		jFrame.add(main);
 		
 		jFrame.setLocationRelativeTo(null);// put the screen in the center
-		jFrame.setSize(new Dimension(800, 500));
+		jFrame.setSize(new Dimension(900, 500));
 		jFrame.setVisible(true);
 		jFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				jFrame.dispose();
 				jFrame2.setEnabled(true);
+			}
+		});
+		
+		add.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(count==0)
+				init(itemArrayList);
+				
+				if(jComboBox.getSelectedItem().toString().equals("Weapon")){
+					items.enchantments.add(Enum.valueOf(Enchantment.class, enchantment.getSelectedItem().toString()));
+					items.setRange(Integer.parseInt(range.getText()));
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Please choose a weapon", "Alert", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		
@@ -308,6 +346,7 @@ public class ItemFrame {
 							damageBonusValue.setText("0");
 							attackBonusValue.setText(String.valueOf(oldItems.getValue()));
 						}
+						range.setText(String.valueOf(oldItems.getRange()));
 					}
 					else if(itemName.getText().startsWith("belt")||itemName.getText().startsWith("BELT"))
 					{
@@ -342,53 +381,10 @@ public class ItemFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Items items = null;
-				oldItems = new LoadItem().loadItem(itemName.getText(), itemArrayList);
-				if(itemName.getText().startsWith("H")||itemName.getText().startsWith("h"))
-				{	
-					if(!intelligenceValue.getText().equals("0"))
-						items = new Items(itemName.getText(), Integer.parseInt(intelligenceValue.getText()),"intelligence");
-					else if (!helmetwisdomValue.getText().equals("0"))
-						items = new Items(itemName.getText(), Integer.parseInt(helmetwisdomValue.getText()),"wisdom");
-					else 
-						items = new Items(itemName.getText(), Integer.parseInt(helmetarmorClassValue.getText()),"armorClass");
-				}
-				else if(itemName.getText().startsWith("a")||itemName.getText().startsWith("A")){
-					items = new Items(itemName.getText(), Integer.parseInt(armorarmorClassValue.getText()),"armorClass");
-				}
-				else if(itemName.getText().startsWith("s")||itemName.getText().startsWith("S")){
-					items = new Items(itemName.getText(), Integer.parseInt(shieldarmorClassValue.getText()),"armorClass");
-				}
-				else if(itemName.getText().startsWith("r")||itemName.getText().startsWith("R")){
-					if(!ringwisdomValue.getText().equals("0"))
-						items = new Items(itemName.getText(), Integer.parseInt(ringwisdomValue.getText()),"wisdom");
-					else if(!ringarmorClassValue.getText().equals("0"))
-						items = new Items(itemName.getText(), Integer.parseInt(ringarmorClassValue.getText()),"armorClass");
-					else if(!ringconstitutionValue.getText().equals("0"))
-						items = new Items(itemName.getText(), Integer.parseInt(ringconstitutionValue.getText()),"constitution");
-					else if(!ringstrengthValue.getText().equals("0"))
-						items = new Items(itemName.getText(), Integer.parseInt(ringstrengthValue.getText()),"strength");
-					else 
-						items = new Items(itemName.getText(), Integer.parseInt(charismaValue.getText()),"charisma");
-				}
-				else if(itemName.getText().startsWith("w")||itemName.getText().startsWith("W")){
-					if(!damageBonusValue.getText().equals("0"))
-						items = new Items(itemName.getText(), Integer.parseInt(damageBonusValue.getText()),"damageBonus");
-					else 
-						items = new Items(itemName.getText(), Integer.parseInt(attackBonusValue.getText()),"attackBonus");
-				}
-				else if(itemName.getText().startsWith("belt")||itemName.getText().startsWith("BELT")){
-					if(!beltstrengthValue.getText().equals("0"))
-						items = new Items(itemName.getText(), Integer.parseInt(beltstrengthValue.getText()),"strength");
-					else 
-						items = new Items(itemName.getText(), Integer.parseInt(beltconstitutionValue.getText()),"constitution");
-				}
-				else {
-					if(!dexterityValue.getText().equals("0"))
-						items = new Items(itemName.getText(), Integer.parseInt(dexterityValue.getText()),"dexterity");
-					else 
-						items = new Items(itemName.getText(), Integer.parseInt(bootarmorClassValue.getText()),"armorClass");
-				}
+				
+				if(count == 0)
+				init(itemArrayList);
+				
 				// if the item with input name exist , remove it and add new item. if not, add item
 				if (oldItems == null) {
 					itemArrayList.add(items);
@@ -403,15 +399,81 @@ public class ItemFrame {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-
+				
+				
+				System.out.println(items.getEnchantments().get(0));
 				map.drawItemBox();
 
 				jFrame2.setEnabled(true);
 				jFrame.dispose();
 
 			}
+
+			
 		});
 
 	}
-
+	
+	public void init(ArrayList<Items> itemArrayList) {
+		ArrayList<Enchantment> enchantments = null;
+		int range = 0;
+		
+		oldItems = new LoadItem().loadItem(itemName.getText(), itemArrayList);
+		if(oldItems != null){
+			enchantments = oldItems.getEnchantments();
+			range = oldItems.getRange();
+		}
+		
+		if(itemName.getText().startsWith("H")||itemName.getText().startsWith("h"))
+		{	
+			if(!intelligenceValue.getText().equals("0"))
+				items = new Items(itemName.getText(), Integer.parseInt(intelligenceValue.getText()),"intelligence");
+			else if (!helmetwisdomValue.getText().equals("0"))
+				items = new Items(itemName.getText(), Integer.parseInt(helmetwisdomValue.getText()),"wisdom");
+			else 
+				items = new Items(itemName.getText(), Integer.parseInt(helmetarmorClassValue.getText()),"armorClass");
+		}
+		else if(itemName.getText().startsWith("a")||itemName.getText().startsWith("A")){
+			items = new Items(itemName.getText(), Integer.parseInt(armorarmorClassValue.getText()),"armorClass");
+		}
+		else if(itemName.getText().startsWith("s")||itemName.getText().startsWith("S")){
+			items = new Items(itemName.getText(), Integer.parseInt(shieldarmorClassValue.getText()),"armorClass");
+		}
+		else if(itemName.getText().startsWith("r")||itemName.getText().startsWith("R")){
+			if(!ringwisdomValue.getText().equals("0"))
+				items = new Items(itemName.getText(), Integer.parseInt(ringwisdomValue.getText()),"wisdom");
+			else if(!ringarmorClassValue.getText().equals("0"))
+				items = new Items(itemName.getText(), Integer.parseInt(ringarmorClassValue.getText()),"armorClass");
+			else if(!ringconstitutionValue.getText().equals("0"))
+				items = new Items(itemName.getText(), Integer.parseInt(ringconstitutionValue.getText()),"constitution");
+			else if(!ringstrengthValue.getText().equals("0"))
+				items = new Items(itemName.getText(), Integer.parseInt(ringstrengthValue.getText()),"strength");
+			else 
+				items = new Items(itemName.getText(), Integer.parseInt(charismaValue.getText()),"charisma");
+		}
+		else if(itemName.getText().startsWith("w")||itemName.getText().startsWith("W")){
+			if(!damageBonusValue.getText().equals("0"))
+				items = new Items(itemName.getText(), Integer.parseInt(damageBonusValue.getText()),"damageBonus");
+			else 
+				items = new Items(itemName.getText(), Integer.parseInt(attackBonusValue.getText()),"attackBonus");
+			
+			if(oldItems != null){
+				items.enchantments = enchantments;
+				items.range = range;
+			}
+		}
+		else if(itemName.getText().startsWith("belt")||itemName.getText().startsWith("BELT")){
+			if(!beltstrengthValue.getText().equals("0"))
+				items = new Items(itemName.getText(), Integer.parseInt(beltstrengthValue.getText()),"strength");
+			else 
+				items = new Items(itemName.getText(), Integer.parseInt(beltconstitutionValue.getText()),"constitution");
+		}
+		else {
+			if(!dexterityValue.getText().equals("0"))
+				items = new Items(itemName.getText(), Integer.parseInt(dexterityValue.getText()),"dexterity");
+			else 
+				items = new Items(itemName.getText(), Integer.parseInt(bootarmorClassValue.getText()),"armorClass");
+		}
+		count++;
+	}
 }
