@@ -46,39 +46,40 @@ public class Aggressive implements Strategy{
         }
     }
 
-    public void walkOneStep(int desRow,int desColumn){
+    public void walk(int desRow,int desColumn){
         if((Math.abs(desRow-currentRow)>=Math.abs(desColumn-currentColumn))){
-            if(desRow>currentRow){
-                //TODO:每一步
+            if(desRow>currentRow) {
+                if(moveOneStep(1,0))
             }
-            else{}
+            else
+                moveOneStep(-1,0);
         }
         else{}
     }
 
-    public boolean move(int up, int right){
+    public boolean moveOneStep(int down, int right){
         boolean flag=false;
 
-        if(map[currentRow-up][currentColumn+right].getTileType() == TileType.GROUND){
+        if(map[currentRow+down][currentColumn+right].getTileType() == TileType.GROUND){
             map[currentRow][currentColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[currentRow-up][currentColumn+right] = new Cells(TileType.HERO, numRows, numCols,theAggressive);
+            map[currentRow+down][currentColumn+right] = new Cells(TileType.HERO, numRows, numCols,theAggressive);
             flag=true;
         }
-        else if(map[currentRow-up][currentColumn+right].getTileType() == TileType.ENTRY){
+        else if(map[currentRow+down][currentColumn+right].getTileType() == TileType.ENTRY){
             flag=false;
         }
-        else if(map[currentRow-up][currentColumn+right].getTileType() == TileType.WALL){
+        else if(map[currentRow+down][currentColumn+right].getTileType() == TileType.WALL){
             flag=false;
         }
-        else if(map[currentRow-up][currentColumn+right].getTileType() == TileType.CHEST){
-            Items item = map[currentRow-up][currentColumn+right].getItems();
+        else if(map[currentRow+down][currentColumn+right].getTileType() == TileType.CHEST){
+            Items item = map[currentRow+down][currentColumn+right].getItems();
             theAggressive.lootItem(item);
             map[currentRow][currentColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[currentRow-up][currentColumn+right] = new Cells(TileType.HERO, numRows, numCols, theAggressive);
+            map[currentRow+down][currentColumn+right] = new Cells(TileType.HERO, numRows, numCols, theAggressive);
             flag=true;
         }
-        else if(map[currentRow-up][currentColumn+right].getTileType() == TileType.MONSTER ||
-                map[currentRow-up][currentColumn+right].getTileType() == TileType.HERO){
+        else if(map[currentRow+down][currentColumn+right].getTileType() == TileType.MONSTER ||
+                map[currentRow+down][currentColumn+right].getTileType() == TileType.HERO){
             //TODO:打架
             flag=true;
         }
