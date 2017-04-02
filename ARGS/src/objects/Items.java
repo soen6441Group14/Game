@@ -1,7 +1,9 @@
 package objects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import enumclass.Enchantment;
 import enumclass.ItemType;
 /**
  *  Items class represents an Item object
@@ -14,6 +16,7 @@ public class Items implements Serializable {
 
 	    public String name;
 	    public int value;
+	    public ArrayList<Enchantment> enchantments;
 	    public String bonusType;
 	    
 /**
