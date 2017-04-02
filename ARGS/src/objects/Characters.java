@@ -4,6 +4,8 @@ package objects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import Strategy.Strategy;
 import enumclass.Orientation;
 /**
  * Character class
@@ -50,7 +52,9 @@ public class Characters implements Serializable {
 	public Items ring; // increase wisdom
 	public Items belt; // increase strength
 	public Items boots; // increase dexterity
-	
+
+	public Strategy strategy;
+
 /**
  *  constructor method
  * @param name	name
@@ -105,6 +109,13 @@ public class Characters implements Serializable {
 		this.modWis = modWis;
 
 	}
+
+	public void turn(){
+
+	}
+
+
+	/* setters and getters*/
 /**
  * 
  * @return constitution
@@ -415,6 +426,10 @@ public class Characters implements Serializable {
 		this.backpack = backpack;
 	}
 
-	
-
+	/**
+	 * @param thestrategy the strategy to set to character
+	 */
+	public void setStrategy(Strategy thestrategy) {
+		this.strategy = thestrategy;
+	}
 }
