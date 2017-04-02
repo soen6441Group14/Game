@@ -138,16 +138,18 @@ public class PanelListener implements KeyListener {
 			 }
 			 else if(map[xHero][yHero+1].getTileType() == TileType.CHEST){
 				 Items item = map[xHero][yHero+1].getItems();
-				 lootItem(item,hero);
+				 //lootItem(item,hero);
+				 hero.lootItem(item);
 				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 				 map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
 			 }
 			 else if(map[xHero][yHero+1].getTileType() == TileType.MONSTER){
 				 Characters target=map[xHero][yHero+1].getCharacters();
 				 if(target.getOrient() == Orientation.FRIENDLY)
-					 interactWithFriendly(target,hero);
+					 //interactWithFriendly(target,hero);
+				 	hero.interactWithFriendly(target);
 				 else{
-				 	if(interactWithHostile(target,hero)){}
+				 	if(hero.interactWithHostile(target)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -183,15 +185,17 @@ public class PanelListener implements KeyListener {
 			} else if (map[xHero][yHero - 1].getTileType() == TileType.WALL) {
 			} else if (map[xHero][yHero - 1].getTileType() == TileType.CHEST) {
 				Items item = map[xHero][yHero - 1].getItems();
-				lootItem(item,hero);
+				//lootItem(item,hero);
+				hero.lootItem(item);
 				map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 				map[xHero][yHero - 1] = new Cells(TileType.HERO, numRows, numCols, hero);
 			} else if (map[xHero][yHero - 1].getTileType() == TileType.MONSTER) {
 				Characters target = map[xHero][yHero - 1].getCharacters();
 				if (target.getOrient() == Orientation.FRIENDLY)
-					interactWithFriendly(target,hero);
+					//interactWithFriendly(target,hero);
+					hero.interactWithFriendly(target);
 				else{
-					if(interactWithHostile(target,hero)){}
+					if(hero.interactWithHostile(target)){}
 					else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero][yHero - 1] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -230,16 +234,18 @@ public class PanelListener implements KeyListener {
 			 }
 			 else if(map[xHero-1][yHero].getTileType() == TileType.CHEST){
 				 Items item = map[xHero-1][yHero].getItems();
-				 lootItem(item,hero);
+				 //lootItem(item,hero);
+				 hero.lootItem(item);
 				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 				 map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
 			 }
 			 else if(map[xHero-1][yHero].getTileType() == TileType.MONSTER){
 				 Characters target=map[xHero-1][yHero].getCharacters();
 				 if(target.getOrient() == Orientation.FRIENDLY)
-					 interactWithFriendly(target,hero);
+					// interactWithFriendly(target,hero);
+				 	hero.interactWithFriendly(target);
 				 else{
-				 	if(interactWithHostile(target,hero)){}
+				 	if(hero.interactWithHostile(target)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -279,16 +285,18 @@ public class PanelListener implements KeyListener {
 			 }
 			 else if(map[xHero+1][yHero].getTileType() == TileType.CHEST){
 				 Items item = map[xHero+1][yHero].getItems();
-				 lootItem(item,hero);
+				 //lootItem(item,hero);
+				 hero.lootItem(item);
 				 map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 				 map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
 			 }
 			 else if(map[xHero+1][yHero].getTileType() == TileType.MONSTER){
 				 Characters target=map[xHero+1][yHero].getCharacters();
 				 if(target.getOrient() == Orientation.FRIENDLY)
-					 interactWithFriendly(target,hero);
+					 //interactWithFriendly(target,hero);
+				 	hero.interactWithFriendly(target);
 				 else{
-				 	if(interactWithHostile(target,hero)){}
+				 	if(hero.interactWithHostile(target)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -297,7 +305,7 @@ public class PanelListener implements KeyListener {
 				 }
 			 }
 			 else if(map[xHero+1][yHero].getTileType() == TileType.EXIT){
-				 exitFromMap(hero);
+				 exitFromMap(hero);//TODO:这是个需要考虑的问题
 			 }
 			 recoverTheEntry(xHero,yHero);
 			 flag = true;
@@ -356,7 +364,7 @@ public class PanelListener implements KeyListener {
 	 * The method is used to interact with chest
 	 * @param item the item in the map that you loot
 	 * @param hero  the character object of hero
-	 */
+	 *//*
 	
 	public void lootItem(Items item, Characters hero){
 		int temp=-1;
@@ -374,12 +382,12 @@ public class PanelListener implements KeyListener {
 		}
 	}
 
-	/**
+	*//**
 	 * The method is used to interact with friendly monsters
 	 * The interaction is changing the items with monsters
 	 * @param friendly  the friendly monster object in the map
 	 * @param hero    the character object of hero
-	 */ 
+	 *//*
 	public void interactWithFriendly(Characters friendly, Characters hero){
 
 		ArrayList<String> itemsNameList = new ArrayList<>();
@@ -426,12 +434,12 @@ public class PanelListener implements KeyListener {
 		friendly.getBackpack().set(random, itemHero);
 
 	}
-	/**
+	*//**
 	 * get the the number of item that is not empty in the backpack of friendly monster
 	 * @param backpackM the backpack of friendly monster
 	 * @param number the the number of item that is not empty
 	 * @return the the number of item that is not empty
-	 */
+	 *//*
 	public int getNumber(ArrayList<Items> backpackM, int number) {
 		for(int i=0;i<backpackM.size();i++){
 			if(backpackM.get(i).getName().equals("EMPTY"))
@@ -440,14 +448,14 @@ public class PanelListener implements KeyListener {
 		return number;
 	}
 
-	/**
+	*//**
 	 * The method is to interact with hostile monster
 	 * the first interaction is killing the monster
 	 * the second interaction is to loot its items
 	 * @param hostile  the hostile monster in the map
 	 * @param hero  the character object of hero
 	 * @return true if the hostile is live, false if the hostile has dead
-	 */
+	 *//*
 	public boolean interactWithHostile(Characters hostile,Characters hero){
 		boolean live;
 		if(hostile.getHitpoints()>0){
@@ -476,7 +484,7 @@ public class PanelListener implements KeyListener {
 
 		return live;
 	}
-
+*/
 	/**
 	 * The method is to exit from the exit of the map
 	 * If the objective"kill all hostile monsters" is not completed, no map change, prompt information
@@ -484,12 +492,12 @@ public class PanelListener implements KeyListener {
 	 */
 	
 	public void exitFromMap(Characters hero){
-		int level = hero.getLevel();
-		hero.setLevel(level+1);
-//		System.out.println("map index"+playingIndex);
 		if(!checkCompleteObjective())
 			JOptionPane.showMessageDialog(null, "you need to kill all hostile monsters", "Prompt", JOptionPane.INFORMATION_MESSAGE);
 		else {
+			int level = hero.getLevel();
+			hero.setLevel(level+1);
+			System.out.println("map index"+playingIndex);
 			if (playingIndex >= numberMap) {
 				JOptionPane.showMessageDialog(null, "you successfully pass the campaign", "Prompt", JOptionPane.INFORMATION_MESSAGE);
 

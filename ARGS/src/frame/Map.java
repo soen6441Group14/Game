@@ -254,16 +254,7 @@ public class Map {
 		
 		if(k==2)
 			panel.removeAll();
-//		if(k==3){
-//			panel.removeAll();
-//			panelContainer.removeAll();
-//			panelContainer.requestFocus();
-////			panel.updateUI();
-////			panelContainer.updateUI();
-//			System.out.println("333 "+playingIndex);
-//			System.out.println("333 "+numRows);
-//			System.out.println("333 "+numCols);
-//		}
+
 
 
 		for (int i = 0; i < numRows; i++)
