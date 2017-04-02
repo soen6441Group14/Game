@@ -4,9 +4,15 @@ package objects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Set;
 
 import Strategy.Strategy;
+import dialog.ChangeItemDialog;
+import enumclass.Enchantment;
 import enumclass.Orientation;
+import Strategy.*;
 /**
  * Character class
  * @author grey
@@ -53,6 +59,8 @@ public class Characters implements Serializable {
 	public Items belt; // increase strength
 	public Items boots; // increase dexterity
 
+	public HashMap<Enchantment,Integer> enchanted;
+	public int enchantedBonus;
 	public Strategy strategy;
 
 /**
@@ -107,12 +115,213 @@ public class Characters implements Serializable {
 		this.modInt = modInt;
 		this.modStr = modStr;
 		this.modWis = modWis;
-
+		enchanted=new HashMap<Enchantment,Integer>();
 	}
 
 	public void turn(){
+		// the first thing when its turn is to execute the enchanted effect
+		executeEnchantedEffects();
+		//and then execute its behaviors, different between its strategies
+		this.strategy.execute();
+	}
+
+	public void executeEnchantedEffects(){
+		if(enchanted.size()==0)
+			return;
+		else{
+			Set<Enchantment> enchantedSet=enchanted.keySet();
+			for(Enchantment oneEnchanted:enchantedSet){
+				int turnsLeft=enchanted.get(oneEnchanted);
+				executeOneEnchantedEffects(oneEnchanted,turnsLeft);
+			}
+		}
+	}
+
+	public void executeOneEnchantedEffects(Enchantment enchantedType,int turnsLeft){
+		if(enchantedType==Enchantment.Freezing){
+			this.setStrategy(new Frozen()); //frozen的执行属于turn()中的
+			turnsLeft--;
+			if(turnsLeft==0)
+				this.enchanted.remove(enchantedType);
+			else
+				this.enchanted.put(enchantedType,turnsLeft); //update the turns left
+		}
+		else if(enchantedType==Enchantment.Burning){
+			this.hitpoints-=enchantedBonus*5;
+			turnsLeft--;
+			if(turnsLeft==0)
+				this.enchanted.remove(Enchantment.Burning);
+			else
+				this.enchanted.put(Enchantment.Burning,turnsLeft);
+		}
+		else if(enchantedType==Enchantment.Slaying){
+			this.hitpoints=0;
+			this.enchanted.remove(enchantedType);
+		}
+		else if(enchantedType==Enchantment.Frightening){
+			this.setStrategy(new Frightened());
+			turnsLeft--;
+			if(turnsLeft==0)
+				this.enchanted.remove(Enchantment.Frightening);
+			else
+				this.enchanted.put(Enchantment.Frightening,turnsLeft);
+		}
+		else if(enchantedType==Enchantment.Pacifying){
+			this.setStrategy(new Friendly());
+			this.enchanted.remove(enchantedType);
+		}
+	}
+
+	public void addEnchantedEffectToCharacter(ArrayList<Enchantment> enchantmentList,int enchantmentBonus){
+		for(Enchantment enchantment: enchantmentList){
+			if(enchantment==Enchantment.Freezing){
+			  	if(this.enchanted.containsKey(Enchantment.Freezing))
+			  		this.enchanted.put(Enchantment.Freezing,this.enchanted.get(Enchantment.Freezing)+enchantmentBonus);
+			  	else
+			  		this.enchanted.put(Enchantment.Freezing,enchantmentBonus);
+			}
+			else if(enchantment==Enchantment.Burning){
+				this.enchanted.put(Enchantment.Burning,3);
+				this.enchantedBonus=enchantmentBonus;
+			}
+			else if(enchantment==Enchantment.Slaying){
+				this.enchanted.put(Enchantment.Slaying,1);
+			}
+			else if(enchantment==Enchantment.Frightening){
+				this.enchanted.put(Enchantment.Frightening,enchantmentBonus);
+			}
+			else if(enchantment==Enchantment.Pacifying){
+				this.enchanted.put(Enchantment.Pacifying,1);
+			}
+		}
+	}
+
+	/*interactions*/
+
+	/**
+	 * The method is used to interact with chest
+	 * @param item the item in the map that you loot
+	 */
+
+	public void lootItem(Items item){
+		int temp=-1;
+		for(int i=0;i<10;i++){
+			if(this.backpack.get(i).getName().equals("EMPTY")){
+				temp=i;
+				break;
+			}
+		}
+		if(temp==-1){
+	//		System.out.println("the backpack is full");
+		}
+		else{
+			this.backpack.set(temp,item);
+		}
+	}
+
+
+	/**
+	 * The method is used to interact with friendly monsters
+	 * The interaction is changing the items with monsters
+	 * @param friendly  the friendly monster object in the map
+	 */
+	public void interactWithFriendly(Characters friendly){
+
+		ArrayList<String> itemsNameList = new ArrayList<>();
+		for(int i=0;i<10;i++){
+			if(!this.backpack.get(i).getName().equals("EMPTY"))
+				itemsNameList.add(this.backpack.get(i).getName());
+		}
+
+		ChangeItemDialog changeItemDialog = new ChangeItemDialog(itemsNameList);
+
+		String backpackH = changeItemDialog.getSelectedName();
+		changeItemDialog.dispose();
+
+
+		//人物装备
+		// the item in the backpack of hero that needs to be exchanged
+		Items itemHero = null;
+		//人物装备的index
+		//the index of hero's item in the his backpack
+		int indexHero = 0;
+		for(int i=0;i<10;i++){
+			if(this.backpack.get(i).getName().equals(backpackH))
+			{
+				itemHero = this.backpack.get(i);
+				indexHero = i;
+				break;
+			}
+		}
+
+		ArrayList<Items> backpackM = friendly.getBackpack();
+		//非空装备的个数
+		//the number of item that is not empty in the backpack of friendly monster
+		int number = 10;
+		number = getNumber(backpackM,number);
+
+
+		int random = 0;
+		random = new Random().nextInt(number);//怪物中获取的装备的index
+		//get()本来就少一个，所以random()不加一
+		Items itemMonster = friendly.getBackpack().get(random);
+
+		// exchange the item between hero and friendly monster
+		this.backpack.set(indexHero, itemMonster);
+		friendly.getBackpack().set(random, itemHero);
 
 	}
+
+	/**
+	 * get the the number of item that is not empty in the backpack of friendly monster
+	 * @param backpackM the backpack of friendly monster
+	 * @param number the the number of item that is not empty
+	 * @return the the number of item that is not empty
+	 */
+	public int getNumber(ArrayList<Items> backpackM, int number) {
+		for(int i=0;i<backpackM.size();i++){
+			if(backpackM.get(i).getName().equals("EMPTY"))
+				number--;
+		}
+		return number;
+	}
+
+	/**
+	 * The method is to interact with hostile monster
+	 * the first interaction is killing the monster
+	 * the second interaction is to loot its items
+	 * @param hostile  the hostile monster in the map
+	 * @return true if the hostile is live, false if the hostile has dead
+	 */
+	public boolean interactWithHostile(Characters hostile){
+		boolean live;
+		if(hostile.getHitpoints()>0){
+			live=true;
+			hostile.setHitpoints(0);
+		}
+		else{
+			live=false;
+			//loot backpack
+			for(int i=0; i<10; i++){
+				if(!hostile.getBackpack().get(i).getName().equals("EMPTY")){
+					lootItem(hostile.getBackpack().get(i));
+					hostile.getBackpack().set(i,new Items("EMPTY",0," "));
+				}
+			}
+
+			//loot worn items
+			for(int i=0; i<hostile.getInventory().size(); i++){
+				if(!hostile.getInventory().get(i).getName().equals("EMPTY")){
+					lootItem(hostile.getInventory().get(i));
+					hostile.getInventory().set(i,new Items("EMPTY",0," "));
+				}
+			}
+		}
+
+		return live;
+	}
+
+
 
 
 	/* setters and getters*/

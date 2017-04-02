@@ -9,6 +9,6 @@ package Strategy;
 public class Frozen implements Strategy {
     @Override
     public void execute() {
-
+        System.out.println("The character is frozen, it can not move !!!");
     }
 }

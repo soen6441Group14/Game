@@ -21,7 +21,7 @@ public class SaveMap {
 	// 在保存地图时调用，将创建好的Cells二位数组保存在mapName文件中
 	public void saveMap(ArrayList<Matrix> allMaps) throws IOException{
 		
-		File output = new File("file/Maps.txt");
+		File output = new File("ARGS/file/Maps.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(output));
         objectOutputStream.writeObject(allMaps);
         objectOutputStream.flush();
