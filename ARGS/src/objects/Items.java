@@ -14,16 +14,27 @@ public class Items implements Serializable {
 
 	    public String name;
 	    public int value;
+	    public String bonusType;
 	    
 /**
  * constructor method
  * @param name name
  * @param value value
  */
-	    public Items(String name,int value) {
+	    public Items(String name,int value,String bonusType) {
 	        this.name = name;
 	        this.value = value;
+	        this.bonusType = bonusType;
 	    }
+	    
+	    
+public String getBonusType() {
+	return bonusType;
+}
+
+public void setBonusType(String bonusType) {
+	this.bonusType = bonusType;
+}
 /**
  * 
  * @return name

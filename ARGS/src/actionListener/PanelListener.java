@@ -460,7 +460,7 @@ public class PanelListener implements KeyListener {
 			for(int i=0; i<10; i++){
 				if(!hostile.getBackpack().get(i).getName().equals("EMPTY")){
 					lootItem(hostile.getBackpack().get(i),hero);
-					hostile.getBackpack().set(i,new Items("EMPTY",0));
+					hostile.getBackpack().set(i,new Items("EMPTY",0," "));
 				}
 			}
 			
@@ -468,7 +468,7 @@ public class PanelListener implements KeyListener {
 			for(int i=0; i<hostile.getInventory().size(); i++){
 				if(!hostile.getInventory().get(i).getName().equals("EMPTY")){
 					lootItem(hostile.getInventory().get(i),hero);
-					hostile.getInventory().set(i,new Items("EMPTY",0));
+					hostile.getInventory().set(i,new Items("EMPTY",0," "));
 
 				}
 			}
