@@ -102,11 +102,11 @@ public class TestPanelListener {
     
     @Test
     public void testLootItem(){
-        Items item1=new Items("Weapon1",1);
-        Items item2=new Items("Ring1",1);
+        Items item1=new Items("Weapon1",1,"");
+        Items item2=new Items("Ring1",1,"");
         ArrayList<Items>testbackpack=new ArrayList<Items>();
         for(int i=0;i<10;i++){
-            Items empty=new Items("EMPTY",0);
+            Items empty=new Items("EMPTY",0,"");
             testbackpack.add(empty);
         }
         player.setBackpack(testbackpack);
@@ -124,10 +124,10 @@ public class TestPanelListener {
 
     @Test
     public void testInteractWithChest(){
-        Items item1=new Items("Armor1",1);
+        Items item1=new Items("Armor1",1,"");
         ArrayList<Items>testbackpack=new ArrayList<Items>();
         for(int i=0;i<10;i++){
-            Items empty=new Items("EMPTY",0);
+            Items empty=new Items("EMPTY",0,"");
             testbackpack.add(empty);
         }
         player.setBackpack(testbackpack);
@@ -144,10 +144,10 @@ public class TestPanelListener {
     @Test
     public void testInteractWithChest2(){
 
-        Items item2=new Items("Helmet1",1);
+        Items item2=new Items("Helmet1",1,"");
         ArrayList<Items>testbackpack=new ArrayList<Items>();
         for(int i=0;i<10;i++){
-            Items empty=new Items("EMPTY",0);
+            Items empty=new Items("EMPTY",0,"");
             testbackpack.add(empty);
         }
         player.setBackpack(testbackpack);

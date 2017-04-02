@@ -30,9 +30,9 @@ public class Characters implements Serializable {
 
 	
 	
-	public int armorClass; // armorClass = modDex + armor + shield
+	public int armorClass; // armorClass = modDex + armor + shield + 10
 	public int attackBonus; //attackBonus = level + modStr
-	public int damageBonus;//damageBonus = modStr + weapon
+	public int damageBonus;//damageBonus = modStr + weapon + 10
 
 	// mod value = ability value / 3
 	public int modStr;

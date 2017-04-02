@@ -16,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import build.BullyBuilder;
 import build.Director;
 import build.FighterBulider;
@@ -40,6 +39,7 @@ public class CharacterFrame {
 	public Map map;
 //	public ArrayList<Items> newItemArrayList = new ArrayList<Items>();//显示创建人物时的物品下拉框
 	Characters characters = null;
+	ArrayList<Items> newItemArrayList = new ArrayList<Items>();
 	JComboBox<String> fighter = new JComboBox<String>();
 	
 	private JTextField name = new JTextField();
@@ -343,13 +343,22 @@ public class CharacterFrame {
 				charisma.setText(String.valueOf(scores.getCharisma()));
 				wisdom.setText(String.valueOf(scores.getWisdom()));
 				
-				modStr.setText(String.valueOf(Integer.parseInt(strength.getText())/3));
-				modDex.setText(String.valueOf(Integer.parseInt(dexterity.getText())/3));
-				modWis.setText(String.valueOf(Integer.parseInt(wisdom.getText())/3));
-				modCon.setText(String.valueOf(Integer.parseInt(constitution.getText())/3));
-				modInt.setText(String.valueOf(Integer.parseInt(intelligence.getText())/3));
-				modCha.setText(String.valueOf(Integer.parseInt(charisma.getText())/3));
+				int mod = getMod(Integer.parseInt(strength.getText()));
+				
+				modStr.setText(String.valueOf(mod));
+				mod = getMod(Integer.parseInt(dexterity.getText())); 
+				modDex.setText(String.valueOf(mod));
+				mod = getMod(Integer.parseInt(wisdom.getText())); 
+				modWis.setText(String.valueOf(mod));
+				mod = getMod(Integer.parseInt(constitution.getText()));
+				modCon.setText(String.valueOf(mod));
+				mod = getMod(Integer.parseInt(intelligence.getText()));
+				modInt.setText(String.valueOf(mod));
+				mod = getMod(Integer.parseInt(charisma.getText()));
+				modCha.setText(String.valueOf(mod));
 			}
+
+			
 
 			
 		});
@@ -421,9 +430,9 @@ public class CharacterFrame {
 			wisdom.setText(String.valueOf(Integer.parseInt(wisdom.getText())+Integer.parseInt(ring.getText())));
 			dexterity.setText(String.valueOf(Integer.parseInt(dexterity.getText())+Integer.parseInt(boot.getText())));
 			hitpoints.setText(String.valueOf(Integer.parseInt(level.getText())*getValues()+Integer.parseInt(modCon.getText())));
-			armorClass.setText(String.valueOf(Integer.parseInt(modDex.getText())+Integer.parseInt(armor.getText())+Integer.parseInt(shield.getText())));
+			armorClass.setText(String.valueOf(Integer.parseInt(modDex.getText())+Integer.parseInt(armor.getText())+Integer.parseInt(shield.getText())+10));
 			attackBonus.setText(String.valueOf(Integer.parseInt(level.getText())+Integer.parseInt(modStr.getText())));
-			damageBonus.setText(String.valueOf(Integer.parseInt(modStr.getText())+Integer.parseInt(weapon.getText())));
+			damageBonus.setText(String.valueOf(Integer.parseInt(modStr.getText())+Integer.parseInt(weapon.getText())+10));
 			}
 		});
 		
@@ -473,7 +482,7 @@ public class CharacterFrame {
 					bootName.setText(name);
 					boot.setText(value);
 				}
-				
+				newItemArrayList.add(items);
 			}
 		});
 		
@@ -482,42 +491,42 @@ public class CharacterFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			ArrayList<Items> newItemArrayList = new ArrayList<Items>();
+			
 			ArrayList<Items> backpack = new ArrayList<Items>();
 			
-			newItemArrayList.add(new Items(weaponName.getText(), Integer.parseInt(weapon.getText())));
-			newItemArrayList.add(new Items(shieldName.getText(), Integer.parseInt(shield.getText())));
-			newItemArrayList.add(new Items(helmetName.getText(), Integer.parseInt(helmet.getText())));
-			newItemArrayList.add(new Items(armorName.getText(), Integer.parseInt(armor.getText())));
-			newItemArrayList.add(new Items(ringName.getText(), Integer.parseInt(ring.getText())));
-			newItemArrayList.add(new Items(beltName.getText(), Integer.parseInt(belt.getText())));
-			newItemArrayList.add(new Items(bootName.getText(), Integer.parseInt(boot.getText())));
+			
+//			newItemArrayList.add(new Items(shieldName.getText(), Integer.parseInt(shield.getText())));
+//			newItemArrayList.add(new Items(helmetName.getText(), Integer.parseInt(helmet.getText())));
+//			newItemArrayList.add(new Items(armorName.getText(), Integer.parseInt(armor.getText())));
+//			newItemArrayList.add(new Items(ringName.getText(), Integer.parseInt(ring.getText())));
+//			newItemArrayList.add(new Items(beltName.getText(), Integer.parseInt(belt.getText())));
+//			newItemArrayList.add(new Items(bootName.getText(), Integer.parseInt(boot.getText())));
 			
 			//编辑character时，会使backpack恢复默认值
 			if(name.getText().startsWith("P")||name.getText().startsWith("p"))
 			{
-				backpack.add(new Items("WEAPON2", 2));
-				backpack.add(new Items("BOOT2", 2));
-				backpack.add(new Items("BELT2", 2));
-				backpack.add(new Items("RING2", 2));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
+				backpack.add(new Items("WEAPON2", 2,"damageBonus"));
+				backpack.add(new Items("BOOT2", 2,"dexterity"));
+				backpack.add(new Items("BELT2", 2,"strength"));
+				backpack.add(new Items("RING2", 2,"wisdom"));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
 			}
 			else{
-				backpack.add(new Items("SHIELD2", 2));
-				backpack.add(new Items("HELMET2", 2));
-				backpack.add(new Items("ARMOR2", 2));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
-				backpack.add(new Items("EMPTY", 0));
+				backpack.add(new Items("SHIELD2", 2,"armorClass"));
+				backpack.add(new Items("HELMET2", 2,"intelligence"));
+				backpack.add(new Items("ARMOR2", 2,"armorClass"));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
+				backpack.add(new Items("EMPTY", 0," "));
 			}
 			
 			
@@ -642,6 +651,35 @@ public class CharacterFrame {
 		
 		return scores;
 	}
+	
+	public int getMod(int i) {
+		if(i==1)
+			return -5;
+		else if(i==2 || i==3)
+			return -4;
+		else if (i==4 || i==5)
+			return -3;
+		else if (i==6 || i==7)
+			return -2;
+		else if (i==8 || i==9)
+			return -1;
+		else if (i==10 || i==11)
+			return 0;
+		else if (i==12 || i==13)
+			return 1;
+		else if (i==14 || i==15)
+			return 2;
+		else if (i==16 || i==17)
+			return 3;
+		else if (i==18 || i==19)
+			return 4;
+		else if (i==20 || i==21)
+			return 5;
+		else 
+			return 6;
+		
+	}
+	
 	/**
 	 * 4D6 method choose 3 of highest number in 4 times of roll
 	 * @return the total amount of 3 of highest number

@@ -236,9 +236,21 @@ public class ItemFrame {
 				else{
 					if(itemName.getText().startsWith("H")||itemName.getText().startsWith("h"))
 					{
-						intelligenceValue.setText(String.valueOf(oldItems.getValue()));
-						helmetwisdomValue.setText("0");
-						helmetarmorClassValue.setText("0");
+						if(oldItems.getBonusType().equals("intelligence")){
+							intelligenceValue.setText(String.valueOf(oldItems.getValue()));
+							helmetwisdomValue.setText("0");
+							helmetarmorClassValue.setText("0");
+						}
+						else if(oldItems.getBonusType().equals("wisdom")){
+							intelligenceValue.setText("0");
+							helmetwisdomValue.setText(String.valueOf(oldItems.getValue()));
+							helmetarmorClassValue.setText("0");
+						}
+						else {
+							intelligenceValue.setText("0");
+							helmetwisdomValue.setText("0");
+							helmetarmorClassValue.setText(String.valueOf(oldItems.getValue()));
+						}
 					}
 					else if(itemName.getText().startsWith("a")||itemName.getText().startsWith("A"))
 					{
@@ -250,26 +262,74 @@ public class ItemFrame {
 					}
 					else if(itemName.getText().startsWith("r")||itemName.getText().startsWith("R"))
 					{
-						ringwisdomValue.setText(String.valueOf(oldItems.getValue()));
-						ringarmorClassValue.setText("0");
-						ringconstitutionValue.setText("0");
-						ringstrengthValue.setText("0");
-						charismaValue.setText("0");
+						if(oldItems.getBonusType().equals("wisdom")){
+							ringwisdomValue.setText(String.valueOf(oldItems.getValue()));
+							ringarmorClassValue.setText("0");
+							ringconstitutionValue.setText("0");
+							ringstrengthValue.setText("0");
+							charismaValue.setText("0");
+						}
+						else if (oldItems.getBonusType().equals("armorClass")){
+							ringwisdomValue.setText("0");
+							ringarmorClassValue.setText(String.valueOf(oldItems.getValue()));
+							ringconstitutionValue.setText("0");
+							ringstrengthValue.setText("0");
+							charismaValue.setText("0");
+						}
+						else if (oldItems.getBonusType().equals("strength")){
+							ringwisdomValue.setText("0");
+							ringarmorClassValue.setText("0");
+							ringconstitutionValue.setText("0");
+							ringstrengthValue.setText(String.valueOf(oldItems.getValue()));
+							charismaValue.setText("0");
+						}
+						else if (oldItems.getBonusType().equals("constitution")){
+							ringwisdomValue.setText("0");
+							ringarmorClassValue.setText("0");
+							ringconstitutionValue.setText(String.valueOf(oldItems.getValue()));
+							ringstrengthValue.setText("0");
+							charismaValue.setText("0");
+						}
+						else {
+							ringwisdomValue.setText("0");
+							ringarmorClassValue.setText("0");
+							ringconstitutionValue.setText("0");
+							ringstrengthValue.setText("0");
+							charismaValue.setText(String.valueOf(oldItems.getValue()));
+						}
 					}
 					else if(itemName.getText().startsWith("w")||itemName.getText().startsWith("W"))
-					{
-						damageBonusValue.setText(String.valueOf(oldItems.getValue()));
-						attackBonusValue.setText("0");
+					{	
+						if(oldItems.getBonusType().equals("damageBonus")){
+							damageBonusValue.setText(String.valueOf(oldItems.getValue()));
+							attackBonusValue.setText("0");
+						}
+						else{
+							damageBonusValue.setText("0");
+							attackBonusValue.setText(String.valueOf(oldItems.getValue()));
+						}
 					}
 					else if(itemName.getText().startsWith("belt")||itemName.getText().startsWith("BELT"))
 					{
-						beltstrengthValue.setText(String.valueOf(oldItems.getValue()));
-						beltconstitutionValue.setText("0");
+						if(oldItems.getBonusType().equals("strength")){
+							beltstrengthValue.setText(String.valueOf(oldItems.getValue()));
+							beltconstitutionValue.setText("0");
+						}
+						else{
+							beltstrengthValue.setText("0");
+							beltconstitutionValue.setText(String.valueOf(oldItems.getValue()));
+						}
 					}
 					else 
-					{
-						dexterityValue.setText(String.valueOf(oldItems.getValue()));
-						bootarmorClassValue.setText("0");
+					{	
+						if(oldItems.getBonusType().equals("dexterity")){
+							dexterityValue.setText(String.valueOf(oldItems.getValue()));
+							bootarmorClassValue.setText("0");
+						}
+						else {
+							dexterityValue.setText("0");
+							bootarmorClassValue.setText(String.valueOf(oldItems.getValue()));
+						}
 					}
 					
 				}
@@ -285,19 +345,50 @@ public class ItemFrame {
 				Items items = null;
 				oldItems = new LoadItem().loadItem(itemName.getText(), itemArrayList);
 				if(itemName.getText().startsWith("H")||itemName.getText().startsWith("h"))
-					items = new Items(itemName.getText(), Integer.parseInt(intelligenceValue.getText()));
-				else if(itemName.getText().startsWith("a")||itemName.getText().startsWith("A"))
-					items = new Items(itemName.getText(), Integer.parseInt(armorarmorClassValue.getText()));
-				else if(itemName.getText().startsWith("s")||itemName.getText().startsWith("S"))
-					items = new Items(itemName.getText(), Integer.parseInt(shieldarmorClassValue.getText()));
-				else if(itemName.getText().startsWith("r")||itemName.getText().startsWith("R"))
-					items = new Items(itemName.getText(), Integer.parseInt(ringwisdomValue.getText()));
-				else if(itemName.getText().startsWith("w")||itemName.getText().startsWith("W"))
-					items = new Items(itemName.getText(), Integer.parseInt(damageBonusValue.getText()));
-				else if(itemName.getText().startsWith("belt")||itemName.getText().startsWith("BELT"))
-					items = new Items(itemName.getText(), Integer.parseInt(beltstrengthValue.getText()));
-				else 
-					items = new Items(itemName.getText(), Integer.parseInt(dexterityValue.getText()));
+				{	
+					if(!intelligenceValue.getText().equals("0"))
+						items = new Items(itemName.getText(), Integer.parseInt(intelligenceValue.getText()),"intelligence");
+					else if (!helmetwisdomValue.getText().equals("0"))
+						items = new Items(itemName.getText(), Integer.parseInt(helmetwisdomValue.getText()),"wisdom");
+					else 
+						items = new Items(itemName.getText(), Integer.parseInt(helmetarmorClassValue.getText()),"armorClass");
+				}
+				else if(itemName.getText().startsWith("a")||itemName.getText().startsWith("A")){
+					items = new Items(itemName.getText(), Integer.parseInt(armorarmorClassValue.getText()),"armorClass");
+				}
+				else if(itemName.getText().startsWith("s")||itemName.getText().startsWith("S")){
+					items = new Items(itemName.getText(), Integer.parseInt(shieldarmorClassValue.getText()),"armorClass");
+				}
+				else if(itemName.getText().startsWith("r")||itemName.getText().startsWith("R")){
+					if(!ringwisdomValue.getText().equals("0"))
+						items = new Items(itemName.getText(), Integer.parseInt(ringwisdomValue.getText()),"wisdom");
+					else if(!ringarmorClassValue.getText().equals("0"))
+						items = new Items(itemName.getText(), Integer.parseInt(ringarmorClassValue.getText()),"armorClass");
+					else if(!ringconstitutionValue.getText().equals("0"))
+						items = new Items(itemName.getText(), Integer.parseInt(ringconstitutionValue.getText()),"constitution");
+					else if(!ringstrengthValue.getText().equals("0"))
+						items = new Items(itemName.getText(), Integer.parseInt(ringstrengthValue.getText()),"strength");
+					else 
+						items = new Items(itemName.getText(), Integer.parseInt(charismaValue.getText()),"charisma");
+				}
+				else if(itemName.getText().startsWith("w")||itemName.getText().startsWith("W")){
+					if(!damageBonusValue.getText().equals("0"))
+						items = new Items(itemName.getText(), Integer.parseInt(damageBonusValue.getText()),"damageBonus");
+					else 
+						items = new Items(itemName.getText(), Integer.parseInt(attackBonusValue.getText()),"attackBonus");
+				}
+				else if(itemName.getText().startsWith("belt")||itemName.getText().startsWith("BELT")){
+					if(!beltstrengthValue.getText().equals("0"))
+						items = new Items(itemName.getText(), Integer.parseInt(beltstrengthValue.getText()),"strength");
+					else 
+						items = new Items(itemName.getText(), Integer.parseInt(beltconstitutionValue.getText()),"constitution");
+				}
+				else {
+					if(!dexterityValue.getText().equals("0"))
+						items = new Items(itemName.getText(), Integer.parseInt(dexterityValue.getText()),"dexterity");
+					else 
+						items = new Items(itemName.getText(), Integer.parseInt(bootarmorClassValue.getText()),"armorClass");
+				}
 				// if the item with input name exist , remove it and add new item. if not, add item
 				if (oldItems == null) {
 					itemArrayList.add(items);
