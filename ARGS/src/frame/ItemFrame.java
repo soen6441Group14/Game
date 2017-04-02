@@ -9,8 +9,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -19,6 +17,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.junit.validator.PublicClassValidator;
+
+import decorator.Burning;
+import decorator.Empty;
+import decorator.Freezing;
+import decorator.Frightening;
+import decorator.Pacifying;
+import decorator.Slaying;
+import decorator.Weapon;
 import enumclass.Enchantment;
 import load.LoadItem;
 import objects.Items;
@@ -34,6 +41,7 @@ public class ItemFrame {
 	public Items oldItems;
 	public Items items = null;
 	public int count = 0;
+	public Weapon weaponDecorator;
 	public JLabel armorarmorClassLabel = new JLabel("armorClass");
 	public JLabel helmetarmorClassLabel = new JLabel("armorClass");
 	public JLabel shieldarmorClassLabel = new JLabel("armorClass");
@@ -221,6 +229,7 @@ public class ItemFrame {
 			}
 		});
 		
+		
 		add.addActionListener(new ActionListener() {
 			
 			@Override
@@ -229,8 +238,33 @@ public class ItemFrame {
 				if(count==0)
 				init(itemArrayList);
 				
+				if(count==0)
+					weaponDecorator = new Empty();
+				
 				if(jComboBox.getSelectedItem().toString().equals("Weapon")){
-					items.enchantments.add(Enum.valueOf(Enchantment.class, enchantment.getSelectedItem().toString()));
+					if(enchantment.getSelectedItem().toString().equals("Freezing"))
+					{
+						weaponDecorator = new Freezing(weaponDecorator);
+						weaponDecorator.add(Enum.valueOf(Enchantment.class, "Freezing"));
+					}
+					else if(enchantment.getSelectedItem().toString().equals("Burning")){
+						weaponDecorator = new Burning(weaponDecorator);
+						weaponDecorator.add(Enum.valueOf(Enchantment.class, "Burning"));
+					}
+					else if(enchantment.getSelectedItem().toString().equals("Slaying")){
+						weaponDecorator = new Slaying(weaponDecorator);
+						weaponDecorator.add(Enum.valueOf(Enchantment.class, "Slaying"));
+					}
+					else if(enchantment.getSelectedItem().toString().equals("Frightening")){
+						weaponDecorator = new Frightening(weaponDecorator);
+						weaponDecorator.add(Enum.valueOf(Enchantment.class, "Frightening"));
+					}
+					else{
+						weaponDecorator = new Pacifying(weaponDecorator);
+						weaponDecorator.add(Enum.valueOf(Enchantment.class, "Pacifying"));
+					}
+//					items.enchantments.add(Enum.valueOf(Enchantment.class, enchantment.getSelectedItem().toString()));
+					items.enchantments = weaponDecorator.arrayList;
 					items.setRange(Integer.parseInt(range.getText()));
 				}
 				else
