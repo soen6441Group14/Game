@@ -9,13 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
-import java.util.Set;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,6 +24,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+
 import actionListener.PanelListener;
 import actionListener.MapListener;
 import enumclass.TileType;
@@ -285,6 +285,8 @@ public class Map {
 				jButton.putClientProperty("Rows", i);// set a attribute for every button
 				jButton.putClientProperty("Cols", j);
 				jButton.setBorderPainted(false);
+//				jButton.setMargin(m);
+//				jButton.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
 				jButton.setBounds(j * 33, i * 33, 32, 32); // j represents width, i represent height
 				jButton.addActionListener(new MapListener(Map.this,itemBox,characterBox,characterArrayList,itemArrayList));
 
@@ -804,10 +806,14 @@ public class Map {
 		showOnMap();
 		drawMap(2);
 		
+		
+		
+			
 		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物
 		for(Characters characters: characterTurn){
 			characters.turn();
 		}
+		
 		
 	}
 
@@ -852,6 +858,9 @@ public class Map {
 		updateCharacterList();
 		drawMap(2);
 		
+		
+		
+			
 		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物
 		for(Characters characters: characterTurn){
 			characters.turn();

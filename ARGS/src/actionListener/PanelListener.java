@@ -123,6 +123,9 @@ public class PanelListener implements KeyListener {
 	 * @return  true of false
 	 */
 	public boolean moveRight(int xHero, int yHero, Characters hero) {
+		
+		
+		
 		boolean flag = false;
 
 		if(yHero+1<numCols){

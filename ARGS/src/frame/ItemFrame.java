@@ -432,7 +432,7 @@ public class ItemFrame {
 				}
 				
 				
-				System.out.println(items.getEnchantments().get(0));
+//				System.out.println(items.getEnchantments().get(0));
 				map.drawItemBox();
 
 				jFrame2.setEnabled(true);
