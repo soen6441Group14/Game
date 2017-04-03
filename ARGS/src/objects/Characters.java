@@ -294,10 +294,29 @@ public class Characters implements Serializable {
 	 * @return true if the hostile is live, false if the hostile has dead
 	 */
 	public boolean interactWithHostile(Characters hostile){
+		
+		int attackBonus;
+		if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
+			if(this.getInventory().get(0).getRange()==1){//melee weapon
+				 attackBonus = this.getAttackBonus()+this.getModStr();
+			}
+			else{//ranged weapon
+				 attackBonus = this.getAttackBonus()+this.getModDex();
+			}
+		}
+		else{// character don't have weapon
+			attackBonus = this.getAttackBonus();
+		}
+		
+		//deal with damage
+		if(attackBonus>=hostile.getArmorClass()){
+			hostile.setHitpoints(hostile.getHitpoints()-getD10());//hitpoints reduce 1d10
+		}
+		
+		
 		boolean live;
 		if(hostile.getHitpoints()>0){
 			live=true;
-			hostile.setHitpoints(0);
 		}
 		else{
 			live=false;
@@ -320,8 +339,14 @@ public class Characters implements Serializable {
 
 		return live;
 	}
+	
+	public int getD10(){
+		return new Random().nextInt(10)+1;
+	}
 
-
+	public int getD20(){
+		return new Random().nextInt(20)+1;
+	}
 
 
 	/* setters and getters*/
