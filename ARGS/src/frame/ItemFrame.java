@@ -16,9 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import org.junit.validator.PublicClassValidator;
-
 import decorator.Burning;
 import decorator.Empty;
 import decorator.Freezing;

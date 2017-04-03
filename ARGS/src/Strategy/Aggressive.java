@@ -49,7 +49,7 @@ public class Aggressive implements Strategy{
     public void walk(int desRow,int desColumn){
         if((Math.abs(desRow-currentRow)>=Math.abs(desColumn-currentColumn))){
             if(desRow>currentRow) {
-                if(moveOneStep(1,0))
+                if(moveOneStep(1,0));
             }
             else
                 moveOneStep(-1,0);
