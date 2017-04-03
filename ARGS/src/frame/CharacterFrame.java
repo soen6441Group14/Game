@@ -482,7 +482,7 @@ public class CharacterFrame {
 					bootName.setText(name);
 					boot.setText(value);
 				}
-				newItemArrayList.add(items);
+				newItemArrayList.add(items);//这样写是为了加入有enchantment的weapon，以及其它的装备
 			}
 		});
 		
@@ -495,12 +495,12 @@ public class CharacterFrame {
 			ArrayList<Items> backpack = new ArrayList<Items>();
 			
 			
-//			newItemArrayList.add(new Items(shieldName.getText(), Integer.parseInt(shield.getText())));
-//			newItemArrayList.add(new Items(helmetName.getText(), Integer.parseInt(helmet.getText())));
-//			newItemArrayList.add(new Items(armorName.getText(), Integer.parseInt(armor.getText())));
-//			newItemArrayList.add(new Items(ringName.getText(), Integer.parseInt(ring.getText())));
-//			newItemArrayList.add(new Items(beltName.getText(), Integer.parseInt(belt.getText())));
-//			newItemArrayList.add(new Items(bootName.getText(), Integer.parseInt(boot.getText())));
+//			newItemArrayList.add(new Items(shieldName.getText(), Integer.parseInt(shield.getText()),""));
+//			newItemArrayList.add(new Items(helmetName.getText(), Integer.parseInt(helmet.getText()),""));
+//			newItemArrayList.add(new Items(armorName.getText(), Integer.parseInt(armor.getText()),""));
+//			newItemArrayList.add(new Items(ringName.getText(), Integer.parseInt(ring.getText()),""));
+//			newItemArrayList.add(new Items(beltName.getText(), Integer.parseInt(belt.getText()),""));
+//			newItemArrayList.add(new Items(bootName.getText(), Integer.parseInt(boot.getText()),""));
 			
 			//编辑character时，会使backpack恢复默认值
 			if(name.getText().startsWith("P")||name.getText().startsWith("p"))
