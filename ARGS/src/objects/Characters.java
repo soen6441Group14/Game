@@ -65,8 +65,7 @@ public class Characters implements Serializable{
 	public int enchantedBonus;
 	public Strategy strategy;
 	public Map dependentMap;
-	//TODO:写个打人的人
-
+	public Characters afraidCharacter;
 
 /**
  *  constructor method
@@ -146,8 +145,10 @@ public class Characters implements Serializable{
 		if(enchantedType==Enchantment.Freezing){
 			this.setStrategy(new Frozen()); //frozen的执行属于turn()中的
 			turnsLeft--;
-			if(turnsLeft==0)
+			if(turnsLeft==0){
 				this.enchanted.remove(enchantedType);
+				recoverTheCharacterStrategy();
+			}
 			else
 				this.enchanted.put(enchantedType,turnsLeft); //update the turns left
 		}
@@ -164,10 +165,12 @@ public class Characters implements Serializable{
 			this.enchanted.remove(enchantedType);
 		}
 		else if(enchantedType==Enchantment.Frightening){
-			this.setStrategy(new Frightened(this.dependentMap,this,));
+			this.setStrategy(new Frightened(this.dependentMap,this,afraidCharacter));
 			turnsLeft--;
-			if(turnsLeft==0)
+			if(turnsLeft==0){
 				this.enchanted.remove(Enchantment.Frightening);
+				recoverTheCharacterStrategy();
+			}
 			else
 				this.enchanted.put(Enchantment.Frightening,turnsLeft);
 		}
@@ -199,6 +202,17 @@ public class Characters implements Serializable{
 				this.enchanted.put(Enchantment.Pacifying,1);
 			}
 		}
+	}
+
+	public void recoverTheCharacterStrategy(){
+		if(this.orient==Orientation.FRIENDLY)
+			this.setStrategy(new Friendly(this.dependentMap,this));
+		else if(this.orient==Orientation.HOSTILE)
+			this.setStrategy(new Aggressive(this.dependentMap,this));
+	}
+
+	public void frightenByCharacter(Characters afraidCha){
+		this.afraidCharacter=afraidCha;
 	}
 
 	/*interactions*/
@@ -292,13 +306,13 @@ public class Characters implements Serializable{
 	}
 
 	/**
-	 * The method is to interact with hostile monster
+	 * The method is to interact with target monster
 	 * the first interaction is killing the monster
 	 * the second interaction is to loot its items
-	 * @param hostile  the hostile monster in the map
-	 * @return true if the hostile is live, false if the hostile has dead
+	 * @param target  the target monster in the map
+	 * @return true if the target is live, false if the target has dead
 	 */
-	public boolean interactWithHostile(Characters hostile){
+	public boolean attack(Characters target){
 		
 		int attackBonus;
 		if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
@@ -308,36 +322,41 @@ public class Characters implements Serializable{
 			else{//ranged weapon
 				 attackBonus = this.getAttackBonus()+this.getModDex();
 			}
+			//weapon with enchantment will damage enchantment bonus to target
+			if(this.getInventory().get(0).getEnchantments().size()>0){
+				int enchantBonus=this.getInventory().get(0).getValue();//from 1 to 5
+				this.addEnchantedEffectToCharacter(this.getInventory().get(0).getEnchantments(),enchantBonus);
+			}
 		}
 		else{// character don't have weapon
 			attackBonus = this.getAttackBonus();
 		}
 		
 		//deal with damage
-		if(attackBonus>=hostile.getArmorClass()){
-			hostile.setHitpoints(hostile.getHitpoints()-getD10());//hitpoints reduce 1d10
+		if(attackBonus>=target.getArmorClass()){
+			target.setHitpoints(target.getHitpoints()-getD10());//hitpoints reduce 1d10
 		}
 		
 		
 		boolean live;
-		if(hostile.getHitpoints()>0){
+		if(target.getHitpoints()>0){
 			live=true;
 		}
 		else{
 			live=false;
 			//loot backpack
 			for(int i=0; i<10; i++){
-				if(!hostile.getBackpack().get(i).getName().equals("EMPTY")){
-					lootItem(hostile.getBackpack().get(i));
-					hostile.getBackpack().set(i,new Items("EMPTY",0," "));
+				if(!target.getBackpack().get(i).getName().equals("EMPTY")){
+					lootItem(target.getBackpack().get(i));
+					target.getBackpack().set(i,new Items("EMPTY",0," "));
 				}
 			}
 
 			//loot worn items
-			for(int i=0; i<hostile.getInventory().size(); i++){
-				if(!hostile.getInventory().get(i).getName().equals("EMPTY")){
-					lootItem(hostile.getInventory().get(i));
-					hostile.getInventory().set(i,new Items("EMPTY",0," "));
+			for(int i=0; i<target.getInventory().size(); i++){
+				if(!target.getInventory().get(i).getName().equals("EMPTY")){
+					lootItem(target.getInventory().get(i));
+					target.getInventory().set(i,new Items("EMPTY",0," "));
 				}
 			}
 		}

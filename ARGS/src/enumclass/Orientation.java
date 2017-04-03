@@ -5,5 +5,5 @@ package enumclass;
  *@version 2.0
  */
 public enum Orientation {
-	HOSTILE,FRIENDLY,PLAYER,
+	HOSTILE,FRIENDLY,PLAYER,COMPUTER_PLAYER
 }

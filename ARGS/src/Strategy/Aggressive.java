@@ -88,19 +88,25 @@ public class Aggressive implements Strategy{
 
         if(map[characterRow +down][characterColumn +right].getTileType() == TileType.GROUND){
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols,theAggressive);
+            map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols,theAggressive);
             flag=true;
         }
         else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.CHEST){
             Items item = map[characterRow +down][characterColumn +right].getItems();
             theAggressive.lootItem(item);
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols, theAggressive);
+            map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols, theAggressive);
             flag=true;
         }
         else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.MONSTER ||
                 map[characterRow +down][characterColumn +right].getTileType() == TileType.HERO){
-            //TODO:打架
+            Characters target=map[characterRow+down][characterColumn+right].getCharacters();
+            //attack the target
+            boolean ifLive=theAggressive.attack(target);
+            if(!ifLive){
+                map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+                map[characterRow+down][characterColumn+right]=new Cells(TileType.MONSTER, numRows, numCols,theAggressive);
+            }
             flag=true;
         }
         mapFrame.setMap(map,numRows,numCols);
