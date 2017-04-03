@@ -22,16 +22,28 @@ public class Friendly implements Strategy{
     public int characterRow, characterColumn;
     public Characters theFriendly;
 
-    public Friendly(Map map,int characterRow,int characterColumn){
+    public Friendly(Map map,Characters theCharacter){
         this.mapFrame=map;
         this.map = this.mapFrame.getMap();
         this.numRows = this.mapFrame.getNumRows();
         this.numCols = this.mapFrame.getNumCols();
 
-        this.characterRow =characterRow;
-        this.characterColumn =characterColumn;
-        this.theFriendly=this.map[this.characterRow][this.characterColumn].getCharacters();
+        this.theFriendly=theCharacter;
+        locateTheFriendly();
+    }
 
+    public void locateTheFriendly(){
+        for(int row=0;row<numRows;row++){
+            for(int col=0;col<numCols;col++){
+                if(map[row][col].getTileType()==TileType.MONSTER){
+                    if(theFriendly==map[row][col].getCharacters()){
+                        characterRow=row;
+                        characterColumn=col;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public boolean moveOneStep(int down, int right){
@@ -58,6 +70,8 @@ public class Friendly implements Strategy{
 
     @Override
     public void execute() {
+        if(theFriendly.hitpoints<=0)
+            return;
         int steps=3;
         while (steps>0){
             int random=(int)(Math.random()*4);

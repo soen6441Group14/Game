@@ -25,15 +25,28 @@ public class Aggressive implements Strategy{
     public int heroRow,heroColumn;
 
 
-    public Aggressive(Map map,int characterRow,int characterColumn){
+    public Aggressive(Map map,Characters theCharacter){
         this.mapFrame=map;
         this.map = this.mapFrame.getMap();
         this.numRows = this.mapFrame.getNumRows();
         this.numCols = this.mapFrame.getNumCols();
 
-        this.characterRow =characterRow;
-        this.characterColumn =characterColumn;
-        this.theAggressive=this.map[this.characterRow][this.characterColumn].getCharacters();
+        this.theAggressive=theCharacter;
+        locateTheAggressive();
+    }
+
+    public void locateTheAggressive(){
+        for(int row=0;row<numRows;row++){
+            for(int col=0;col<numCols;col++){
+                if(map[row][col].getTileType()==TileType.MONSTER){
+                    if(theAggressive==map[row][col].getCharacters()){
+                        characterRow=row;
+                        characterColumn=col;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public void searchForHero(){
@@ -99,6 +112,8 @@ public class Aggressive implements Strategy{
 
     @Override
     public void execute() {
+        if(theAggressive.hitpoints<=0)
+            return;
         searchForHero();
         walkTowardDes(heroRow,heroColumn);
     }
