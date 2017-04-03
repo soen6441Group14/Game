@@ -53,6 +53,8 @@ public class Friendly implements Strategy{
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
             map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols,theFriendly);
             flag=true;
+            characterRow=characterRow+down;
+            characterColumn=characterColumn+right;
         }
         else if(map[characterRow+down][characterColumn+right].getTileType() == TileType.CHEST){
             Items item = map[characterRow+down][characterColumn+right].getItems();
@@ -60,6 +62,8 @@ public class Friendly implements Strategy{
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
             map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols, theFriendly);
             flag=true;
+            characterRow=characterRow+down;
+            characterColumn=characterColumn+right;
         }
         mapFrame.setMap(map,numRows,numCols);
         mapFrame.drawMap(2);

@@ -75,6 +75,8 @@ public class Frightened implements Strategy {
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
             map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols,theFrightened);
             flag=true;
+            characterRow=characterRow+down;
+            characterColumn=characterColumn+right;
         }
         else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.ENTRY){
             flag=false;
@@ -88,6 +90,8 @@ public class Frightened implements Strategy {
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
             map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols, theFrightened);
             flag=true;
+            characterRow=characterRow+down;
+            characterColumn=characterColumn+right;
         }
         else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.MONSTER ||
                 map[characterRow +down][characterColumn +right].getTileType() == TileType.HERO){
@@ -99,6 +103,8 @@ public class Frightened implements Strategy {
                 map[characterRow+down][characterColumn+right]=new Cells(TileType.MONSTER, numRows, numCols,theFrightened);
             }
             flag=true;
+            characterRow=characterRow+down;
+            characterColumn=characterColumn+right;
         }
         mapFrame.setMap(map,numRows,numCols);
         mapFrame.drawMap(2);
