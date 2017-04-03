@@ -23,6 +23,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.plaf.basic.BasicButtonUI;
+
 import Strategy.Aggressive;
 import Strategy.Friendly;
 import actionListener.PanelListener;
@@ -41,6 +44,7 @@ import objects.Items;
 import objects.Matrix;
 import observer.CharacterObserver;
 import play.Adaptor;
+import play.Iteration;
 
 /**
  * 
@@ -149,6 +153,7 @@ public class Map {
 	
 	public ActionListener actionListener;
 	public KeyListener keyListener ;
+	public Iteration iteration;
 
 	/**
 	 * The getter to get the playing index
@@ -284,9 +289,9 @@ public class Map {
 				
 				jButton.putClientProperty("Rows", i);// set a attribute for every button
 				jButton.putClientProperty("Cols", j);
-				jButton.setBorderPainted(false);
-//				jButton.setMargin(m);
-//				jButton.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+				jButton.setBorderPainted(true);
+//				jButton.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+//				jButton.setContentAreaFilled(false);
 				jButton.setBounds(j * 33, i * 33, 32, 32); // j represents width, i represent height
 				jButton.addActionListener(new MapListener(Map.this,itemBox,characterBox,characterArrayList,itemArrayList));
 
@@ -808,14 +813,28 @@ public class Map {
 		
 		
 		
-			
-		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物
+		characterTurn.clear();//每次调用前需要清除前面的人物列表
+		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
 		initialCharactersStrategy();
 		initialCharactersDependency();
-		for(Characters characters: characterTurn){
-			characters.turn();
-		}
+//		for(Characters characters: characterTurn){
+//			characters.turn();
+//		}
 		
+		iteration = new Iteration(characterTurn);
+		iteration.play();
+		//每张地图中人物都按照顺序依次移动n次
+//		while(flagMove){//这里的循环有问题，hero离开地图之后，无法结束上一个地图就进入下一个地图了
+//			
+//			for(Characters characters: characterTurn){
+//				characters.turn();
+//			}
+//		}
+		
+//		changeMap();
+//		keyListener = new PanelListener(Map.this,numberMap);
+//		setListeningMatrix();
+//		showOnMap();
 		
 	}
 
@@ -844,6 +863,7 @@ public class Map {
 	/**
 	 * The method is used to change map from exit
 	 */
+//	public boolean flagMove = true;
 	public void changeMap(){
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
@@ -861,14 +881,31 @@ public class Map {
 		drawMap(2);
 		
 		
-		
-			
-		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物
+		characterTurn.clear();//每次调用前需要清除前面的人物列表
+		//第一次初始化地图时初始化人物的strategy pattern
+		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
 		initialCharactersStrategy();
 		initialCharactersDependency();
-		for(Characters characters: characterTurn){
-			characters.turn();
-		}
+//		for(Characters characters: characterTurn){
+//			characters.turn();
+//		}
+		
+		iteration = new Iteration(characterTurn);
+		iteration.play();
+		//每张地图中人物都按照顺序依次移动n次
+//		while(flagMove){
+//			
+//			for(Characters characters: characterTurn){
+//				characters.turn();
+//			}
+//		}
+		
+//		changeMap();
+//		keyListener = new PanelListener(Map.this,numberMap);
+//		setListeningMatrix();
+//		showOnMap();
+		
+		
 	}
 
 	/**
