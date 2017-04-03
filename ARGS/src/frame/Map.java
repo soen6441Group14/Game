@@ -811,18 +811,18 @@ public class Map {
 		showOnMap();
 		drawMap(2);
 		
+		System.out.println("start game");
 		
-		
-		characterTurn.clear();//每次调用前需要清除前面的人物列表
-		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
-		initialCharactersStrategy();
-		initialCharactersDependency();
-//		for(Characters characters: characterTurn){
-//			characters.turn();
-//		}
-		
-		iteration = new Iteration(characterTurn);
-		iteration.play();
+//		characterTurn.clear();//每次调用前需要清除前面的人物列表
+//		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
+//		initialCharactersStrategy();
+//		initialCharactersDependency();
+////		for(Characters characters: characterTurn){
+////			characters.turn();
+////		}
+//		
+//		iteration = new Iteration(characterTurn);
+//		iteration.play();
 		//每张地图中人物都按照顺序依次移动n次
 //		while(flagMove){//这里的循环有问题，hero离开地图之后，无法结束上一个地图就进入下一个地图了
 //			
