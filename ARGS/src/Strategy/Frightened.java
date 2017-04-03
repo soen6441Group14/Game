@@ -27,16 +27,29 @@ public class Frightened implements Strategy {
     public int afraidRow,afraidColumn;
 
 
-    public Frightened(Map map, int characterRow, int characterColumn,Characters afraid){
+    public Frightened(Map map,Characters theCharacter,Characters afraid){
         this.mapFrame=map;
         this.map = this.mapFrame.getMap();
         this.numRows = this.mapFrame.getNumRows();
         this.numCols = this.mapFrame.getNumCols();
 
-        this.characterRow =characterRow;
-        this.characterColumn =characterColumn;
-        this.theFrightened=this.map[this.characterRow][this.characterColumn].getCharacters();
+        this.theFrightened=theCharacter;
+        locateTheCharacter();
         this.afraidObject=afraid;
+    }
+
+    public void locateTheCharacter(){
+        for(int row=0;row<numRows;row++){
+            for(int col=0;col<numCols;col++){
+                if(map[row][col].getTileType()== TileType.MONSTER||map[row][col].getTileType()==TileType.HERO){
+                    if(map[row][col].getCharacters()==theFrightened){
+                        this.characterRow=row;
+                        this.characterColumn=col;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public void locateTheAfraid(){
@@ -88,6 +101,8 @@ public class Frightened implements Strategy {
 
     @Override
     public void execute() {
+        if(this.theFrightened.hitpoints<=0)
+            return;
         locateTheAfraid();
         int desRow= characterRow-(afraidRow-characterRow);
         int desColumn= characterColumn-(afraidColumn-characterColumn);

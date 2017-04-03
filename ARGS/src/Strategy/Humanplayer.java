@@ -8,6 +8,7 @@ package Strategy;
 public class Humanplayer implements Strategy{
     @Override
     public void execute() {
+
         System.out.println("This is a strategy for human player");
     }
 }

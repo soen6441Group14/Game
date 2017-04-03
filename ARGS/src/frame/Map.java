@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,10 +23,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-
+import Strategy.Aggressive;
+import Strategy.Friendly;
 import actionListener.PanelListener;
 import actionListener.MapListener;
+import enumclass.Orientation;
 import enumclass.TileType;
 import load.LoadCampaign;
 import load.LoadCharacter;
@@ -810,6 +810,8 @@ public class Map {
 		
 			
 		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物
+		initialCharactersStrategy();
+		initialCharactersDependency();
 		for(Characters characters: characterTurn){
 			characters.turn();
 		}
@@ -862,6 +864,8 @@ public class Map {
 		
 			
 		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物
+		initialCharactersStrategy();
+		initialCharactersDependency();
 		for(Characters characters: characterTurn){
 			characters.turn();
 		}
@@ -886,9 +890,7 @@ public class Map {
 //					System.out.println("character Jcombobox update");
 				}
 			}
-		
-		
-		
+
 		characterMapBox.addActionListener(actionListener);
 	}
 
@@ -951,6 +953,21 @@ public class Map {
 	 */
 	public int getD20(){
 		return new Random().nextInt(20)+1;
+	}
+
+	public void initialCharactersStrategy(){
+		for(Characters character:characterTurn){
+			if(character.getOrient()== Orientation.HOSTILE)
+				character.setStrategy(new Aggressive(this,character));
+			else if(character.getOrient()==Orientation.FRIENDLY)
+				character.setStrategy(new Friendly(this,character));
+		}
+	}
+
+	public void initialCharactersDependency(){
+		for(Characters character:characterTurn){
+			character.setDependentMap(this);
+		}
 	}
 
 

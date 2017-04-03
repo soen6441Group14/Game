@@ -30,7 +30,7 @@ public class ComputerPlayer implements Strategy{
         this.theComPlayer=this.map[this.playerRow][this.playerColumn].getCharacters();
     }
 
-    
+
     @Override
     public void execute() {
 
