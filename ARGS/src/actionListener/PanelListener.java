@@ -2,7 +2,7 @@ package actionListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
+
 import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
@@ -12,8 +12,6 @@ import objects.Ground;
 import objects.Items;
 import objects.Entry;
 import javax.swing.JOptionPane;
-import java.util.Random;
-import dialog.ChangeItemDialog;
 
 /**
  * This is the class that listen to the panel in the map frame
@@ -152,7 +150,7 @@ public class PanelListener implements KeyListener {
 					 //interactWithFriendly(target,hero);
 				 	hero.interactWithFriendly(target);
 				 else{
-				 	if(hero.interactWithHostile(target)){}
+				 	if(hero.attack(target)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -198,7 +196,7 @@ public class PanelListener implements KeyListener {
 					//interactWithFriendly(target,hero);
 					hero.interactWithFriendly(target);
 				else{
-					if(hero.interactWithHostile(target)){}
+					if(hero.attack(target)){}
 					else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero][yHero - 1] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -248,7 +246,7 @@ public class PanelListener implements KeyListener {
 					// interactWithFriendly(target,hero);
 				 	hero.interactWithFriendly(target);
 				 else{
-				 	if(hero.interactWithHostile(target)){}
+				 	if(hero.attack(target)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -299,7 +297,7 @@ public class PanelListener implements KeyListener {
 					 //interactWithFriendly(target,hero);
 				 	hero.interactWithFriendly(target);
 				 else{
-				 	if(hero.interactWithHostile(target)){}
+				 	if(hero.attack(target)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -459,7 +457,7 @@ public class PanelListener implements KeyListener {
 	 * @param hero  the character object of hero
 	 * @return true if the hostile is live, false if the hostile has dead
 	 *//*
-	public boolean interactWithHostile(Characters hostile,Characters hero){
+	public boolean attack(Characters hostile,Characters hero){
 		boolean live;
 		if(hostile.getHitpoints()>0){
 			live=true;

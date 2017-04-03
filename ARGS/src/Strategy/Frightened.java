@@ -1,5 +1,6 @@
 package Strategy;
 
+import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
 import objects.Cells;
@@ -72,7 +73,7 @@ public class Frightened implements Strategy {
 
         if(map[characterRow +down][characterColumn +right].getTileType() == TileType.GROUND){
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols,theFrightened);
+            map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols,theFrightened);
             flag=true;
         }
         else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.ENTRY){
@@ -85,18 +86,25 @@ public class Frightened implements Strategy {
             Items item = map[characterRow +down][characterColumn +right].getItems();
             theFrightened.lootItem(item);
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols, theFrightened);
+            map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols, theFrightened);
             flag=true;
         }
         else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.MONSTER ||
                 map[characterRow +down][characterColumn +right].getTileType() == TileType.HERO){
-            //TODO:打架
+            Characters target=map[characterRow+down][characterColumn+right].getCharacters();
+
+            //attack the target
+            if(!theFrightened.attack(target)){
+                map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+                map[characterRow+down][characterColumn+right]=new Cells(TileType.MONSTER, numRows, numCols,theFrightened);
+            }
             flag=true;
         }
         mapFrame.setMap(map,numRows,numCols);
         mapFrame.drawMap(2);
         return flag;
     }
+
 
 
     @Override
