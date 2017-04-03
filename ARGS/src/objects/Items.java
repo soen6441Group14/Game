@@ -16,8 +16,9 @@ public class Items implements Serializable {
 
 	    public String name;
 	    public int value;
-	    public ArrayList<Enchantment> enchantments;
-	    public String bonusType;
+	    public ArrayList<Enchantment> enchantments = new ArrayList<>();
+	    public int range;
+		public String bonusType;
 	    
 /**
  * constructor method
@@ -30,14 +31,33 @@ public class Items implements Serializable {
 	        this.bonusType = bonusType;
 	    }
 	    
-	    
-public String getBonusType() {
-	return bonusType;
-}
 
-public void setBonusType(String bonusType) {
-	this.bonusType = bonusType;
-}
+	    public ArrayList<Enchantment> getEnchantments() {
+			return enchantments;
+		}
+
+
+		public void setEnchantments(ArrayList<Enchantment> enchantments) {
+			this.enchantments = enchantments;
+		}
+
+
+		public int getRange() {
+			return range;
+		}
+
+
+		public void setRange(int range) {
+			this.range = range;
+		}
+	    
+		public String getBonusType() {
+			return bonusType;
+		}
+		
+		public void setBonusType(String bonusType) {
+			this.bonusType = bonusType;
+		}
 /**
  * 
  * @return name

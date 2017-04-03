@@ -62,6 +62,7 @@ public class Aggressive implements Strategy{
                     flag=moveOneStep(0,1);
                 else
                     flag=moveOneStep(0,-1);
+
             }
             //one step finished
             if(flag)

@@ -10,6 +10,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -57,6 +63,7 @@ public class Map {
 	public ArrayList<Items> itemArrayList = new ArrayList<Items>();
 	public ArrayList<Characters> characterArrayList = new ArrayList<Characters>();
 	public ArrayList<Characters> characterMapArrayList = new ArrayList<>();
+	public ArrayList<Characters> characterTurn = new ArrayList<>();
 	
 	public ArrayList<Matrix> allMaps = new ArrayList<Matrix>();
 	public ArrayList<Campaigns> campaigns = new ArrayList<Campaigns>();
@@ -796,7 +803,12 @@ public class Map {
 		//character show on the entry
 		showOnMap();
 		drawMap(2);
-
+		
+		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物
+		for(Characters characters: characterTurn){
+			characters.turn();
+		}
+		
 	}
 
 	/**
@@ -839,6 +851,11 @@ public class Map {
 		adaptor.adapting();
 		updateCharacterList();
 		drawMap(2);
+		
+		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物
+		for(Characters characters: characterTurn){
+			characters.turn();
+		}
 	}
 
 	/**
@@ -848,7 +865,7 @@ public class Map {
 
 		characterMapBox.removeActionListener(actionListener);
 		//在消除所有的选项之前，需要先去除监听，因为选项为空时，监听会有问题
-		//before deleting all items in jcombobox,need to delete the listener firstly
+		//before deleting all items in jcombobox,need to delete the listener first
 		characterMapBox.removeAllItems();
 		
 		
@@ -860,6 +877,8 @@ public class Map {
 //					System.out.println("character Jcombobox update");
 				}
 			}
+		
+		
 		
 		characterMapBox.addActionListener(actionListener);
 	}
@@ -877,7 +896,53 @@ public class Map {
 		panel.removeAll();
 		drawMap(3);
 	}
-
+	
+	//安排地图中人物的移动顺序
+	/**
+	 * sort moving sequence of characters in the map
+	 */
+	public void characterTurnMove(){
+		HashMap<Integer, Characters> hashMap = new HashMap<>();
+		ArrayList<Integer> arrayList = new ArrayList<>();
+		int random;
+		int total;
+		for(int i=0;i<numRows;i++)
+			for(int j=0;j<numCols;j++){
+				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO){
+					
+					random = getD20();
+					total = map[i][j].getCharacters().getModDex()+random;
+					// prevent the same total number
+					while(true){
+					if(arrayList.contains(total)){
+						random = getD20();
+						total = map[i][j].getCharacters().getModDex()+random;
+					}
+					else{
+						arrayList.add(total);
+						break;
+					}
+					}
+					
+					hashMap.put(total, map[i][j].getCharacters());
+				}
+			}
+		//sort the total
+		Collections.sort(arrayList);
+		// from high to low 
+		for(int i=arrayList.size()-1;i<=-1;i--){
+			characterTurn.add(hashMap.get(arrayList.get(i)));
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @return d20
+	 */
+	public int getD20(){
+		return new Random().nextInt(20)+1;
+	}
 
 
 }
