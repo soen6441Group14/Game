@@ -13,13 +13,15 @@ import dialog.ChangeItemDialog;
 import enumclass.Enchantment;
 import enumclass.Orientation;
 import Strategy.*;
+import frame.Map;
+
 /**
  * Character class
  * @author grey
  *	@version 2.0
  */
 @SuppressWarnings("serial")
-public class Characters implements Serializable {
+public class Characters implements Serializable{
 	Orientation orient;//hostile or friendly
 	public String name;
 
@@ -62,6 +64,9 @@ public class Characters implements Serializable {
 	public HashMap<Enchantment,Integer> enchanted;
 	public int enchantedBonus;
 	public Strategy strategy;
+	public Map dependentMap;
+	//TODO:写个打人的人
+
 
 /**
  *  constructor method
@@ -159,7 +164,7 @@ public class Characters implements Serializable {
 			this.enchanted.remove(enchantedType);
 		}
 		else if(enchantedType==Enchantment.Frightening){
-			this.setStrategy(new Frightened());
+			this.setStrategy(new Frightened(this.dependentMap,this,));
 			turnsLeft--;
 			if(turnsLeft==0)
 				this.enchanted.remove(Enchantment.Frightening);
@@ -167,7 +172,7 @@ public class Characters implements Serializable {
 				this.enchanted.put(Enchantment.Frightening,turnsLeft);
 		}
 		else if(enchantedType==Enchantment.Pacifying){
-			this.setStrategy(new Friendly());
+			this.setStrategy(new Friendly(this.dependentMap,this));
 			this.enchanted.remove(enchantedType);
 		}
 	}
@@ -665,5 +670,10 @@ public class Characters implements Serializable {
 	 */
 	public void setStrategy(Strategy thestrategy) {
 		this.strategy = thestrategy;
+	}
+
+	public void setDependentMap(Map dependentMap) {
+		this.dependentMap = dependentMap;
+		enchanted=new HashMap<Enchantment,Integer>();
 	}
 }
