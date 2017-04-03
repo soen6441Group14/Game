@@ -86,6 +86,8 @@ public class ComputerPlayer implements Strategy{
             map[playerRow][playerColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
             map[playerRow+down][playerColumn +right] = new Cells(TileType.MONSTER, numRows, numCols,theComPlayer);
             flag=true;
+            playerRow=playerRow+down;
+            playerColumn=playerColumn+right;
         }
         else if(map[playerRow+down][playerColumn +right].getTileType() == TileType.MONSTER ||
                 map[playerRow+down][playerColumn +right].getTileType() == TileType.HERO){
@@ -97,6 +99,8 @@ public class ComputerPlayer implements Strategy{
                 map[playerRow+down][playerColumn+right]=new Cells(TileType.MONSTER, numRows, numCols,theComPlayer);
             }
             flag=true;
+            playerRow=playerRow+down;
+            playerColumn=playerColumn+right;
         }
         else if (map[playerRow+down][playerColumn+right].getTileType() == TileType.EXIT) {
             if(!searchForHostiles()){
