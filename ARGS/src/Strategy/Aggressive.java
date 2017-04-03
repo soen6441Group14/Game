@@ -1,6 +1,5 @@
 package Strategy;
 
-import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
 import objects.Cells;
@@ -15,14 +14,16 @@ import objects.Items;
  */
 public class Aggressive implements Strategy{
 
-    Map mapFrame;
+    public Map mapFrame;
     public Cells[][] map;
-    int numRows,numCols;
+    public int numRows,numCols;
+
+    public Characters theAggressive;
     // to locate the aggressive character
-    public int currentRow,currentColumn;
+    public int characterRow, characterColumn;
     //objective - locate the hero
     public int heroRow,heroColumn;
-    public Characters theAggressive;
+
 
     public Aggressive(Map map,int characterRow,int characterColumn){
         this.mapFrame=map;
@@ -30,9 +31,9 @@ public class Aggressive implements Strategy{
         this.numRows = this.mapFrame.getNumRows();
         this.numCols = this.mapFrame.getNumCols();
 
-        this.currentRow=characterRow;
-        this.currentColumn=characterColumn;
-        this.theAggressive=this.map[currentRow][currentColumn].getCharacters();
+        this.characterRow =characterRow;
+        this.characterColumn =characterColumn;
+        this.theAggressive=this.map[this.characterRow][this.characterColumn].getCharacters();
     }
 
     public void searchForHero(){
@@ -46,43 +47,50 @@ public class Aggressive implements Strategy{
         }
     }
 
-    public void walk(int desRow,int desColumn){
-        if((Math.abs(desRow-currentRow)>=Math.abs(desColumn-currentColumn))){
-            if(desRow>currentRow) {
-                if(moveOneStep(1,0))
+    public void walkTowardDes(int desRow,int desColumn) {
+        int steps = 3;
+        boolean flag;
+
+        while (steps > 0 && characterColumn!=desColumn && characterRow!=desRow) {
+            if ((Math.abs(desRow - characterRow) >= Math.abs(desColumn - characterColumn))) {
+                if (desRow >= characterRow)
+                    flag=moveOneStep(1,0);
+                else
+                    flag=moveOneStep(-1, 0);
+            } else {
+                if (desColumn >= characterColumn)
+                    flag=moveOneStep(0,1);
+                else
+                    flag=moveOneStep(0,-1);
             }
-            else
-                moveOneStep(-1,0);
+            //one step finished
+            if(flag)
+                steps--;
         }
-        else{}
     }
 
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
 
-        if(map[currentRow+down][currentColumn+right].getTileType() == TileType.GROUND){
-            map[currentRow][currentColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[currentRow+down][currentColumn+right] = new Cells(TileType.HERO, numRows, numCols,theAggressive);
+        if(map[characterRow +down][characterColumn +right].getTileType() == TileType.GROUND){
+            map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+            map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols,theAggressive);
             flag=true;
         }
-        else if(map[currentRow+down][currentColumn+right].getTileType() == TileType.ENTRY){
-            flag=false;
-        }
-        else if(map[currentRow+down][currentColumn+right].getTileType() == TileType.WALL){
-            flag=false;
-        }
-        else if(map[currentRow+down][currentColumn+right].getTileType() == TileType.CHEST){
-            Items item = map[currentRow+down][currentColumn+right].getItems();
+        else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.CHEST){
+            Items item = map[characterRow +down][characterColumn +right].getItems();
             theAggressive.lootItem(item);
-            map[currentRow][currentColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[currentRow+down][currentColumn+right] = new Cells(TileType.HERO, numRows, numCols, theAggressive);
+            map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
+            map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols, theAggressive);
             flag=true;
         }
-        else if(map[currentRow+down][currentColumn+right].getTileType() == TileType.MONSTER ||
-                map[currentRow+down][currentColumn+right].getTileType() == TileType.HERO){
+        else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.MONSTER ||
+                map[characterRow +down][characterColumn +right].getTileType() == TileType.HERO){
             //TODO:打架
             flag=true;
         }
+        mapFrame.setMap(map,numRows,numCols);
+        mapFrame.drawMap(2);
         return flag;
     }
 
@@ -91,7 +99,6 @@ public class Aggressive implements Strategy{
     @Override
     public void execute() {
         searchForHero();
-
-
+        walkTowardDes(heroRow,heroColumn);
     }
 }
