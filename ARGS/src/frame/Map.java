@@ -512,8 +512,8 @@ public class Map {
 //					e1.printStackTrace();
 //				}
 				
-				new InventoryFrame(Map.this, jFrame,characterMapArrayList,character);
-				characterMapArrayList.clear();;
+				new InventoryFrame(Map.this,jFrame,characterMapArrayList,character);
+				characterMapArrayList.clear();
 				jFrame.setEnabled(false);
 				panelContainer.requestFocus();
 			}

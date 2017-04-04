@@ -30,7 +30,7 @@ public class InventoryFrame {
 	/**
 	 * constructor method
 	 * @param map 		the main map object
-	 * @param jFrame2   the frame of main map
+	 * @param jFrame2 
 	 * @param characterMapArrayList	 arraylist that contains all the character in the map
 	 * @param character  the character that you select
 	 */
