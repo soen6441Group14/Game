@@ -23,9 +23,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-import javax.swing.plaf.basic.BasicButtonUI;
-
 import Strategy.Aggressive;
 import Strategy.Friendly;
 import Strategy.Humanplayer;
@@ -468,8 +465,8 @@ public class Map {
 				}
 
 				initCampaign();
-				System.out.println("playingIndex "+playingIndex);
-				System.out.println("numberMap "+numberMap);
+//				System.out.println("playingIndex "+playingIndex);
+//				System.out.println("numberMap "+numberMap);
 
 			}
 		});
@@ -515,8 +512,8 @@ public class Map {
 //					e1.printStackTrace();
 //				}
 				
-				new InventoryFrame(Map.this, jFrame,characterMapArrayList,character);
-				characterMapArrayList.clear();;
+				new InventoryFrame(Map.this,jFrame,characterMapArrayList,character);
+				characterMapArrayList.clear();
 				jFrame.setEnabled(false);
 				panelContainer.requestFocus();
 			}
@@ -820,13 +817,13 @@ public class Map {
 		initialCharactersDependency();
 
 		for(Characters characters: characterTurn){
-			System.out.println(characters.getName());
 			characters.turn();
 		}
+		
 
-//		
 //		iteration = new Iteration(characterTurn);
 //		iteration.play();
+		
 		//每张地图中人物都按照顺序依次移动n次
 //		while(flagMove){//这里的循环有问题，hero离开地图之后，无法结束上一个地图就进入下一个地图了
 //			
@@ -985,7 +982,9 @@ public class Map {
 		// from high to low 
 		for(int i=arrayList.size()-1;i>=0;i--){
 			characterTurn.add(hashMap.get(arrayList.get(i)));
+			
 		}
+		
 		
 	}
 	
@@ -1004,7 +1003,8 @@ public class Map {
 			}
 			else if(character.getOrient()==Orientation.FRIENDLY)
 				character.setStrategy(new Friendly(this,character));
-			else if(character.getOrient()==Orientation.PLAYER)
+
+			else if (character.getOrient() == Orientation.PLAYER)
 				character.setStrategy(new Humanplayer());
 		}
 	}

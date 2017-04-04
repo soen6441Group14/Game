@@ -333,10 +333,9 @@ public class Characters implements Serializable{
 		}
 		
 		//deal with damage
-		if(attackBonus>=target.getArmorClass()){
+		if(attackBonus + getD20()>=target.getArmorClass()){
 			target.setHitpoints(target.getHitpoints()-getD10());//hitpoints reduce 1d10
 		}
-		
 		
 		boolean live;
 		if(target.getHitpoints()>0){
