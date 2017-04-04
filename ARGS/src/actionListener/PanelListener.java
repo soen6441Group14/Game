@@ -2,7 +2,6 @@ package actionListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;

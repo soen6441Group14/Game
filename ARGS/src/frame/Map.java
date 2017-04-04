@@ -23,11 +23,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-import javax.swing.plaf.basic.BasicButtonUI;
-
 import Strategy.Aggressive;
 import Strategy.Friendly;
+import Strategy.Humanplayer;
 import actionListener.PanelListener;
 import actionListener.MapListener;
 import enumclass.Orientation;
@@ -467,8 +465,8 @@ public class Map {
 				}
 
 				initCampaign();
-				System.out.println("playingIndex "+playingIndex);
-				System.out.println("numberMap "+numberMap);
+//				System.out.println("playingIndex "+playingIndex);
+//				System.out.println("numberMap "+numberMap);
 
 			}
 		});
@@ -813,16 +811,17 @@ public class Map {
 		
 		System.out.println("start game");
 		
-//		characterTurn.clear();//每次调用前需要清除前面的人物列表
-//		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
-//		initialCharactersStrategy();
-//		initialCharactersDependency();
-////		for(Characters characters: characterTurn){
-////			characters.turn();
-////		}
-//		
+		characterTurn.clear();//每次调用前需要清除前面的人物列表
+		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
+		initialCharactersStrategy();
+		initialCharactersDependency();
+		for(Characters characters: characterTurn){
+			characters.turn();
+		}
+		
 //		iteration = new Iteration(characterTurn);
 //		iteration.play();
+		
 		//每张地图中人物都按照顺序依次移动n次
 //		while(flagMove){//这里的循环有问题，hero离开地图之后，无法结束上一个地图就进入下一个地图了
 //			
@@ -978,9 +977,11 @@ public class Map {
 		//sort the total
 		Collections.sort(arrayList);
 		// from high to low 
-		for(int i=arrayList.size()-1;i<=-1;i--){
+		for(int i=arrayList.size()-1;i>=0;i--){
 			characterTurn.add(hashMap.get(arrayList.get(i)));
+			
 		}
+		
 		
 	}
 	
@@ -998,6 +999,8 @@ public class Map {
 				character.setStrategy(new Aggressive(this,character));
 			else if(character.getOrient()==Orientation.FRIENDLY)
 				character.setStrategy(new Friendly(this,character));
+			else if (character.getOrient() == Orientation.PLAYER)
+				character.setStrategy(new Humanplayer());
 		}
 	}
 
