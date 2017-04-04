@@ -238,6 +238,7 @@ public class Map {
 	 */
 	public void drawMap(int k) {
 
+		System.out.println("draw map");
 		panel.setBounds(0, 0, numCols * 33,numRows * 33);// rows represents height, cols represents width
 		panel.setLayout(new GridLayout(numRows, numCols));
 		panelContainer.setBounds(0, 0, 680, height);
@@ -818,6 +819,7 @@ public class Map {
 
 		for(Characters characters: characterTurn){
 			characters.turn();
+			System.out.println(characters.getName()+"");
 		}
 		
 
@@ -866,6 +868,7 @@ public class Map {
 	 */
 //	public boolean flagMove = true;
 	public void changeMap(){
+		System.out.println("index"+playingIndex);
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
 		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
@@ -999,6 +1002,7 @@ public class Map {
 	public void initialCharactersStrategy(){
 		for(Characters character:characterTurn){
 			if(character.getOrient()== Orientation.HOSTILE){
+				System.out.println("+++");
 				character.setStrategy(new Aggressive(this,character));
 			}
 			else if(character.getOrient()==Orientation.FRIENDLY)
