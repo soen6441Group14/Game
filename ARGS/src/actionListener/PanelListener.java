@@ -539,5 +539,5 @@ public class PanelListener implements KeyListener {
 		else
 			return false;
 	}
-	
+
 }
