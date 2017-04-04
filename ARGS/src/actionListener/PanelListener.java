@@ -511,7 +511,7 @@ public class PanelListener implements KeyListener {
 //				System.out.println("numberMap: "+numberMap);
 
 			} else {
-				mapFrame.iteration.setPlay(false);//还是有问题，无法结束上一个地图就进入下一个地图了
+//				mapFrame.iteration.setPlay(false);//还是有问题，无法结束上一个地图就进入下一个地图了
 				mapFrame.changeMap();
 				setListeningMatrix();
 				mapFrame.showOnMap();

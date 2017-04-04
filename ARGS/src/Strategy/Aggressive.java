@@ -68,7 +68,9 @@ public class Aggressive implements Strategy{
 
 
             while (desRow>characterRow && steps>0 ){
-                System.out.println("一次循环");
+//            	System.out.println("一次循环");
+//                System.out.println("desRow: "+desRow);
+//                System.out.println("characterRow: "+characterRow);
                 boolean flag=moveOneStep(1,0);
                 System.out.println(""+flag);
                 if(flag)
@@ -76,34 +78,40 @@ public class Aggressive implements Strategy{
                 else
                     break;
             }
-            System.out.println(""+steps);
-            while (desColumn>characterRow && steps>0){
-                System.out.println("二次循环");
+//            System.out.println(""+steps);
+            while (desColumn>characterColumn && steps>0){
+//                System.out.println("二次循环");
+//                System.out.println("desColumn: "+desColumn);
+//                System.out.println("characterRow: "+characterColumn);
                 boolean flag=moveOneStep(0,1);
                 if(!flag)
                     break;
                 else
                     steps--;
             }
-            System.out.println(""+steps);
+//            System.out.println(""+steps);
             while (desRow<characterRow && steps>0){
-                System.out.println("三次循环");
+//                System.out.println("三次循环");
+//                System.out.println("desRow: "+desRow);
+//                System.out.println("characterRow: "+characterRow);
                 boolean flag=moveOneStep(-1,0);
                 if(!flag)
                     break;
                 else
                     steps--;
             }
-            System.out.println(""+steps);
+//            System.out.println(""+steps);
             while (desColumn<characterColumn && steps>0){
-                System.out.println("四次循环");
+//                System.out.println("四次循环");
+//                System.out.println("desColumn: "+desColumn);
+//                System.out.println("characterRow: "+characterColumn);
                 boolean flag=moveOneStep(0,-1);
                 if(flag)
                     steps--;
                 else
                    break;
             }
-            System.out.println(""+steps);
+//            System.out.println(""+steps);
         }
     }
 
