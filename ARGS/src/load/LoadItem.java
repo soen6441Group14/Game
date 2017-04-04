@@ -43,7 +43,7 @@ public class LoadItem {
 	public ArrayList<Items> readItem() throws IOException, ClassNotFoundException{
 		
 		ArrayList<Items> arrayList = new ArrayList<Items>();
-		File input = new File("ARGS/file/Items.txt");
+		File input = new File("file/Items.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(input));
         arrayList = (ArrayList<Items>) objectInputStream.readObject();
         objectInputStream.close();

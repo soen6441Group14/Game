@@ -63,12 +63,10 @@ public class Aggressive implements Strategy{
     public void walkTowardDes(int desRow,int desColumn) {
         int steps = 3;
 
-
-        while (steps > 0) {
-
+        while (steps>0) {
 
             while (desRow>characterRow && steps>0 ){
-                System.out.println("一次循环");
+
                 boolean flag=moveOneStep(1,0);
                 System.out.println(""+flag);
                 if(flag)
@@ -76,34 +74,30 @@ public class Aggressive implements Strategy{
                 else
                     break;
             }
-            System.out.println(""+steps);
-            while (desColumn>characterRow && steps>0){
-                System.out.println("二次循环");
+            while (desColumn>characterColumn && steps>0){
+
                 boolean flag=moveOneStep(0,1);
                 if(!flag)
                     break;
                 else
                     steps--;
             }
-            System.out.println(""+steps);
             while (desRow<characterRow && steps>0){
-                System.out.println("三次循环");
+
                 boolean flag=moveOneStep(-1,0);
                 if(!flag)
                     break;
                 else
                     steps--;
             }
-            System.out.println(""+steps);
             while (desColumn<characterColumn && steps>0){
-                System.out.println("四次循环");
+
                 boolean flag=moveOneStep(0,-1);
                 if(flag)
                     steps--;
                 else
                    break;
             }
-            System.out.println(""+steps);
         }
     }
 
@@ -111,7 +105,11 @@ public class Aggressive implements Strategy{
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
 
-        if(map[characterRow +down][characterColumn +right].getTileType() == TileType.GROUND){
+        if(characterRow+down<0||characterRow+down>numRows||characterColumn+right<0||characterColumn+right>numCols)
+            return flag;
+
+
+        if(map[characterRow+down][characterColumn +right].getTileType() == TileType.GROUND){
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
             map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols,theAggressive);
             flag=true;
@@ -119,7 +117,7 @@ public class Aggressive implements Strategy{
             characterColumn=characterColumn+right;
         }
         else if(map[characterRow+down][characterColumn+right].getTileType() == TileType.CHEST){
-            Items item = map[characterRow +down][characterColumn +right].getItems();
+            Items item = map[characterRow+down][characterColumn +right].getItems();
             theAggressive.lootItem(item);
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
             map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols, theAggressive);

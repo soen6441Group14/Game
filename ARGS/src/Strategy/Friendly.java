@@ -48,10 +48,12 @@ public class Friendly implements Strategy{
 
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
+        if(characterRow+down<0||characterRow+down>numRows||characterColumn+right<0||characterColumn+right>numCols)
+            return flag;
 
         if(map[characterRow+down][characterColumn+right].getTileType() == TileType.GROUND){
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols,theFriendly);
+            map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols,theFriendly);
             flag=true;
             characterRow=characterRow+down;
             characterColumn=characterColumn+right;
@@ -60,14 +62,16 @@ public class Friendly implements Strategy{
             Items item = map[characterRow+down][characterColumn+right].getItems();
             theFriendly.lootItem(item);
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[characterRow +down][characterColumn +right] = new Cells(TileType.HERO, numRows, numCols, theFriendly);
+            map[characterRow +down][characterColumn +right] = new Cells(TileType.MONSTER, numRows, numCols, theFriendly);
             flag=true;
             characterRow=characterRow+down;
             characterColumn=characterColumn+right;
         }
         mapFrame.setMap(map,numRows,numCols);
         mapFrame.drawMap(2);
+        System.out.println(characterRow+"//"+characterColumn);
         return flag;
+
     }
 
 

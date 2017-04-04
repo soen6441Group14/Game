@@ -25,7 +25,7 @@ public class LoadCampaign {
 	public ArrayList<Campaigns> readCampaign() throws IOException, ClassNotFoundException{
 		
 		ArrayList<Campaigns> arrayList = new ArrayList<Campaigns>();
-		File input = new File("ARGS/file/Campaigns.txt");
+		File input = new File("file/Campaigns.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(input));
         arrayList = (ArrayList<Campaigns>) objectInputStream.readObject();
         objectInputStream.close();
