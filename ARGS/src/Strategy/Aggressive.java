@@ -62,26 +62,51 @@ public class Aggressive implements Strategy{
 
     public void walkTowardDes(int desRow,int desColumn) {
         int steps = 3;
-        boolean flag;
 
-        while (steps > 0 && characterColumn!=desColumn && characterRow!=desRow) {
-            if ((Math.abs(desRow - characterRow) >= Math.abs(desColumn - characterColumn))) {
-                if (desRow >= characterRow)
-                    flag=moveOneStep(1,0);
-                else
-                    flag=moveOneStep(-1, 0);
-            } else {
-                if (desColumn >= characterColumn)
-                    flag=moveOneStep(0,1);
-                else
-                    flag=moveOneStep(0,-1);
 
+        while (steps > 0) {
+
+
+            while (desRow>characterRow && steps>0 ){
+                System.out.println("一次循环");
+                boolean flag=moveOneStep(1,0);
+                System.out.println(""+flag);
+                if(flag)
+                   steps--;
+                else
+                    break;
             }
-            //one step finished
-            if(flag)
-                steps--;
+            System.out.println(""+steps);
+            while (desColumn>characterRow && steps>0){
+                System.out.println("二次循环");
+                boolean flag=moveOneStep(0,1);
+                if(!flag)
+                    break;
+                else
+                    steps--;
+            }
+            System.out.println(""+steps);
+            while (desRow<characterRow && steps>0){
+                System.out.println("三次循环");
+                boolean flag=moveOneStep(-1,0);
+                if(!flag)
+                    break;
+                else
+                    steps--;
+            }
+            System.out.println(""+steps);
+            while (desColumn<characterColumn && steps>0){
+                System.out.println("四次循环");
+                boolean flag=moveOneStep(0,-1);
+                if(flag)
+                    steps--;
+                else
+                   break;
+            }
+            System.out.println(""+steps);
         }
     }
+
 
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
@@ -93,7 +118,7 @@ public class Aggressive implements Strategy{
             characterRow=characterRow+down;
             characterColumn=characterColumn+right;
         }
-        else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.CHEST){
+        else if(map[characterRow+down][characterColumn+right].getTileType() == TileType.CHEST){
             Items item = map[characterRow +down][characterColumn +right].getItems();
             theAggressive.lootItem(item);
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
@@ -126,7 +151,11 @@ public class Aggressive implements Strategy{
     public void execute() {
         if(theAggressive.hitpoints<=0)
             return;
+
         searchForHero();
+        System.out.println(heroRow+"/"+heroColumn);
+
         walkTowardDes(heroRow,heroColumn);
+
     }
 }

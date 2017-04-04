@@ -28,6 +28,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 import Strategy.Aggressive;
 import Strategy.Friendly;
+import Strategy.Humanplayer;
 import actionListener.PanelListener;
 import actionListener.MapListener;
 import enumclass.Orientation;
@@ -273,19 +274,19 @@ public class Map {
 			for (int j = 0; j < numCols; j++) {
 				// draw the map according to different kind of TileType
 				if (map[i][j].getTileType() == TileType.GROUND)
-					jButton = new JButton("", new ImageIcon("res/textures/Ground.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Ground.png"));
 				else if (map[i][j].getTileType() == TileType.WALL) 
-					jButton = new JButton("", new ImageIcon("res/textures/Wall.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Wall.png"));
 				 else if (map[i][j].getTileType() == TileType.CHEST)
-					jButton = new JButton("", new ImageIcon("res/textures/Chest.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Chest.png"));
 				else if (map[i][j].getTileType() == TileType.HERO)
-					jButton = new JButton("", new ImageIcon("res/textures/Hero.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Hero.png"));
 				else if (map[i][j].getTileType() == TileType.MONSTER)
-					jButton = new JButton("", new ImageIcon("res/textures/Monster.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Monster.png"));
 				else if (map[i][j].getTileType() == TileType.EXIT)
-					jButton = new JButton("", new ImageIcon("res/textures/Exit.jpg"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Exit.jpg"));
 				else if (map[i][j].getTileType() == TileType.ENTRY)
-					jButton = new JButton("", new ImageIcon("res/textures/Entry.jpg"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Entry.jpg"));
 				
 				jButton.putClientProperty("Rows", i);// set a attribute for every button
 				jButton.putClientProperty("Cols", j);
@@ -813,13 +814,16 @@ public class Map {
 		
 		System.out.println("start game");
 		
-//		characterTurn.clear();//每次调用前需要清除前面的人物列表
-//		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
-//		initialCharactersStrategy();
-//		initialCharactersDependency();
-////		for(Characters characters: characterTurn){
-////			characters.turn();
-////		}
+		characterTurn.clear();//每次调用前需要清除前面的人物列表
+		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
+		initialCharactersStrategy();
+		initialCharactersDependency();
+
+		for(Characters characters: characterTurn){
+			System.out.println(characters.getName());
+			characters.turn();
+		}
+
 //		
 //		iteration = new Iteration(characterTurn);
 //		iteration.play();
@@ -950,6 +954,7 @@ public class Map {
 	 * sort moving sequence of characters in the map
 	 */
 	public void characterTurnMove(){
+
 		HashMap<Integer, Characters> hashMap = new HashMap<>();
 		ArrayList<Integer> arrayList = new ArrayList<>();
 		int random;
@@ -957,19 +962,19 @@ public class Map {
 		for(int i=0;i<numRows;i++)
 			for(int j=0;j<numCols;j++){
 				if(map[i][j].getTileType() == TileType.MONSTER ||map[i][j].getTileType() == TileType.HERO){
-					
+
 					random = getD20();
 					total = map[i][j].getCharacters().getModDex()+random;
 					// prevent the same total number
 					while(true){
-					if(arrayList.contains(total)){
-						random = getD20();
-						total = map[i][j].getCharacters().getModDex()+random;
-					}
-					else{
-						arrayList.add(total);
-						break;
-					}
+						if(arrayList.contains(total)){
+							random = getD20();
+							total = map[i][j].getCharacters().getModDex()+random;
+						}
+						else{
+							arrayList.add(total);
+							break;
+						}
 					}
 					
 					hashMap.put(total, map[i][j].getCharacters());
@@ -978,7 +983,7 @@ public class Map {
 		//sort the total
 		Collections.sort(arrayList);
 		// from high to low 
-		for(int i=arrayList.size()-1;i<=-1;i--){
+		for(int i=arrayList.size()-1;i>=0;i--){
 			characterTurn.add(hashMap.get(arrayList.get(i)));
 		}
 		
@@ -994,10 +999,13 @@ public class Map {
 
 	public void initialCharactersStrategy(){
 		for(Characters character:characterTurn){
-			if(character.getOrient()== Orientation.HOSTILE)
+			if(character.getOrient()== Orientation.HOSTILE){
 				character.setStrategy(new Aggressive(this,character));
+			}
 			else if(character.getOrient()==Orientation.FRIENDLY)
 				character.setStrategy(new Friendly(this,character));
+			else if(character.getOrient()==Orientation.PLAYER)
+				character.setStrategy(new Humanplayer());
 		}
 	}
 
