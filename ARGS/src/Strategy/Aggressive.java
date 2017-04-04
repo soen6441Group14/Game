@@ -78,8 +78,9 @@ public class Aggressive implements Strategy{
                 else
                     break;
             }
-            while (desColumn>characterColumn && steps>0){
 
+
+            while (desColumn>characterColumn && steps>0){
                 boolean flag=moveOneStep(0,1);
                 if(flag){
                     steps--;
@@ -88,8 +89,8 @@ public class Aggressive implements Strategy{
                 else
                     break;
             }
+            
             while (desRow<characterRow && steps>0){
-
                 boolean flag=moveOneStep(-1,0);
                 if(flag){
                     steps--;
@@ -99,7 +100,6 @@ public class Aggressive implements Strategy{
                     break;
             }
             while (desColumn<characterColumn && steps>0){
-
                 boolean flag=moveOneStep(0,-1);
                 if(flag){
                     steps--;
@@ -108,6 +108,7 @@ public class Aggressive implements Strategy{
                 else
                    break;
             }
+//            System.out.println(""+steps);
         }
     }
 
