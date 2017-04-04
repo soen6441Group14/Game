@@ -82,7 +82,11 @@ public class ComputerPlayer implements Strategy{
 
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
-        if(map[playerRow+down][playerColumn +right].getTileType() == TileType.GROUND){
+
+        if(playerRow+down<0||playerRow+down>numRows-1||playerColumn+right<0||playerColumn+right>numCols-1)
+            return flag;
+
+        if(map[playerRow+down][playerColumn+right].getTileType() == TileType.GROUND){
             map[playerRow][playerColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
             map[playerRow+down][playerColumn +right] = new Cells(TileType.MONSTER, numRows, numCols,theComPlayer);
             flag=true;
@@ -105,15 +109,59 @@ public class ComputerPlayer implements Strategy{
         else if (map[playerRow+down][playerColumn+right].getTileType() == TileType.EXIT) {
             if(!searchForHostiles()){
                 map[playerRow][playerColumn]=new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-                System.out.println("The computer play's objective is achieved!!! he is gone");
+                System.out.println("[ComputerPlayer] objective is achieved -> he is gone");
             }
         }
+        System.out.println("[ComputerPlayer turn] move to "+playerRow+","+playerColumn);
         mapFrame.setMap(map,numRows,numCols);
         mapFrame.drawMap(2);
         return flag;
     }
+
+    public void walkTowardDes(int desRow,int desColumn) {
+        int steps = 3;
+
+        while (steps>0) {
+
+            while (desRow>playerRow && steps>0 ){
+
+                boolean flag=moveOneStep(1,0);
+                if(flag)
+                    steps--;
+                else
+                    break;
+            }
+            while (desColumn>playerColumn && steps>0){
+
+                boolean flag=moveOneStep(0,1);
+                if(!flag)
+                    break;
+                else
+                    steps--;
+            }
+            while (desRow<playerRow && steps>0){
+
+                boolean flag=moveOneStep(-1,0);
+                if(!flag)
+                    break;
+                else
+                    steps--;
+            }
+            while (desColumn<playerColumn && steps>0){
+
+                boolean flag=moveOneStep(0,-1);
+                if(flag)
+                    steps--;
+                else
+                    break;
+            }
+        }
+    }
+
+
     @Override
     public void execute() {
+        //if dead, not execute
         if(this.theComPlayer.hitpoints<=0)
             return;
 
@@ -129,23 +177,6 @@ public class ComputerPlayer implements Strategy{
             desCol=exitCol;
         }
 
-        int steps=3;
-        boolean flag;
-        while (steps>0){
-            if ((Math.abs(desRow-playerRow)>=Math.abs(desCol - playerColumn))){
-                if (desRow >= playerRow)
-                    flag=moveOneStep(1,0);
-                else
-                    flag=moveOneStep(-1, 0);
-            } else {
-                if (desCol >= playerColumn)
-                    flag=moveOneStep(0,1);
-                else
-                    flag=moveOneStep(0,-1);
-            }
-            //one step finished
-            if(flag)
-                steps--;
-        }
+        walkTowardDes(desRow,desCol);
     }
 }

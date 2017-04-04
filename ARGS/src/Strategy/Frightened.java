@@ -70,6 +70,8 @@ public class Frightened implements Strategy {
 
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
+        if(characterRow+down<0||characterRow+down>numRows-1||characterColumn+right<0||characterColumn+right>numCols-1)
+            return flag;
 
         if(map[characterRow +down][characterColumn +right].getTileType() == TileType.GROUND){
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
@@ -111,39 +113,62 @@ public class Frightened implements Strategy {
         return flag;
     }
 
+    public void walkTowardDes(int desRow,int desColumn) {
+        int steps = 3;
+
+        while (steps>0) {
+
+            while (desRow>characterRow && steps>0 ){
+
+                boolean flag=moveOneStep(1,0);
+                if(flag)
+                    steps--;
+                else
+                    break;
+            }
+            while (desColumn>characterColumn && steps>0){
+
+                boolean flag=moveOneStep(0,1);
+                if(!flag)
+                    break;
+                else
+                    steps--;
+            }
+            while (desRow<characterRow && steps>0){
+
+                boolean flag=moveOneStep(-1,0);
+                if(!flag)
+                    break;
+                else
+                    steps--;
+            }
+            while (desColumn<characterColumn && steps>0){
+
+                boolean flag=moveOneStep(0,-1);
+                if(flag)
+                    steps--;
+                else
+                    break;
+            }
+        }
+    }
 
 
     @Override
     public void execute() {
+        //if dead, not execute
         if(this.theFrightened.hitpoints<=0)
             return;
+
         locateTheAfraid();
-        int desRow= characterRow-(afraidRow-characterRow);
-        int desColumn= characterColumn-(afraidColumn-characterColumn);
+        int desRow=characterRow-(afraidRow-characterRow);
+        int desColumn=characterColumn-(afraidColumn-characterColumn);
         //exception
-        if(characterRow <=5)
+        if(characterRow<=3)
             desRow=numRows-characterRow;
-        if(characterColumn <=5)
+        if(characterColumn<=3)
             desColumn=numCols-characterColumn;
 
-        int steps = 3;
-        boolean flag;
-
-        while (steps > 0) {
-            if ((Math.abs(desRow - characterRow) >= Math.abs(desColumn - characterColumn))){
-                if (desRow >= characterRow)
-                    flag=moveOneStep(1,0);
-                else
-                    flag=moveOneStep(-1, 0);
-            } else {
-                if (desColumn >= characterColumn)
-                    flag=moveOneStep(0,1);
-                else
-                    flag=moveOneStep(0,-1);
-            }
-            //one step finished
-            if(flag)
-                steps--;
-        }
+        walkTowardDes(desRow,desColumn);
     }
 }

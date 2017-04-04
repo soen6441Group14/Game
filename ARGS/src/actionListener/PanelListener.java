@@ -58,8 +58,6 @@ public class PanelListener implements KeyListener {
 	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 	
 	/**
@@ -67,8 +65,6 @@ public class PanelListener implements KeyListener {
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 	/**
 	 * override method of keyListener
@@ -514,7 +510,7 @@ public class PanelListener implements KeyListener {
 //				mapFrame.iteration.setPlay(false);//还是有问题，无法结束上一个地图就进入下一个地图了
 				mapFrame.changeMap();
 				setListeningMatrix();
-				mapFrame.showOnMap();
+				mapFrame.showOnMap(); //TODO:hero locateion定位错误的原因是changemap先
 //				mapFrame.flagMove = false;//有问题
 			}
 		}
@@ -543,7 +539,5 @@ public class PanelListener implements KeyListener {
 		else
 			return false;
 	}
-
-
-
+	
 }

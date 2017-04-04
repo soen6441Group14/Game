@@ -6,7 +6,6 @@ public class Burning extends WeaponDecorator {
 
 	public Burning(Weapon decoratedWeapon) {
 		super(decoratedWeapon);
-		// TODO Auto-generated constructor stub
 	}
 
 

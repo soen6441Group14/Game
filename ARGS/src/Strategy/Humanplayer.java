@@ -9,6 +9,6 @@ public class Humanplayer implements Strategy{
     @Override
     public void execute() {
 
-        System.out.println("This is a strategy for human player");
+        System.out.println("[human player turn] you can operate the hero");
     }
 }

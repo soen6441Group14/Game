@@ -75,7 +75,7 @@ public class MapListener implements ActionListener{
 			 */
 			characters = new LoadCharacter().loadcharacter(characterBox.getSelectedItem().toString(),characterArrayList);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+
 			e1.printStackTrace();
 		}
 		

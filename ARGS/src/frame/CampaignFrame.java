@@ -68,7 +68,6 @@ public class CampaignFrame {
 //	    try {
 //	    	showMaps =	new LoadMap().readMap();
 //		} catch (ClassNotFoundException | IOException e2) {
-//			// TODO Auto-generated catch block
 //			e2.printStackTrace();
 //		}
 	    
@@ -175,7 +174,6 @@ public class CampaignFrame {
 		try {
 			new SaveCampaign().saveCampaign(campaignArraylist);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		return flag;
@@ -193,7 +191,6 @@ public class CampaignFrame {
 		try {
 			matrix = new LoadMap().loadMap2(allMaps, jComboBox.getSelectedItem().toString());
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		//如果输入的campaign名字已存在(edit)，则添加map。否则新建campaign(create)，加入map

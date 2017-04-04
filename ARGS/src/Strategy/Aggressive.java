@@ -6,6 +6,7 @@ import objects.Cells;
 import objects.Characters;
 import objects.Ground;
 import objects.Items;
+import sun.jvm.hotspot.runtime.Thread;
 
 /**
  * The class is the implementation of strategy interface
@@ -55,9 +56,11 @@ public class Aggressive implements Strategy{
                 if(map[row][col].getTileType()==TileType.HERO){
                     heroRow=row;
                     heroColumn=col;
+                    break;
                 }
             }
         }
+        System.out.println("hero locate:"+heroRow+","+heroColumn);
     }
 
     public void walkTowardDes(int desRow,int desColumn) {
@@ -68,46 +71,60 @@ public class Aggressive implements Strategy{
             while (desRow>characterRow && steps>0 ){
 
                 boolean flag=moveOneStep(1,0);
-                System.out.println(""+flag);
-                if(flag)
-                   steps--;
+                if(flag){
+                    steps--;
+                    threadSleep();
+                }
                 else
                     break;
             }
             while (desColumn>characterColumn && steps>0){
 
                 boolean flag=moveOneStep(0,1);
-                if(!flag)
-                    break;
-                else
+                if(flag){
                     steps--;
+                    threadSleep();
+                }
+                else
+                    break;
             }
             while (desRow<characterRow && steps>0){
 
                 boolean flag=moveOneStep(-1,0);
-                if(!flag)
-                    break;
-                else
+                if(flag){
                     steps--;
+                    threadSleep();
+                }
+                else
+                    break;
             }
             while (desColumn<characterColumn && steps>0){
 
                 boolean flag=moveOneStep(0,-1);
-                if(flag)
+                if(flag){
                     steps--;
+                    threadSleep();
+                }
                 else
                    break;
             }
         }
     }
 
+    public void threadSleep(){
+        try{
+            java.lang.Thread.sleep(1);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
 
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
 
-        if(characterRow+down<0||characterRow+down>numRows||characterColumn+right<0||characterColumn+right>numCols)
+        if(characterRow+down<0||characterRow+down>numRows-1||characterColumn+right<0||characterColumn+right>numCols-1)
             return flag;
-
 
         if(map[characterRow+down][characterColumn +right].getTileType() == TileType.GROUND){
             map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
@@ -138,6 +155,7 @@ public class Aggressive implements Strategy{
             characterRow=characterRow+down;
             characterColumn=characterColumn+right;
         }
+        System.out.println("[Aggressive turn] move to "+characterRow+","+characterColumn);
         mapFrame.setMap(map,numRows,numCols);
         mapFrame.drawMap(2);
         return flag;
@@ -147,12 +165,11 @@ public class Aggressive implements Strategy{
 
     @Override
     public void execute() {
+        //if dead, not execute
         if(theAggressive.hitpoints<=0)
             return;
 
         searchForHero();
-        System.out.println(heroRow+"/"+heroColumn);
-
         walkTowardDes(heroRow,heroColumn);
 
     }

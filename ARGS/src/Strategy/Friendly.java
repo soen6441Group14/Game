@@ -48,7 +48,7 @@ public class Friendly implements Strategy{
 
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
-        if(characterRow+down<0||characterRow+down>numRows||characterColumn+right<0||characterColumn+right>numCols)
+        if(characterRow+down<0||characterRow+down>numRows-1||characterColumn+right<0||characterColumn+right>numCols-1)
             return flag;
 
         if(map[characterRow+down][characterColumn+right].getTileType() == TileType.GROUND){
@@ -67,9 +67,9 @@ public class Friendly implements Strategy{
             characterRow=characterRow+down;
             characterColumn=characterColumn+right;
         }
+        System.out.println("[Friendly turn] move to "+characterRow+","+characterColumn);
         mapFrame.setMap(map,numRows,numCols);
         mapFrame.drawMap(2);
-        System.out.println(characterRow+"//"+characterColumn);
         return flag;
 
     }
@@ -78,8 +78,10 @@ public class Friendly implements Strategy{
 
     @Override
     public void execute() {
+        //if dead, not execute
         if(theFriendly.hitpoints<=0)
             return;
+
         int steps=3;
         while (steps>0){
             int random=(int)(Math.random()*4);

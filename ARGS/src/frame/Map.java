@@ -238,7 +238,6 @@ public class Map {
 	 */
 	public void drawMap(int k) {
 
-		System.out.println("draw map");
 		panel.setBounds(0, 0, numCols * 33,numRows * 33);// rows represents height, cols represents width
 		panel.setLayout(new GridLayout(numRows, numCols));
 		panelContainer.setBounds(0, 0, 680, height);
@@ -272,19 +271,19 @@ public class Map {
 			for (int j = 0; j < numCols; j++) {
 				// draw the map according to different kind of TileType
 				if (map[i][j].getTileType() == TileType.GROUND)
-					jButton = new JButton("", new ImageIcon("res/textures/Ground.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Ground.png"));
 				else if (map[i][j].getTileType() == TileType.WALL) 
-					jButton = new JButton("", new ImageIcon("res/textures/Wall.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Wall.png"));
 				 else if (map[i][j].getTileType() == TileType.CHEST)
-					jButton = new JButton("", new ImageIcon("res/textures/Chest.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Chest.png"));
 				else if (map[i][j].getTileType() == TileType.HERO)
-					jButton = new JButton("", new ImageIcon("res/textures/Hero.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Hero.png"));
 				else if (map[i][j].getTileType() == TileType.MONSTER)
-					jButton = new JButton("", new ImageIcon("res/textures/Monster.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Monster.png"));
 				else if (map[i][j].getTileType() == TileType.EXIT)
-					jButton = new JButton("", new ImageIcon("res/textures/Exit.jpg"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Exit.jpg"));
 				else if (map[i][j].getTileType() == TileType.ENTRY)
-					jButton = new JButton("", new ImageIcon("res/textures/Entry.jpg"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Entry.jpg"));
 				
 				jButton.putClientProperty("Rows", i);// set a attribute for every button
 				jButton.putClientProperty("Cols", j);
@@ -819,7 +818,6 @@ public class Map {
 
 		for(Characters characters: characterTurn){
 			characters.turn();
-			System.out.println(characters.getName()+"");
 		}
 		
 
@@ -868,16 +866,15 @@ public class Map {
 	 */
 //	public boolean flagMove = true;
 	public void changeMap(){
-		System.out.println("index"+playingIndex);
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
-		System.out.println("change to"+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
+		System.out.println("[change map] change to "+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
 		setMap(newMap, numRows, numCols);
-		System.out.println("playingIndex- "+playingIndex);
-		System.out.println(""+numRows);
-		System.out.println(""+numCols);
+		System.out.println("playingIndex - "+playingIndex);
+		System.out.println("rows of map "+numRows);
+		System.out.println("columns of map "+numCols);
 		//adapt the items and character, based on hero's level
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
@@ -1002,7 +999,6 @@ public class Map {
 	public void initialCharactersStrategy(){
 		for(Characters character:characterTurn){
 			if(character.getOrient()== Orientation.HOSTILE){
-				System.out.println("+++");
 				character.setStrategy(new Aggressive(this,character));
 			}
 			else if(character.getOrient()==Orientation.FRIENDLY)
