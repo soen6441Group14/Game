@@ -16,5 +16,4 @@ public class Humanplayer implements Strategy{
         System.out.println("[Human player turn] : user can operate !");
         System.out.println("[Human player turn] : user can operate !");
     }
-
 }

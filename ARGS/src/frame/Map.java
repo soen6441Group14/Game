@@ -22,6 +22,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+
+import org.w3c.dom.css.ElementCSSInlineStyle;
+
 import Strategy.Aggressive;
 import Strategy.Friendly;
 import Strategy.Humanplayer;
@@ -74,6 +78,7 @@ public class Map {
 	public JFrame jFrame;
 	public JButton jButton;
 	public JButton startGame = new JButton("Start Game");
+	public JButton heroMove = new JButton("End move");
 	public JButton inventoryInformation = new JButton("Inventory Information");
 	public JPanel panel = new JPanel();
 	public JPanel panelContainer = new JPanel(); // contain the panel which contains the map
@@ -150,6 +155,7 @@ public class Map {
 	
 	public ActionListener actionListener;
 	public PanelListener keyListener ;
+	public Iteration iteration;
 
 
 	/**
@@ -260,6 +266,23 @@ public class Map {
 
 		if(k==2)
 			panel.removeAll();
+		
+		int weaponRange = 0;
+		int xHero = 0;
+		int yHero = 0;
+		if(keyListener!=null &&k==2){
+			 int[] position = getHeroLocation();
+			 xHero = position[0];
+			 yHero = position[1];
+//			 System.out.println("xHero "+xHero);
+//			 System.out.println("yHero "+yHero);
+//			 hero = map[xHero][yHero].getCharacters();
+			 weaponRange = map[xHero][yHero].getCharacters().getInventory().get(0).getRange();
+
+			 
+		}
+//		System.out.println("weaponRange: "+weaponRange);
+		
 
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numCols; j++) {
@@ -284,6 +307,12 @@ public class Map {
 				jButton.setBorderPainted(true);
 				jButton.setBounds(j * 33, i * 33, 32, 32); // j represents width, i represent height
 				jButton.addActionListener(new MapListener(Map.this,itemBox,characterBox,characterArrayList,itemArrayList));
+
+				if(getOut(i, j, xHero, yHero,weaponRange) && k==2){
+					jButton.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+					jButton.setContentAreaFilled(false);
+				}
+				
 				jButtons[i][j] = jButton;
 				panel.add(jButtons[i][j]);
 
@@ -294,6 +323,34 @@ public class Map {
 			panel.repaint();
 			System.out.println("@test:draw the map");
 		}
+	}
+	
+	public int[] getHeroLocation(){
+
+		int[] position = new int[2];
+
+		 for(int i=0;i<numRows;i++)
+			 for(int j =0; j<numCols;j++){
+				 if(map[i][j].getTileType() == TileType.HERO){
+					position[0] = i;
+					position[1] = j;
+					 break;
+				 }
+			 }
+		return position;
+	}
+
+	public boolean getOut(int i, int j, int xHero, int yHero, int weaponRange) {
+
+		if(i>=xHero-weaponRange&&i<=xHero+weaponRange&&j>=yHero-weaponRange&&j<=yHero+weaponRange)
+			return true;
+		else
+			return false;
+
+//		if(xHero+x<0||xHero+x>numRows||yHero+y<0||yHero+y>numCols)
+//			return false;
+//		else 
+//			return true;
 	}
 
 	/**
@@ -632,6 +689,7 @@ public class Map {
 		showPanel.add(campaignBoxLabel);
 		showPanel.add(campaignBox);
 		showPanel.add(startGame);
+		showPanel.add(heroMove);
 		showPanel.add(characterMapLabel);
 		showPanel.add(characterMapBox);
 		showPanel.add(inventoryInformation);
@@ -813,18 +871,25 @@ public class Map {
 
 //		iteration = new Iteration(characterTurn);
 //		iteration.switchOn();
-//
+
 		//每张地图中人物都按照顺序依次移动n次
 //		while(flagMove){//这里的循环有问题，hero离开地图之后，无法结束上一个地图就进入下一个地图了
 //			
 //			for(Characters characters: characterTurn){
 //				characters.turn();
+//				try{
+//		            java.lang.Thread.sleep(2000);
+//		        }
+//		        catch (InterruptedException e){
+//		            e.printStackTrace();
+//		        }
 //			}
+//			
 //		}
 		
 //		changeMap();
 //		keyListener = new PanelListener(Map.this,numberMap);
-//		setListeningMatrix();
+////		setListeningMatrix();
 //		showOnMap();
 		
 	}
@@ -854,7 +919,6 @@ public class Map {
 	/**
 	 * The method is used to change map from exit
 	 */
-
 	public void changeMap(){
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
@@ -875,6 +939,23 @@ public class Map {
 		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
 		initialCharactersStrategy();
 		initialCharactersDependency();
+		
+//		iteration = new Iteration(characterTurn);
+//		iteration.play();
+		//每张地图中人物都按照顺序依次移动n次
+//		while(flagMove){
+//			
+//			for(Characters characters: characterTurn){
+//				characters.turn();
+//			}
+//		}
+		
+//		changeMap();
+//		keyListener = new PanelListener(Map.this,numberMap);
+////		setListeningMatrix();
+//		showOnMap();
+		
+		
 		keyListener.configTurns(characterTurn);
 
 		drawMap(2);
