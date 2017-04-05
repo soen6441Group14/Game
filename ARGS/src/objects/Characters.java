@@ -130,10 +130,8 @@ public class Characters implements Serializable{
 	}
 
 	public void executeEnchantedEffects(){
-		if(enchanted.size()==0)
-			return;
-		else{
-			Set<Enchantment> enchantedSet=enchanted.keySet();
+		if(enchanted.size()!=0){
+			Set<Enchantment>enchantedSet=enchanted.keySet();
 			for(Enchantment oneEnchanted:enchantedSet){
 				int turnsLeft=enchanted.get(oneEnchanted);
 				executeOneEnchantedEffects(oneEnchanted,turnsLeft);
