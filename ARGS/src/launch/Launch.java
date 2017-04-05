@@ -16,7 +16,6 @@ import frame.Map;
 public class Launch {
 	public static void main(String[] args)  {
 		new Map("D20Game",1000,800);
-        
 	}
 
 }

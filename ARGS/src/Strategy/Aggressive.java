@@ -2,10 +2,7 @@ package Strategy;
 
 import enumclass.TileType;
 import frame.Map;
-import objects.Cells;
-import objects.Characters;
-import objects.Ground;
-import objects.Items;
+import objects.*;
 
 
 /**
@@ -65,9 +62,10 @@ public class Aggressive implements Strategy{
     }
 
     public void walkTowardDes(int desRow,int desColumn) {
+
         int steps = 3;
 
-        while (steps>0 && characterRow!= desRow && characterColumn!= desColumn) {
+        while (steps>0 && desRow!=characterRow && desColumn!=characterColumn) {
 
             while (desRow>characterRow && steps>0 ){
 
@@ -109,19 +107,16 @@ public class Aggressive implements Strategy{
                 else
                    break;
             }
-//            System.out.println(""+steps);
         }
     }
 
     public void threadSleep(){
-    //    System.out.println("sleeping-start");
         try{
-            java.lang.Thread.sleep(1000);
+            java.lang.Thread.sleep(500);
         }
         catch (InterruptedException e){
             e.printStackTrace();
         }
-   //     System.out.println("sleeping-end");
     }
 
     public boolean moveOneStep(int down, int right){
@@ -164,6 +159,7 @@ public class Aggressive implements Strategy{
             System.out.println("[Aggressive turn] move to "+characterRow+","+characterColumn);
             mapFrame.setMap(map,numRows,numCols);
             mapFrame.drawMap(2);
+            mapFrame.drawInformation();
         }
         return flag;
     }
@@ -180,4 +176,5 @@ public class Aggressive implements Strategy{
         walkTowardDes(heroRow,heroColumn);
 
     }
+
 }
