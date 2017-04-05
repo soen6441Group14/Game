@@ -6,7 +6,7 @@ import objects.Cells;
 import objects.Characters;
 import objects.Ground;
 import objects.Items;
-import sun.jvm.hotspot.runtime.Thread;
+
 
 /**
  * The class is the implementation of strategy interface
@@ -48,6 +48,7 @@ public class Aggressive implements Strategy{
                 }
             }
         }
+        System.out.println("The aggressive locate: "+characterRow+","+characterColumn);
     }
 
     public void searchForHero(){
@@ -113,12 +114,14 @@ public class Aggressive implements Strategy{
     }
 
     public void threadSleep(){
+    //    System.out.println("sleeping-start");
         try{
-            java.lang.Thread.sleep(1);
+            java.lang.Thread.sleep(1000);
         }
         catch (InterruptedException e){
             e.printStackTrace();
         }
+   //     System.out.println("sleeping-end");
     }
 
     public boolean moveOneStep(int down, int right){
@@ -156,9 +159,12 @@ public class Aggressive implements Strategy{
             characterRow=characterRow+down;
             characterColumn=characterColumn+right;
         }
-        System.out.println("[Aggressive turn] move to "+characterRow+","+characterColumn);
-        mapFrame.setMap(map,numRows,numCols);
-        mapFrame.drawMap(2);
+
+        if(flag){
+            System.out.println("[Aggressive turn] move to "+characterRow+","+characterColumn);
+            mapFrame.setMap(map,numRows,numCols);
+            mapFrame.drawMap(2);
+        }
         return flag;
     }
 

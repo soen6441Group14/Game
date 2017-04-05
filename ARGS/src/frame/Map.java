@@ -250,7 +250,7 @@ public class Map {
 //		drawInformation();
 		drawMapBox();
 		drawCampaignBox();
-		
+
 
 		if (k == 1) {
 			map = new Cells[numRows][numCols];
@@ -260,47 +260,46 @@ public class Map {
 					
 			}
 		}
-		
-		
+
 		if(k==2)
 			panel.removeAll();
 
-
-
-		for (int i = 0; i < numRows; i++)
+		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numCols; j++) {
 				// draw the map according to different kind of TileType
 				if (map[i][j].getTileType() == TileType.GROUND)
-					jButton = new JButton("", new ImageIcon("res/textures/Ground.png"));
-				else if (map[i][j].getTileType() == TileType.WALL) 
-					jButton = new JButton("", new ImageIcon("res/textures/Wall.png"));
-				 else if (map[i][j].getTileType() == TileType.CHEST)
-					jButton = new JButton("", new ImageIcon("res/textures/Chest.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Ground.png"));
+				else if (map[i][j].getTileType() == TileType.WALL)
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Wall.png"));
+				else if (map[i][j].getTileType() == TileType.CHEST)
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Chest.png"));
 				else if (map[i][j].getTileType() == TileType.HERO)
-					jButton = new JButton("", new ImageIcon("res/textures/Hero.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Hero.png"));
 				else if (map[i][j].getTileType() == TileType.MONSTER)
-					jButton = new JButton("", new ImageIcon("res/textures/Monster.png"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Monster.png"));
 				else if (map[i][j].getTileType() == TileType.EXIT)
-					jButton = new JButton("", new ImageIcon("res/textures/Exit.jpg"));
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Exit.jpg"));
 				else if (map[i][j].getTileType() == TileType.ENTRY)
-					jButton = new JButton("", new ImageIcon("res/textures/Entry.jpg"));
-				
+					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Entry.jpg"));
+
 				jButton.putClientProperty("Rows", i);// set a attribute for every button
 				jButton.putClientProperty("Cols", j);
 				jButton.setBorderPainted(true);
-//				jButton.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-//				jButton.setContentAreaFilled(false);
 				jButton.setBounds(j * 33, i * 33, 32, 32); // j represents width, i represent height
 				jButton.addActionListener(new MapListener(Map.this,itemBox,characterBox,characterArrayList,itemArrayList));
 
 				jButtons[i][j] = jButton;
 				panel.add(jButtons[i][j]);
-				
-				if(k==2)
-					panel.repaint(); 
+
 			}
+		}
+
+		if(k==2){
+			panel.repaint();
+			System.out.println("draw the map@");
+		}
 	}
-	
+
 	/**
 	 * show the information of selected character
 	 */
@@ -807,6 +806,7 @@ public class Map {
 		panelContainer.requestFocus();
 		//character show on the entry
 		showOnMap();
+
 		drawMap(2);
 		
 		System.out.println("start game");
@@ -819,11 +819,11 @@ public class Map {
 		for(Characters characters: characterTurn){
 			characters.turn();
 		}
-		
+
 
 //		iteration = new Iteration(characterTurn);
-//		iteration.play();
-		
+//		iteration.switchOn();
+//
 		//每张地图中人物都按照顺序依次移动n次
 //		while(flagMove){//这里的循环有问题，hero离开地图之后，无法结束上一个地图就进入下一个地图了
 //			
