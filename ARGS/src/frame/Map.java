@@ -23,6 +23,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+
+import org.w3c.dom.css.ElementCSSInlineStyle;
+
 import Strategy.Aggressive;
 import Strategy.Friendly;
 import Strategy.Humanplayer;
@@ -75,6 +79,7 @@ public class Map {
 	public JFrame jFrame;
 	public JButton jButton;
 	public JButton startGame = new JButton("Start Game");
+	public JButton heroMove = new JButton("End move");
 	public JButton inventoryInformation = new JButton("Inventory Information");
 	public JPanel panel = new JPanel();
 	public JPanel panelContainer = new JPanel(); // contain the panel which contains the map
@@ -150,7 +155,7 @@ public class Map {
 	public int playingIndex; //recoed the index of map the player is playing,start with 0
 	
 	public ActionListener actionListener;
-	public KeyListener keyListener ;
+	public PanelListener keyListener ;
 	public Iteration iteration;
 
 	/**
@@ -263,24 +268,41 @@ public class Map {
 
 		if(k==2)
 			panel.removeAll();
+		
+		int weaponRange = 0;
+		int xHero = 0;
+		int yHero = 0;
+		if(keyListener!=null &&k==2){
+			 int[] position = getHeroLocation();
+			 xHero = position[0];
+			 yHero = position[1];
+//			 System.out.println("xHero "+xHero);
+//			 System.out.println("yHero "+yHero);
+//			 hero = map[xHero][yHero].getCharacters();
+			 weaponRange = map[xHero][yHero].getCharacters().getInventory().get(0).getRange();
+
+			 
+		}
+//		System.out.println("weaponRange: "+weaponRange);
+		
 
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numCols; j++) {
 				// draw the map according to different kind of TileType
 				if (map[i][j].getTileType() == TileType.GROUND)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Ground.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Ground.png"));
 				else if (map[i][j].getTileType() == TileType.WALL)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Wall.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Wall.png"));
 				else if (map[i][j].getTileType() == TileType.CHEST)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Chest.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Chest.png"));
 				else if (map[i][j].getTileType() == TileType.HERO)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Hero.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Hero.png"));
 				else if (map[i][j].getTileType() == TileType.MONSTER)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Monster.png"));
+					jButton = new JButton("", new ImageIcon("res/textures/Monster.png"));
 				else if (map[i][j].getTileType() == TileType.EXIT)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Exit.jpg"));
+					jButton = new JButton("", new ImageIcon("res/textures/Exit.jpg"));
 				else if (map[i][j].getTileType() == TileType.ENTRY)
-					jButton = new JButton("", new ImageIcon("ARGS/res/textures/Entry.jpg"));
+					jButton = new JButton("", new ImageIcon("res/textures/Entry.jpg"));
 
 				jButton.putClientProperty("Rows", i);// set a attribute for every button
 				jButton.putClientProperty("Cols", j);
@@ -288,6 +310,11 @@ public class Map {
 				jButton.setBounds(j * 33, i * 33, 32, 32); // j represents width, i represent height
 				jButton.addActionListener(new MapListener(Map.this,itemBox,characterBox,characterArrayList,itemArrayList));
 
+				if(getOut(i, j, xHero, yHero,weaponRange) && k==2){
+					jButton.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+					jButton.setContentAreaFilled(false);
+				}
+				
 				jButtons[i][j] = jButton;
 				panel.add(jButtons[i][j]);
 
@@ -296,8 +323,36 @@ public class Map {
 
 		if(k==2){
 			panel.repaint();
-			System.out.println("draw the map@");
+//			System.out.println("draw the map@");
 		}
+	}
+	
+	public int[] getHeroLocation(){
+
+		int[] position = new int[2];
+
+		 for(int i=0;i<numRows;i++)
+			 for(int j =0; j<numCols;j++){
+				 if(map[i][j].getTileType() == TileType.HERO){
+					position[0] = i;
+					position[1] = j;
+					 break;
+				 }
+			 }
+		return position;
+	}
+
+	public boolean getOut(int i, int j, int xHero, int yHero, int weaponRange) {
+
+		if(i>=xHero-weaponRange&&i<=xHero+weaponRange&&j>=yHero-weaponRange&&j<=yHero+weaponRange)
+			return true;
+		else
+			return false;
+
+//		if(xHero+x<0||xHero+x>numRows||yHero+y<0||yHero+y>numCols)
+//			return false;
+//		else 
+//			return true;
 	}
 
 	/**
@@ -641,6 +696,7 @@ public class Map {
 		showPanel.add(campaignBoxLabel);
 		showPanel.add(campaignBox);
 		showPanel.add(startGame);
+		showPanel.add(heroMove);
 		showPanel.add(characterMapLabel);
 		showPanel.add(characterMapBox);
 		showPanel.add(inventoryInformation);
@@ -817,24 +873,31 @@ public class Map {
 		initialCharactersDependency();
 
 		for(Characters characters: characterTurn){
-			characters.turn();
+				characters.turn();
 		}
 
 
 //		iteration = new Iteration(characterTurn);
 //		iteration.switchOn();
-//
+
 		//每张地图中人物都按照顺序依次移动n次
 //		while(flagMove){//这里的循环有问题，hero离开地图之后，无法结束上一个地图就进入下一个地图了
 //			
 //			for(Characters characters: characterTurn){
 //				characters.turn();
+//				try{
+//		            java.lang.Thread.sleep(2000);
+//		        }
+//		        catch (InterruptedException e){
+//		            e.printStackTrace();
+//		        }
 //			}
+//			
 //		}
 		
 //		changeMap();
 //		keyListener = new PanelListener(Map.this,numberMap);
-//		setListeningMatrix();
+////		setListeningMatrix();
 //		showOnMap();
 		
 	}
@@ -864,7 +927,7 @@ public class Map {
 	/**
 	 * The method is used to change map from exit
 	 */
-//	public boolean flagMove = true;
+	public boolean flagMove = true;
 	public void changeMap(){
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
@@ -888,7 +951,7 @@ public class Map {
 		initialCharactersStrategy();
 		initialCharactersDependency();
 		for(Characters characters: characterTurn){
-			characters.turn();
+				characters.turn();
 		}
 		
 //		iteration = new Iteration(characterTurn);
@@ -903,7 +966,7 @@ public class Map {
 		
 //		changeMap();
 //		keyListener = new PanelListener(Map.this,numberMap);
-//		setListeningMatrix();
+////		setListeningMatrix();
 //		showOnMap();
 		
 		

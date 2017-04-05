@@ -28,8 +28,23 @@ public class PanelListener implements KeyListener {
 	int columnOfEntry;
 	int playingIndex;
 	int numberMap;
+	int xHero;
+	int yHero;
+	Characters hero = null;
+	
+	
+	
+	public Characters getHero() {
+		return hero;
+	}
 
+	public int getxHero() {
+		return xHero;
+	}
 
+	public int getyHero() {
+		return yHero;
+	}
 
 	/**
 	 * The constructor method to initialize the panelListener class
@@ -72,11 +87,11 @@ public class PanelListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		Characters hero = null;
+		
 		 
 		 int[] position = getHeroLocation();
-		 int xHero = position[0];
-		 int yHero = position[1];
+		 xHero = position[0];
+		 yHero = position[1];
 		 hero = map[xHero][yHero].getCharacters();
 
 

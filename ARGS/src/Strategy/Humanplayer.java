@@ -11,4 +11,6 @@ public class Humanplayer implements Strategy{
 
         System.out.println("[human player turn] you can operate the hero");
     }
+    
+  
 }

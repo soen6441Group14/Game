@@ -67,7 +67,7 @@ public class Aggressive implements Strategy{
     public void walkTowardDes(int desRow,int desColumn) {
         int steps = 3;
 
-        while (steps>0) {
+        while (steps>0 && characterRow!= desRow && characterColumn!= desColumn) {
 
             while (desRow>characterRow && steps>0 ){
 
