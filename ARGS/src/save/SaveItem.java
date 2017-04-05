@@ -21,7 +21,7 @@ public class SaveItem {
 	 */
 	public void saveItem(ArrayList<Items> arrayList) throws IOException{
 		
-		File output = new File("file/Items.txt");
+		File output = new File("ARGS/file/Items.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(output));
         objectOutputStream.writeObject(arrayList);
         objectOutputStream.flush();
