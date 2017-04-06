@@ -316,7 +316,6 @@ public class Map {
 
 		if(k==2){
 			panel.repaint();
-			System.out.println("@test:draw the map");
 		}
 	}
 	
@@ -1030,6 +1029,5 @@ public class Map {
 			character.setDependentMap(Map.this);
 		}
 	}
-
 
 }

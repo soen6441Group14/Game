@@ -67,11 +67,14 @@ public class Friendly implements Strategy{
             characterRow=characterRow+down;
             characterColumn=characterColumn+right;
         }
-        System.out.println("[Friendly turn] move to "+characterRow+","+characterColumn);
-        mapFrame.setMap(map,numRows,numCols);
-        mapFrame.drawMap(2);
-        return flag;
 
+        if(flag){
+            System.out.println("[ "+theFriendly.getName()+" ] wander to "+characterRow+","+characterColumn);
+            mapFrame.setMap(map,numRows,numCols);
+            mapFrame.drawMap(2);
+        }
+
+        return flag;
     }
 
 

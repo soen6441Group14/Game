@@ -1,5 +1,7 @@
 package Strategy;
 
+import objects.Characters;
+
 /**
  * *The class is the implementation of strategy interface
  * The class describes the strategy of execution for the character who are frozen in the game
@@ -7,10 +9,14 @@ package Strategy;
 
  */
 public class Frozen implements Strategy {
+
+    public Characters frozenedCharacter;
+
+    public Frozen(Characters theCharacter){
+        this.frozenedCharacter=theCharacter;
+    }
     @Override
     public void execute() {
-        System.out.println("[Frozen turn] It can not move !");
-        System.out.println("[Frozen turn] It can not move !");
-        System.out.println("[Frozen turn] It can not move !");
+        System.out.println("[ " + frozenedCharacter.getName() + " ] frozen status - It can not move !");
     }
 }

@@ -149,16 +149,15 @@ public class Characters implements Serializable{
 				this.enchanted.remove(oneUnvoid);
 			}
 		}
-
 	}
 
 	public Enchantment executeOneEnchantedEffects(Enchantment enchantedType,int turnsLeft){
 		Enchantment unvoidEffect=null;
 
 		if(enchantedType==Enchantment.Freezing){
-			this.setStrategy(new Frozen()); //frozen的执行属于turn()中的
+			this.setStrategy(new Frozen(this)); //frozen的执行属于turn()中的
 			turnsLeft--;
-			System.out.println("turnsLeft "+turnsLeft);
+			System.out.println("[ "+this.getName()+" ] suffer Freezing enchantment, turnLeft - "+ turnsLeft);
 			if(turnsLeft==0){
 				unvoidEffect=Enchantment.Freezing;
 				recoverTheCharacterStrategy();
@@ -169,6 +168,7 @@ public class Characters implements Serializable{
 		else if(enchantedType==Enchantment.Burning){
 			this.hitpoints-=enchantedBonus*5;
 			turnsLeft--;
+			System.out.println("[ "+this.getName()+" ] suffer Burning enchantment, turnLeft - "+ turnsLeft);
 			if(turnsLeft==0)
 				unvoidEffect=Enchantment.Burning;
 			else
@@ -176,11 +176,13 @@ public class Characters implements Serializable{
 		}
 		else if(enchantedType==Enchantment.Slaying){
 			this.hitpoints=0;
+			System.out.println("[ "+this.getName()+" ] suffer Slaying enchantment, dead " );
 			unvoidEffect=Enchantment.Slaying;
 		}
 		else if(enchantedType==Enchantment.Frightening){
 			this.setStrategy(new Frightened(this.dependentMap,this,afraidCharacter));
 			turnsLeft--;
+			System.out.println("[ "+this.getName()+" ] suffer Frightening enchantment, turnLeft - "+ turnsLeft);
 			if(turnsLeft==0){
 				unvoidEffect=Enchantment.Frightening;
 				recoverTheCharacterStrategy();
@@ -190,6 +192,7 @@ public class Characters implements Serializable{
 		}
 		else if(enchantedType==Enchantment.Pacifying){
 			this.setStrategy(new Friendly(this.dependentMap,this));
+			System.out.println("[ "+this.getName()+" ] suffer Pacifying enchantment, turnLeft - become Friendly");
 			unvoidEffect=Enchantment.Pacifying;
 		}
 
@@ -356,7 +359,10 @@ public class Characters implements Serializable{
 		//deal with damage
 		if(attackBonus + d20>=target.getArmorClass()){
 			target.setHitpoints(target.getHitpoints()-getD10());//hitpoints reduce 1d10
+			System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : hurt target");
 		}
+		else
+			System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : miss");
 		
 		boolean live;
 		if(target.getHitpoints()>0){

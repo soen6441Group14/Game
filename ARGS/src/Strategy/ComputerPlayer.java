@@ -109,12 +109,16 @@ public class ComputerPlayer implements Strategy{
         else if (map[playerRow+down][playerColumn+right].getTileType() == TileType.EXIT) {
             if(!searchForHostiles()){
                 map[playerRow][playerColumn]=new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-                System.out.println("[ComputerPlayer] objective is achieved -> he is gone");
+                System.out.println("[" +theComPlayer.getName()+" ] objective is achieved -> he is gone");
             }
         }
-        System.out.println("[ComputerPlayer turn] move to "+playerRow+","+playerColumn);
-        mapFrame.setMap(map,numRows,numCols);
-        mapFrame.drawMap(2);
+
+        if(flag){
+            System.out.println("[ "+theComPlayer.getName()+" ] move to "+playerRow+","+playerColumn);
+            mapFrame.setMap(map,numRows,numCols);
+            mapFrame.drawMap(2);
+        }
+
         return flag;
     }
 
