@@ -24,11 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import org.w3c.dom.css.ElementCSSInlineStyle;
-
 import Strategy.Aggressive;
 import Strategy.Friendly;
-import Strategy.Humanplayer;
 import actionListener.PanelListener;
 import actionListener.MapListener;
 import enumclass.Orientation;
@@ -863,35 +860,6 @@ public class Map {
 
 		drawMap(2);
 
-
-//		for(Characters characters: characterTurn){
-//			characters.turn();
-//		}
-
-
-//		iteration = new Iteration(characterTurn);
-//		iteration.switchOn();
-
-		//每张地图中人物都按照顺序依次移动n次
-//		while(flagMove){//这里的循环有问题，hero离开地图之后，无法结束上一个地图就进入下一个地图了
-//			
-//			for(Characters characters: characterTurn){
-//				characters.turn();
-//				try{
-//		            java.lang.Thread.sleep(2000);
-//		        }
-//		        catch (InterruptedException e){
-//		            e.printStackTrace();
-//		        }
-//			}
-//			
-//		}
-		
-//		changeMap();
-//		keyListener = new PanelListener(Map.this,numberMap);
-////		setListeningMatrix();
-//		showOnMap();
-		
 	}
 
 	/**
@@ -1054,7 +1022,8 @@ public class Map {
 			else if(character.getOrient()==Orientation.FRIENDLY)
 				character.setStrategy(new Friendly(Map.this,character));
 			else if (character.getOrient() == Orientation.PLAYER)
-				character.setStrategy(new Humanplayer());
+				//keyListener is also the strategy of the user player
+				character.setStrategy(keyListener);
 		}
 	}
 
