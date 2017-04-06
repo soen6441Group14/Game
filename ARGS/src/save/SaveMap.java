@@ -27,8 +27,6 @@ public class SaveMap {
         objectOutputStream.flush();
         objectOutputStream.close();
 		
-
-		
 	}
 
 }
