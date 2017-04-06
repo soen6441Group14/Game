@@ -130,53 +130,72 @@ public class Characters implements Serializable{
 	}
 
 	public void executeEnchantedEffects(){
+		ArrayList<Enchantment> unvoidEffets=new ArrayList<Enchantment>();
+
 		if(enchanted.size()!=0){
-			Set<Enchantment>enchantedSet=enchanted.keySet();
+			Set<Enchantment>enchantedSet = enchanted.keySet();
 			for(Enchantment oneEnchanted:enchantedSet){
 				int turnsLeft=enchanted.get(oneEnchanted);
-				executeOneEnchantedEffects(oneEnchanted,turnsLeft);
+				Enchantment unvoid=executeOneEnchantedEffects(oneEnchanted,turnsLeft);
+				if(unvoid!=null){
+					unvoidEffets.add(unvoid);
+				}
 			}
 		}
+
+		//delete the key of which value=0
+		if(unvoidEffets.size()!=0){
+			for(Enchantment oneUnvoid: unvoidEffets){
+				this.enchanted.remove(oneUnvoid);
+			}
+		}
+
 	}
 
-	public void executeOneEnchantedEffects(Enchantment enchantedType,int turnsLeft){
+	public Enchantment executeOneEnchantedEffects(Enchantment enchantedType,int turnsLeft){
+		Enchantment unvoidEffect=null;
+
 		if(enchantedType==Enchantment.Freezing){
 			this.setStrategy(new Frozen()); //frozen的执行属于turn()中的
 			turnsLeft--;
 			if(turnsLeft==0){
-				this.enchanted.remove(enchantedType);
+				unvoidEffect=Enchantment.Freezing;
 				recoverTheCharacterStrategy();
 			}
 			else
-				this.enchanted.put(enchantedType,turnsLeft); //update the turns left
+				this.enchanted.replace(Enchantment.Freezing,turnsLeft+1,turnsLeft);//update the turns left
 		}
 		else if(enchantedType==Enchantment.Burning){
 			this.hitpoints-=enchantedBonus*5;
 			turnsLeft--;
 			if(turnsLeft==0)
-				this.enchanted.remove(Enchantment.Burning);
+				unvoidEffect=Enchantment.Burning;
 			else
-				this.enchanted.put(Enchantment.Burning,turnsLeft);
+				this.enchanted.replace(Enchantment.Burning,turnsLeft+1,turnsLeft);
 		}
 		else if(enchantedType==Enchantment.Slaying){
 			this.hitpoints=0;
-			this.enchanted.remove(enchantedType);
+			unvoidEffect=Enchantment.Slaying;
 		}
 		else if(enchantedType==Enchantment.Frightening){
 			this.setStrategy(new Frightened(this.dependentMap,this,afraidCharacter));
 			turnsLeft--;
 			if(turnsLeft==0){
-				this.enchanted.remove(Enchantment.Frightening);
+				unvoidEffect=Enchantment.Frightening;
 				recoverTheCharacterStrategy();
 			}
 			else
-				this.enchanted.put(Enchantment.Frightening,turnsLeft);
+				this.enchanted.replace(Enchantment.Frightening,turnsLeft+1,turnsLeft);
 		}
 		else if(enchantedType==Enchantment.Pacifying){
 			this.setStrategy(new Friendly(this.dependentMap,this));
-			this.enchanted.remove(enchantedType);
+			unvoidEffect=Enchantment.Pacifying;
 		}
+
+		return unvoidEffect;
 	}
+
+
 
 	public void addEnchantedEffectToCharacter(ArrayList<Enchantment> enchantmentList,int enchantmentBonus){
 		for(Enchantment enchantment: enchantmentList){
@@ -207,6 +226,8 @@ public class Characters implements Serializable{
 			this.setStrategy(new Friendly(this.dependentMap,this));
 		else if(this.orient==Orientation.HOSTILE)
 			this.setStrategy(new Aggressive(this.dependentMap,this));
+		else if(this.orient==Orientation.PLAYER)
+			this.setStrategy(this.dependentMap.keyListener);
 	}
 
 	public void frightenByCharacter(Characters afraidCha){
@@ -313,6 +334,7 @@ public class Characters implements Serializable{
 	public boolean attack(Characters target){
 		
 		int attackBonus;
+		int d20=getD20();
 		if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
 			if(this.getInventory().get(0).getRange()==1){//melee weapon
 				 attackBonus = this.getAttackBonus()+this.getModStr();
@@ -321,7 +343,7 @@ public class Characters implements Serializable{
 				 attackBonus = this.getAttackBonus()+this.getModDex();
 			}
 			//weapon with enchantment will damage enchantment bonus to target
-			if(this.getInventory().get(0).getEnchantments().size()>0){
+			if(this.getInventory().get(0).getEnchantments().size()>0 && attackBonus+d20>getArmorClass()){
 				int enchantBonus=this.getInventory().get(0).getValue();//from 1 to 5
 				this.addEnchantedEffectToCharacter(this.getInventory().get(0).getEnchantments(),enchantBonus);
 			}
@@ -331,7 +353,7 @@ public class Characters implements Serializable{
 		}
 		
 		//deal with damage
-		if(attackBonus + getD20()>=target.getArmorClass()){
+		if(attackBonus + d20>=target.getArmorClass()){
 			target.setHitpoints(target.getHitpoints()-getD10());//hitpoints reduce 1d10
 		}
 		

@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  */
 
-public class PanelListener implements KeyListener {
+public class PanelListener implements KeyListener,Strategy{
 
 	Map mapFrame;
 	public Cells[][] map;
@@ -92,9 +92,7 @@ public class PanelListener implements KeyListener {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
-		
-		 
+
 		 int[] position = getHeroLocation();
 		 xHero = position[0];
 		 yHero = position[1];
@@ -102,32 +100,51 @@ public class PanelListener implements KeyListener {
 
 
 		 if(e.getKeyCode() == KeyEvent.VK_S){
-			boolean flag =  moveDown(xHero,yHero,hero);
-			 mapFrame.setMap(map, numRows, numCols);
-			 mapFrame.drawMap(2);
-			 mapFrame.drawInformation();
+		 	 if(isturn){
+				 boolean flag =  moveDown(xHero,yHero,hero);
+				 mapFrame.setMap(map, numRows, numCols);
+				 mapFrame.drawMap(2);
+				 mapFrame.drawInformation();
+				 if(flag)
+					 steps--;
+			 }
 		 }
 		 else if (e.getKeyCode() == KeyEvent.VK_W){
-			 boolean flag =  moveUp(xHero,yHero,hero);
-			 mapFrame.setMap(map, numRows, numCols);
-			 mapFrame.drawMap(2);
-			 mapFrame.drawInformation();
+		 	if(isturn){
+				boolean flag =  moveUp(xHero,yHero,hero);
+				mapFrame.setMap(map, numRows, numCols);
+				mapFrame.drawMap(2);
+				mapFrame.drawInformation();
+				if(flag)
+					steps--;
+			}
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_A){
-			 boolean flag =  moveLeft(xHero,yHero,hero);
-			 mapFrame.setMap(map, numRows, numCols);
-			 mapFrame.drawMap(2);
-			 mapFrame.drawInformation();
+		 	if(isturn){
+				boolean flag =  moveLeft(xHero,yHero,hero);
+				mapFrame.setMap(map, numRows, numCols);
+				mapFrame.drawMap(2);
+				mapFrame.drawInformation();
+				if(flag)
+					steps--;
+			}
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_D){
-			 boolean flag =  moveRight(xHero,yHero,hero);
-			 mapFrame.setMap(map, numRows, numCols);
-			 mapFrame.drawMap(2);
-			 mapFrame.drawInformation();
+		 	if(isturn){
+				boolean flag =  moveRight(xHero,yHero,hero);
+				mapFrame.setMap(map, numRows, numCols);
+				mapFrame.drawMap(2);
+				mapFrame.drawInformation();
+				if(flag)
+					steps--;
+			}
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_SPACE){
 			 turning();
 		 }
+
+		 if(steps<=0)
+		 	isturn=false;
 	}
 
 	/**
@@ -404,7 +421,6 @@ public class PanelListener implements KeyListener {
 				mapFrame.changeMap();
 				setListeningMatrix();
 				mapFrame.showOnMap(); //TODO:hero locateion定位错误的原因是changemap先
-//				mapFrame.flagMove = false;//有问题
 			}
 		}
 
@@ -419,7 +435,7 @@ public class PanelListener implements KeyListener {
 		//count the hostile monsters on the map
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
-				if (map[i][j].getTileType() == TileType.MONSTER) {
+				if (map[i][j].getTileType() == TileType.MONSTER){
 					Characters monster=map[i][j].getCharacters();
 					if(monster.getOrient()==Orientation.HOSTILE)
 						count++;
@@ -443,6 +459,7 @@ public class PanelListener implements KeyListener {
 	public void configTurns(ArrayList<Characters> chaList){
 		this.characterTurn=chaList;
 	}
+
 	public void turning(){
 		Characters turningCharacter=characterTurn.get(whosTurn);
 		turningCharacter.turn();
@@ -451,4 +468,18 @@ public class PanelListener implements KeyListener {
 			whosTurn=0;
 	}
 
+
+
+
+	/*the strategy of human player*/
+
+	private boolean isturn;
+	private int steps;
+
+	@Override
+	public void execute() {
+		System.out.println("[User play turn] you turn to operate");
+		isturn=true;
+		steps=3;
+	}
 }
