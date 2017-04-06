@@ -349,7 +349,7 @@ public class Characters implements Serializable{
 			//weapon with enchantment will damage enchantment bonus to target
 			if(this.getInventory().get(0).getEnchantments().size()>0 && attackBonus+d20>getArmorClass()){
 				int enchantBonus=this.getInventory().get(0).getValue();//from 1 to 5
-				this.addEnchantedEffectToCharacter(this.getInventory().get(0).getEnchantments(),enchantBonus);
+				target.addEnchantedEffectToCharacter(this.getInventory().get(0).getEnchantments(),enchantBonus);
 			}
 		}
 		else{// character don't have weapon
