@@ -147,12 +147,6 @@ public class PanelListener implements KeyListener,Strategy{
 		 }
 
 
-//		 else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-//			 turning();
-//		 }
-//
-//		 if(steps<=0)
-//		 	isturn=false;
 	}
 
 	/**
@@ -456,25 +450,6 @@ public class PanelListener implements KeyListener,Strategy{
 			return false;
 	}
 
-
-//	/*Take turn*/
-//
-//	public int whosTurn;
-//	public ArrayList<Characters> characterTurn;
-//
-//	public void configTurns(ArrayList<Characters> chaList){
-//		this.characterTurn=chaList;
-//		isturn=false;
-//		steps=0;
-//	}
-//
-//	public void turning(){
-//		Characters turningCharacter=characterTurn.get(whosTurn);
-//		turningCharacter.turn();
-//		whosTurn++;
-//		if(whosTurn>characterTurn.size()-1)
-//			whosTurn=0;
-//	}
 
 
 	/*the strategy of human player*/
