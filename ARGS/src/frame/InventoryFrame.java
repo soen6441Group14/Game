@@ -12,6 +12,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import enumclass.Enchantment;
 import objects.Characters;
 import objects.Items;
 import observer.InventoryObserver;
@@ -69,6 +71,10 @@ public class InventoryFrame {
 				
 				int backpackValue = 0;
 				int inventoryValue = 0;
+				ArrayList<Enchantment> arrayListBackpack = new ArrayList<Enchantment>();
+				ArrayList<Enchantment> arrayListInventory = new ArrayList<Enchantment>();
+				int rangeBackpack = 0;
+				int rangeInventory = 0;
 				Characters oldCharacter = null;
 				
 				//必须是玩家的名字
@@ -80,20 +86,29 @@ public class InventoryFrame {
 				
 				if(oldCharacter != null){
 					
+				if(strings[0].equalsIgnoreCase("WEAPON")){
+					arrayListBackpack = getBackpackEnchantment(backpackString,oldCharacter);
+					rangeBackpack = getBackpackRange(backpackString,oldCharacter);
+				}
 					
 				backpackValue = getBackpackValue(backpackString,oldCharacter);	
 				
 				
 				// 在inventory中寻找和backpack中对应的物品，如果有，则返回对应物品，如果无，就返回空
 				/* search corresponding item in the inventory with the same type of selected one.
-				 * if exsit, return the item. if not, return empty
+				 * if exist, return the item. if not, return empty
 				*/
 				for(Items inventory :oldCharacter.getInventory()){
-					
+					//strings2 是人物装备在身上的
 					String[] strings2 = inventory.getName().split("\\d");
 					if(strings2[0].equalsIgnoreCase(strings[0])){
 						invetoryString = inventory.getName();
 						inventoryValue = inventory.getValue();
+						//如果要换的装备是weapon的话，就要获得enchantment and range
+						if(strings2[0].equalsIgnoreCase("WEAPON")){
+							arrayListInventory = inventory.getEnchantments();
+							rangeInventory = inventory.getRange();
+						}
 						break;
 					}
 					else{
@@ -102,14 +117,19 @@ public class InventoryFrame {
 					}
 				}
 				
-				setBackpackValue(oldCharacter,backpackString,invetoryString,inventoryValue);
+				setBackpackValue(oldCharacter,backpackString,invetoryString,inventoryValue,arrayListInventory,rangeInventory);
 				
 				
 				//将inventory中的物品换成backpack中的物品，并修改对应的属性
 				// change the item in the inventory to the item of backpack and change the attribute of player
 				if(strings[0].equalsIgnoreCase("WEAPON")){
-					oldCharacter.getInventory().get(0).setName(backpackString);
-					oldCharacter.getInventory().get(0).setValue(backpackValue);
+					Items weapon = new Items(backpackString, backpackValue, "damageBonus");
+					weapon.setEnchantments(arrayListBackpack);
+					weapon.setRange(rangeBackpack);
+					oldCharacter.getInventory().set(0, weapon);
+						
+//					oldCharacter.getInventory().get(0).setName(backpackString);
+//					oldCharacter.getInventory().get(0).setValue(backpackValue);
 					int value = oldCharacter.getDamageBonus();
 					oldCharacter.setDamageBonus(value+backpackValue-inventoryValue);
 				}
@@ -151,27 +171,16 @@ public class InventoryFrame {
 				}
 				
 				
-
-				
-//				//替代原有的character
-//				int index = characterArrayList.indexOf(oldCharacter);
-//				characterArrayList.set(index,oldCharacter);
-				
-//				try {
-//					new SaveCharacter().saveCharacter(characterArrayList);
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-				
 				}
 				
 				InventoryObserver inventoryObserver = new InventoryObserver(map);
 				inventoryObserver.start();
 //				map.drawInformation();
 				drawBackpackBox();
+				map.drawMap(2);
 				
 			}
+
 		
 		});
 		
@@ -183,21 +192,53 @@ public class InventoryFrame {
 	 * @param backpackString backpack item name
 	 * @param invetoryString inventory item name
 	 * @param inventoryValue inventory item value
+	 * @param rangeInventory 
+	 * @param arrayListInventory 
 	 */
 	public void setBackpackValue(Characters oldCharacter, String backpackString, String invetoryString,
-			int inventoryValue) {
+			int inventoryValue, ArrayList<Enchantment> arrayListInventory, int rangeInventory) {
 		
 		//将backpack中的物品换成inventory中的物品
 		// change the the item in the backpack to the item of inventory
 		for(Items backpack:oldCharacter.getBackpack()){
-			//如果有两个相同名字的物品，则会出问题 break可以解决问题
+			/*如果有两个相同名字的物品，则会出问题 break可以解决问题
+			 * 这里没有考虑bonus type，同一类型的装备应该可以改变不同的属性
+			*/
 			if(backpack.getName().equals(backpackString)){
+				//如果是weapon，则需要替换调整个item
+				if(backpack.getName().startsWith("W")||backpack.getName().startsWith("w")){
+					int index = oldCharacter.getBackpack().indexOf(backpack);
+					Items weapon = new Items(invetoryString, inventoryValue, "damageBonus");
+					weapon.setEnchantments(arrayListInventory);
+					weapon.setRange(rangeInventory);
+					oldCharacter.getBackpack().set(index, weapon);
+				}
+				else{ //如果是其它的装备，则只改变其中的值
 				backpack.setName(invetoryString);
 				backpack.setValue(inventoryValue);
+				}
 				break;
 			}
 		}
 		
+	}
+	
+	public int getBackpackRange(String backpackString, Characters oldCharacter) {
+		for(Items backpack: oldCharacter.getBackpack()){
+			if(backpack.getName().equals(backpackString)){
+				  return backpack.getRange();
+			}
+		}
+		return 0;
+	}
+	
+	public ArrayList<Enchantment> getBackpackEnchantment(String backpackString, Characters oldCharacter) {
+		for(Items backpack: oldCharacter.getBackpack()){
+			if(backpack.getName().equals(backpackString)){
+				  return backpack.getEnchantments();
+			}
+		}
+		return null;
 	}
 	/**
 	 * get backpack item value
@@ -224,11 +265,6 @@ public class InventoryFrame {
 	public void drawBackpackBox() {
 		backpackBox.removeAllItems(); // remove original item list
 		
-//		try {
-//			backpack = new LoadCharacter().readBackpack(characterArrayList,character); // get the item list from file
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		backpack = character.getBackpack();
 		for(Items items:backpack)
 		{

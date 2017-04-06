@@ -342,6 +342,7 @@ public class Characters implements Serializable{
 		if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
 			if(this.getInventory().get(0).getRange()==1){//melee weapon
 				 attackBonus = this.getAttackBonus()+this.getModStr();
+				 System.out.println(this.getInventory().get(0).getEnchantments().get(0));
 			}
 			else{//ranged weapon
 				 attackBonus = this.getAttackBonus()+this.getModDex();

@@ -23,7 +23,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
-
 import Strategy.Aggressive;
 import Strategy.Friendly;
 import actionListener.PanelListener;
@@ -352,17 +351,7 @@ public class Map {
 	 */
 	public void drawInformation(){
 		Characters characters = null;
-		//读取characters
-		/* when the character box in the main frame was selected, 
-		 * then we get corresponding character object from the file
-		 */
-//		try {
-//			if(characterMapBox.getSelectedItem() !=null)
-//			characters = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(),characterArrayList);
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+	
 		
 		characters = getCharacterMap();
 		
@@ -546,12 +535,6 @@ public class Map {
 				
 				character = getCharacterMap();
 				
-//				try {
-//					character = new LoadCharacter().loadcharacter(characterMapBox.getSelectedItem().toString(), characterArrayList);
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
 				
 				new InventoryFrame(Map.this,jFrame,characterMapArrayList,character);
 				characterMapArrayList.clear();
@@ -668,7 +651,6 @@ public class Map {
 
 		panel.setBackground(Color.GRAY);
 		panelContainer.setBackground(Color.GRAY);
-//		panelShow.setBackground(Color.GREEN);
 		showPanel.setBackground(Color.white);
 		characterPanel.setBackground(Color.white);
 		
