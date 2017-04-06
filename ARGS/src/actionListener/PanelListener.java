@@ -12,6 +12,8 @@ import objects.Characters;
 import objects.Ground;
 import objects.Items;
 import objects.Entry;
+import play.RunningController;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -30,13 +32,11 @@ public class PanelListener implements KeyListener,Strategy{
 	int columnOfEntry;
 	int playingIndex;
 	int numberMap;
-
 	int xHero;
 	int yHero;
 	Characters hero = null;
 	
-	
-	
+
 	public Characters getHero() {
 		return hero;
 	}
@@ -98,17 +98,17 @@ public class PanelListener implements KeyListener,Strategy{
 
 
 		 if(e.getKeyCode() == KeyEvent.VK_S){
-		 	 if(isturn){
-				 boolean flag =  moveDown(xHero,yHero,hero);
-				 mapFrame.setMap(map, numRows, numCols);
-				 mapFrame.drawMap(2);
-				 mapFrame.drawInformation();
-				 if(flag)
-					 steps--;
-			 }
+		 	if(isTurn){
+				boolean flag =  moveDown(xHero,yHero,hero);
+				mapFrame.setMap(map, numRows, numCols);
+				mapFrame.drawMap(2);
+				mapFrame.drawInformation();
+				if(flag)
+					steps--;
+			}
 		 }
 		 else if (e.getKeyCode() == KeyEvent.VK_W){
-		 	if(isturn){
+		 	if(isTurn){
 				boolean flag =  moveUp(xHero,yHero,hero);
 				mapFrame.setMap(map, numRows, numCols);
 				mapFrame.drawMap(2);
@@ -118,7 +118,7 @@ public class PanelListener implements KeyListener,Strategy{
 			}
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_A){
-		 	if(isturn){
+		 	if(isTurn){
 				boolean flag =  moveLeft(xHero,yHero,hero);
 				mapFrame.setMap(map, numRows, numCols);
 				mapFrame.drawMap(2);
@@ -128,7 +128,7 @@ public class PanelListener implements KeyListener,Strategy{
 			}
 		 }
 		 else if(e.getKeyCode() == KeyEvent.VK_D){
-		 	if(isturn){
+		 	if(isTurn){
 				boolean flag =  moveRight(xHero,yHero,hero);
 				mapFrame.setMap(map, numRows, numCols);
 				mapFrame.drawMap(2);
@@ -137,12 +137,22 @@ public class PanelListener implements KeyListener,Strategy{
 					steps--;
 			}
 		 }
-		 else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-			 turning();
+
+		 if(steps>0)
+		 	System.out.println("[ User player ] you have "+steps+" steps left");
+		 else{
+		 	isTurn=false;
+		 	System.out.println("[ User player ] you have finished your turn, other character turn");
+		 	RunningController.obtainRunningController().startRun();
 		 }
 
-		 if(steps<=0)
-		 	isturn=false;
+
+//		 else if(e.getKeyCode() == KeyEvent.VK_SPACE){
+//			 turning();
+//		 }
+//
+//		 if(steps<=0)
+//		 	isturn=false;
 	}
 
 	/**
@@ -447,36 +457,37 @@ public class PanelListener implements KeyListener,Strategy{
 	}
 
 
-
-	/*Take turn*/
-
-	public int whosTurn;
-	public ArrayList<Characters> characterTurn;
-
-	public void configTurns(ArrayList<Characters> chaList){
-		this.characterTurn=chaList;
-	}
-
-	public void turning(){
-		Characters turningCharacter=characterTurn.get(whosTurn);
-		turningCharacter.turn();
-		whosTurn++;
-		if(whosTurn>characterTurn.size()-1)
-			whosTurn=0;
-	}
-
-
+//	/*Take turn*/
+//
+//	public int whosTurn;
+//	public ArrayList<Characters> characterTurn;
+//
+//	public void configTurns(ArrayList<Characters> chaList){
+//		this.characterTurn=chaList;
+//		isturn=false;
+//		steps=0;
+//	}
+//
+//	public void turning(){
+//		Characters turningCharacter=characterTurn.get(whosTurn);
+//		turningCharacter.turn();
+//		whosTurn++;
+//		if(whosTurn>characterTurn.size()-1)
+//			whosTurn=0;
+//	}
 
 
 	/*the strategy of human player*/
 
-	private boolean isturn;
 	private int steps;
+	private boolean isTurn=false;
 
 	@Override
 	public void execute() {
-		System.out.println("[User play turn] you turn to operate");
-		isturn=true;
+		//stop the auto-timer to let user input
+		RunningController.obtainRunningController().stopRun();
+		System.out.println("[ User play ] It is your turn - you can operate");
+		isTurn=true;
 		steps=3;
 	}
 }

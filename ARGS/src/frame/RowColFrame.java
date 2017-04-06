@@ -34,7 +34,7 @@ public class RowColFrame {
 	public RowColFrame(Map map, JFrame jFrame2)
 	{
 		JFrame jFrame = new JFrame("Rows and Columns");
-		JButton jButton = new JButton("Comfirm");
+		JButton jButton = new JButton("Confirm");
 		JLabel jLabelRows = new JLabel("Input a row(<=20)");
 		JLabel jLabelColumns = new JLabel("Input a column(<=20)");
 		
