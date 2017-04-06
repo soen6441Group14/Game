@@ -95,19 +95,6 @@ public class Frightened implements Strategy {
             characterRow=characterRow+down;
             characterColumn=characterColumn+right;
         }
-        else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.MONSTER ||
-                map[characterRow +down][characterColumn +right].getTileType() == TileType.HERO){
-            Characters target=map[characterRow+down][characterColumn+right].getCharacters();
-
-            //attack the target
-            if(!theFrightened.attack(target)){
-                map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-                map[characterRow+down][characterColumn+right]=new Cells(TileType.MONSTER, numRows, numCols,theFrightened);
-            }
-            flag=true;
-            characterRow=characterRow+down;
-            characterColumn=characterColumn+right;
-        }
 
         if(flag){
             System.out.println("[ "+theFrightened.getName()+" ] escape to "+characterRow+","+characterColumn);

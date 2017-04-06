@@ -17,6 +17,10 @@ public class Frozen implements Strategy {
     }
     @Override
     public void execute() {
+        //if dead, not execute
+        if(frozenedCharacter.getHitpoints()<=0)
+            return;
+
         System.out.println("[ " + frozenedCharacter.getName() + " ] frozen status - It can not move !");
     }
 }

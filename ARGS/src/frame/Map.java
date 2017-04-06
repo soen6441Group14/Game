@@ -42,7 +42,6 @@ import objects.Items;
 import objects.Matrix;
 import observer.CharacterObserver;
 import play.Adaptor;
-import play.Iteration;
 import play.RunningController;
 
 /**
@@ -152,7 +151,7 @@ public class Map {
 	
 	public ActionListener actionListener;
 	public PanelListener keyListener ;
-	public Iteration iteration;
+
 
 
 	/**
