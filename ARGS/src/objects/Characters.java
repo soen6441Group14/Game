@@ -143,6 +143,7 @@ public class Characters implements Serializable{
 		if(enchantedType==Enchantment.Freezing){
 			this.setStrategy(new Frozen()); //frozen的执行属于turn()中的
 			turnsLeft--;
+			System.out.println("turnsLeft "+turnsLeft);
 			if(turnsLeft==0){
 				this.enchanted.remove(enchantedType);
 				recoverTheCharacterStrategy();
