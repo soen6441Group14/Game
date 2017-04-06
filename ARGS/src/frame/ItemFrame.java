@@ -300,6 +300,8 @@ public class ItemFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				oldItems = new LoadItem().loadItem(itemName.getText(), itemArrayList);
+//				System.out.println("BonusType "+oldItems.getEnchantments().get(0));
+//				System.out.println("BonusType "+oldItems.getEnchantments().get(1));
 				if(oldItems == null)
 					JOptionPane.showMessageDialog(null, "There is no such item", "Alert", JOptionPane.ERROR_MESSAGE);
 				else{

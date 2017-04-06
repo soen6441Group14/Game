@@ -247,7 +247,6 @@ public class Map {
 		
 		drawItemBox(); //show items in the file
 		drawcharacterBox();// show characters in the file
-		drawInformation();
 		drawMapBox();
 		drawCampaignBox();
 
@@ -275,7 +274,6 @@ public class Map {
 //			 System.out.println("yHero "+yHero);
 //			 hero = map[xHero][yHero].getCharacters();
 			 weaponRange = map[xHero][yHero].getCharacters().getInventory().get(0).getRange();
-
 			 
 		}
 //		System.out.println("weaponRange: "+weaponRange);
