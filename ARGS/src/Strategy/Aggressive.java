@@ -112,7 +112,7 @@ public class Aggressive implements Strategy{
 
     public void threadSleep(){
         try{
-            java.lang.Thread.sleep(500);
+            java.lang.Thread.sleep(100);
         }
         catch (InterruptedException e){
             e.printStackTrace();
@@ -156,7 +156,7 @@ public class Aggressive implements Strategy{
         }
 
         if(flag){
-            System.out.println("[Aggressive turn] move to "+characterRow+","+characterColumn);
+            System.out.println("[ "+theAggressive.getName()+" ] move to "+characterRow+","+characterColumn);
             mapFrame.setMap(map,numRows,numCols);
             mapFrame.drawMap(2);
             mapFrame.drawInformation();

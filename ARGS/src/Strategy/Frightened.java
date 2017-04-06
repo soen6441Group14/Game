@@ -108,8 +108,13 @@ public class Frightened implements Strategy {
             characterRow=characterRow+down;
             characterColumn=characterColumn+right;
         }
-        mapFrame.setMap(map,numRows,numCols);
-        mapFrame.drawMap(2);
+
+        if(flag){
+            System.out.println("[ "+theFrightened.getName()+" ] escape to "+characterRow+","+characterColumn);
+            mapFrame.setMap(map,numRows,numCols);
+            mapFrame.drawMap(2);
+        }
+
         return flag;
     }
 
