@@ -3,11 +3,9 @@ package actionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
 import Strategy.Strategy;
 import enumclass.Orientation;
 import enumclass.TileType;
-import frame.InventoryFrame;
 import frame.Map;
 import objects.Cells;
 import objects.Characters;
@@ -155,7 +153,6 @@ public class PanelListener implements KeyListener,Strategy{
 	 * @return  true of false
 	 */
 	public boolean moveRight(int xHero, int yHero, Characters hero) {
-		
 
 		boolean flag = false;
 

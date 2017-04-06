@@ -16,6 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.junit.validator.PublicClassValidator;
+
 import decorator.Burning;
 import decorator.Empty;
 import decorator.Freezing;
@@ -231,12 +234,11 @@ public class ItemFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				if(count==0)
-				init(itemArrayList);
-				
-				if(count==0)
+				if(count==0){
+					weaponDecorator.arrayList.clear();//每次初始化weapon时，清除内存中的arraylist，否则weapon2有weapon1的效果
+					init(itemArrayList);//initialize WEAPON object
 					weaponDecorator = new Empty();
+				}
 				
 				if(jComboBox.getSelectedItem().toString().equals("Weapon")){
 					if(enchantment.getSelectedItem().toString().equals("Freezing"))
@@ -263,6 +265,7 @@ public class ItemFrame {
 //					items.enchantments.add(Enum.valueOf(Enchantment.class, enchantment.getSelectedItem().toString()));
 					items.enchantments = weaponDecorator.arrayList;
 					items.setRange(Integer.parseInt(range.getText()));
+					
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Please choose a weapon", "Alert", JOptionPane.ERROR_MESSAGE);
@@ -300,8 +303,13 @@ public class ItemFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				oldItems = new LoadItem().loadItem(itemName.getText(), itemArrayList);
-//				System.out.println("BonusType "+oldItems.getEnchantments().get(0));
-//				System.out.println("BonusType "+oldItems.getEnchantments().get(1));
+				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(0));
+				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(1));
+				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(2));
+//				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(3));
+//				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(4));
+//				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(5));
+				
 				if(oldItems == null)
 					JOptionPane.showMessageDialog(null, "There is no such item", "Alert", JOptionPane.ERROR_MESSAGE);
 				else{
@@ -415,7 +423,7 @@ public class ItemFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(count == 0)
+				if(count == 0)//初始化除了weapon以外的装备
 				init(itemArrayList);
 				
 				// if the item with input name exist , remove it and add new item. if not, add item
@@ -452,7 +460,7 @@ public class ItemFrame {
 		int range = 0;
 		
 		oldItems = new LoadItem().loadItem(itemName.getText(), itemArrayList);
-		if(oldItems != null){
+		if(oldItems != null){//如果选择的是武器，则把原有的属性赋给现在的，如果选择的是其它装备，则enchantment为null，range为0
 			enchantments = oldItems.getEnchantments();
 			range = oldItems.getRange();
 		}
