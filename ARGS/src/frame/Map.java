@@ -76,7 +76,6 @@ public class Map {
 	public JFrame jFrame;
 	public JButton jButton;
 	public JButton startGame = new JButton("Start Game");
-	public JButton heroMove = new JButton("End move");
 	public JButton inventoryInformation = new JButton("Inventory Information");
 	public JPanel panel = new JPanel();
 	public JPanel panelContainer = new JPanel(); // contain the panel which contains the map
@@ -684,7 +683,6 @@ public class Map {
 		showPanel.add(campaignBoxLabel);
 		showPanel.add(campaignBox);
 		showPanel.add(startGame);
-		showPanel.add(heroMove);
 		showPanel.add(characterMapLabel);
 		showPanel.add(characterMapBox);
 		showPanel.add(inventoryInformation);
