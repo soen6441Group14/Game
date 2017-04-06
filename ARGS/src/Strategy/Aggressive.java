@@ -72,7 +72,6 @@ public class Aggressive implements Strategy{
                 boolean flag=moveOneStep(1,0);
                 if(flag){
                     steps--;
-                    threadSleep();
                 }
                 else
                     break;
@@ -83,7 +82,6 @@ public class Aggressive implements Strategy{
                 boolean flag=moveOneStep(0,1);
                 if(flag){
                     steps--;
-                    threadSleep();
                 }
                 else
                     break;
@@ -93,7 +91,6 @@ public class Aggressive implements Strategy{
                 boolean flag=moveOneStep(-1,0);
                 if(flag){
                     steps--;
-                    threadSleep();
                 }
                 else
                     break;
@@ -102,7 +99,6 @@ public class Aggressive implements Strategy{
                 boolean flag=moveOneStep(0,-1);
                 if(flag){
                     steps--;
-                    threadSleep();
                 }
                 else
                    break;
@@ -110,14 +106,6 @@ public class Aggressive implements Strategy{
         }
     }
 
-    public void threadSleep(){
-        try{
-            java.lang.Thread.sleep(100);
-        }
-        catch (InterruptedException e){
-            e.printStackTrace();
-        }
-    }
 
     public boolean moveOneStep(int down, int right){
         boolean flag=false;

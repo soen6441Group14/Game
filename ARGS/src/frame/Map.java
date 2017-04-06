@@ -43,6 +43,7 @@ import objects.Matrix;
 import observer.CharacterObserver;
 import play.Adaptor;
 import play.Iteration;
+import play.RunningController;
 
 /**
  * 
@@ -853,7 +854,10 @@ public class Map {
 		characterTurnMove();
 		initialCharactersStrategy();
 		initialCharactersDependency();
-		keyListener.configTurns(characterTurn);
+		//keyListener.configTurns(characterTurn);
+		RunningController runningController =RunningController.obtainRunningController();
+		runningController.enrollTurnsCharaters(characterTurn);
+		runningController.startRun();
 
 		drawMap(2);
 
@@ -887,41 +891,26 @@ public class Map {
 	public void changeMap(){
 		this.playingIndex+=1;
 		Cells[][] newMap = playingCampaign.getCampaign().get(playingIndex).getMap();
-		System.out.println("[change map] change to "+playingCampaign.getCampaign().get(playingIndex).getName()+"map");
+		System.out.println("[ change map ] change to "+playingCampaign.getCampaign().get(playingIndex).getName());
 		numRows = newMap[0][0].getX();
 		numCols = newMap[0][0].getY();
 		setMap(newMap, numRows, numCols);
-		System.out.println("playingIndex - "+playingIndex);
-		System.out.println("rows of map "+numRows);
-		System.out.println("columns of map "+numCols);
+		System.out.println("[ change map ]playingIndex - "+playingIndex);
+		System.out.println("[ new map info ]rows of map "+numRows);
+		System.out.println("[ new map info ]columns of map "+numCols);
 		//adapt the items and character, based on hero's level
 		Adaptor adaptor=new Adaptor(newMap,this.playingHero);
 		adaptor.adapting();
 		updateCharacterList();
-
-		characterTurn.clear();//每次调用前需要清除前面的人物列表
-		//第一次初始化地图时初始化人物的strategy pattern
+		//update the turning characters list
+		characterTurn.clear();
 		characterTurnMove();//每次遍历地图时就已经消除了死亡的人物，每张地图只能调用一次，顺序就已经确定了
 		initialCharactersStrategy();
 		initialCharactersDependency();
-		
-//		iteration = new Iteration(characterTurn);
-//		iteration.play();
-		//每张地图中人物都按照顺序依次移动n次
-//		while(flagMove){
-//			
-//			for(Characters characters: characterTurn){
-//				characters.turn();
-//			}
-//		}
-		
-//		changeMap();
-//		keyListener = new PanelListener(Map.this,numberMap);
-////		setListeningMatrix();
-//		showOnMap();
-		
-		
-		keyListener.configTurns(characterTurn);
+		//keyListener.configTurns(characterTurn);
+		RunningController runningController =RunningController.obtainRunningController();
+		runningController.enrollTurnsCharaters(characterTurn);
+		runningController.startRun();
 
 		drawMap(2);
 	}
@@ -997,7 +986,6 @@ public class Map {
 		// from high to low 
 		for(int i=arrayList.size()-1;i>=0;i--){
 			characterTurn.add(hashMap.get(arrayList.get(i)));
-			
 		}
 		
 		
