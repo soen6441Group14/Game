@@ -191,8 +191,10 @@ public class Characters implements Serializable{
 				this.enchanted.replace(Enchantment.Frightening,turnsLeft+1,turnsLeft);
 		}
 		else if(enchantedType==Enchantment.Pacifying){
-			this.setStrategy(new Friendly(this.dependentMap,this));
-			System.out.println("[ "+this.getName()+" ] suffer Pacifying enchantment, turnLeft - become Friendly");
+			if(this.orient!=Orientation.PLAYER){
+				this.setStrategy(new Friendly(this.dependentMap,this));
+				System.out.println("[ "+this.getName()+" ] suffer Pacifying enchantment, turnLeft - become Friendly");
+			}
 			unvoidEffect=Enchantment.Pacifying;
 		}
 
@@ -339,36 +341,38 @@ public class Characters implements Serializable{
 		
 		int attackBonus;
 		int d20=getD20();
-		if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
-			if(this.getInventory().get(0).getRange()==1){//melee weapon
-				 attackBonus = this.getAttackBonus()+this.getModStr();
-				 System.out.println(this.getInventory().get(0).getEnchantments().get(0));
-			}
-			else{//ranged weapon
-				 attackBonus = this.getAttackBonus()+this.getModDex();
-			}
-			//weapon with enchantment will damage enchantment bonus to target
-			if(this.getInventory().get(0).getEnchantments().size()>0 && attackBonus+d20>getArmorClass()){
-				int enchantBonus=this.getInventory().get(0).getValue();//from 1 to 5
-				target.addEnchantedEffectToCharacter(this.getInventory().get(0).getEnchantments(),enchantBonus);
-			}
-		}
-		else{// character don't have weapon
-			attackBonus = this.getAttackBonus();
-		}
-		
-		//deal with damage
-		if(attackBonus + d20>=target.getArmorClass()){
-			target.setHitpoints(target.getHitpoints()-getD10());//hitpoints reduce 1d10
-			System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : hurt target");
-		}
-		else
-			System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : miss");
-		
 		boolean live;
+		//if the target is live, damage it
 		if(target.getHitpoints()>0){
 			live=true;
+			if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
+				if(this.getInventory().get(0).getRange()==1){//melee weapon
+					 attackBonus = this.getAttackBonus()+this.getModStr();
+					 System.out.println(this.getInventory().get(0).getEnchantments().get(0));
+				}
+				else{//ranged weapon
+					 attackBonus = this.getAttackBonus()+this.getModDex();
+				}
+				//weapon with enchantment will damage enchantment bonus to target
+				if(this.getInventory().get(0).getEnchantments().size()>0 && attackBonus+d20>getArmorClass()){
+					int enchantBonus=this.getInventory().get(0).getValue();//from 1 to 5
+					target.addEnchantedEffectToCharacter(this.getInventory().get(0).getEnchantments(),enchantBonus);
+				}
+			}
+			else{// character don't have weapon
+				attackBonus = this.getAttackBonus();
+			}
+			
+			//deal with damage
+			if(attackBonus + d20>=target.getArmorClass()){
+				target.setHitpoints(target.getHitpoints()-getD10());//hitpoints reduce 1d10
+				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : hurt target");
+			}
+			else
+				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : miss");
+		
 		}
+		//if the target is dead body, loot items
 		else{
 			live=false;
 			//loot backpack

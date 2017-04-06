@@ -1,5 +1,6 @@
 package play;
 
+import enumclass.Orientation;
 import objects.Characters;
 
 import javax.swing.*;
@@ -53,11 +54,28 @@ public class RunningController implements ActionListener{
     /* the turns control*/
 
     private int currentRunIndex;
+    //to record the user player
+    private Characters userPlayer;
 
     public void enrollTurnsCharaters(ArrayList<Characters> turnMoveCharacters){
         this.turnsCharacters=null;
+        this.userPlayer=null;
         this.turnsCharacters=turnMoveCharacters;
+        findUsersPlayer(turnMoveCharacters);
         currentRunIndex=0;
+    }
+
+    /**
+     * The method is to find the user player for every map
+     * in order to check user play's live every turn
+     */
+    public void findUsersPlayer(ArrayList<Characters> charactersList){
+        for(Characters cha:charactersList){
+            if(cha.getOrient()== Orientation.PLAYER){
+                userPlayer=cha;
+                break;
+            }
+        }
     }
 
     /**
@@ -68,6 +86,11 @@ public class RunningController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Characters whoTurns = turnsCharacters.get(currentRunIndex);
         whoTurns.turn();
+        if(userPlayer.getHitpoints()<=0){
+            centerTimer.stop();
+            JOptionPane.showMessageDialog(null, "You are dead ! Game Over !", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
         currentRunIndex++;
         if(currentRunIndex>turnsCharacters.size()-1)
             currentRunIndex=0;

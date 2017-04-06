@@ -1,5 +1,6 @@
 package Strategy;
 
+import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
 import objects.*;
@@ -134,13 +135,15 @@ public class Aggressive implements Strategy{
             Characters target=map[characterRow+down][characterColumn+right].getCharacters();
             //attack the target
             boolean ifLive=theAggressive.attack(target);
+            if(target.getOrient()== Orientation.FRIENDLY)
+                target.setStrategy(new Aggressive(this.mapFrame,target));
             if(!ifLive){
                 map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
                 map[characterRow+down][characterColumn+right]=new Cells(TileType.MONSTER, numRows, numCols,theAggressive);
+                flag=true;
+                characterRow=characterRow+down;
+                characterColumn=characterColumn+right;
             }
-            flag=true;
-            characterRow=characterRow+down;
-            characterColumn=characterColumn+right;
         }
 
         if(flag){
