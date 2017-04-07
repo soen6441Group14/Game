@@ -23,7 +23,6 @@ public class Aggressive implements Strategy{
     //objective - locate the hero
     public int heroRow,heroColumn;
 
-
     public Aggressive(Map map,Characters theCharacter){
         this.mapFrame=map;
         this.map = this.mapFrame.getMap();
@@ -61,11 +60,16 @@ public class Aggressive implements Strategy{
         }
     }
 
+
+    private int attackTime=1;
+
     public void walkTowardDes(int desRow,int desColumn) {
 
         int steps = 3;
 
-        while (steps>0 && desRow!=characterRow && desColumn!=characterColumn) {
+
+        while (steps>0 && attackTime>0 && (desRow!=characterRow || desColumn!=characterColumn)) {
+
 
             while (desRow>characterRow && steps>0 ){
 
@@ -86,7 +90,8 @@ public class Aggressive implements Strategy{
                 else
                     break;
             }
-            
+
+
             while (desRow<characterRow && steps>0){
                 boolean flag=moveOneStep(-1,0);
                 if(flag){
@@ -95,6 +100,7 @@ public class Aggressive implements Strategy{
                 else
                     break;
             }
+
             while (desColumn<characterColumn && steps>0){
                 boolean flag=moveOneStep(0,-1);
                 if(flag){
@@ -103,7 +109,9 @@ public class Aggressive implements Strategy{
                 else
                    break;
             }
+
         }
+
     }
 
 
@@ -135,6 +143,7 @@ public class Aggressive implements Strategy{
             Characters target=map[characterRow+down][characterColumn+right].getCharacters();
             //attack the target
             boolean ifLive=theAggressive.attack(target);
+            attackTime--;
             if(target.getOrient()== Orientation.FRIENDLY)
                 target.setStrategy(new Aggressive(this.mapFrame,target));
             if(!ifLive){
@@ -162,6 +171,7 @@ public class Aggressive implements Strategy{
 
         searchForHero();
         walkTowardDes(heroRow,heroColumn);
+        System.out.println(theAggressive.getName()+"takes turns");
 
     }
 
