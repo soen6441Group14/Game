@@ -143,6 +143,8 @@ public class PanelListener implements KeyListener,Strategy{
 		 else{
 		 	isTurn=false;
 		 	System.out.println("[ User player ] you have finished your turn, other character turn");
+		 	boolean isRunning=RunningController.obtainRunningController().getTimerStatus();
+		 	if(!isRunning)
 		 	RunningController.obtainRunningController().startRun();
 		 }
 

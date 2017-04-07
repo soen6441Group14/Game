@@ -57,6 +57,11 @@ public class RunningController implements ActionListener{
     //to record the user player
     private Characters userPlayer;
 
+
+    public boolean getTimerStatus(){
+        return centerTimer.isRunning();
+    }
+
     public void enrollTurnsCharaters(ArrayList<Characters> turnMoveCharacters){
         this.turnsCharacters=null;
         this.userPlayer=null;
@@ -64,6 +69,7 @@ public class RunningController implements ActionListener{
         findUsersPlayer(turnMoveCharacters);
         currentRunIndex=0;
     }
+
 
     /**
      * The method is to find the user player for every map

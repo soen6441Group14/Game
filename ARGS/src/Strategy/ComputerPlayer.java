@@ -165,9 +165,6 @@ public class ComputerPlayer implements Strategy{
 
     @Override
     public void execute() {
-        //if dead, not execute
-        if(this.theComPlayer.hitpoints<=0)
-            return;
 
         int desRow;
         int desCol;

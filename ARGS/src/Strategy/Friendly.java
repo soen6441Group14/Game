@@ -81,9 +81,6 @@ public class Friendly implements Strategy{
 
     @Override
     public void execute() {
-        //if dead, not execute
-        if(theFriendly.hitpoints<=0)
-            return;
 
         int steps=3;
         while (steps>0){
