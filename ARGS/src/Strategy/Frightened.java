@@ -148,9 +148,6 @@ public class Frightened implements Strategy {
 
     @Override
     public void execute() {
-        //if dead, not execute
-        if(this.theFrightened.hitpoints<=0)
-            return;
 
         locateTheAfraid();
         int desRow=characterRow-(afraidRow-characterRow);
