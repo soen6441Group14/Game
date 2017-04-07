@@ -59,7 +59,6 @@ public class Aggressive implements Strategy{
                 }
             }
         }
-        System.out.println("hero locate:"+heroRow+","+heroColumn);
     }
 
     public void walkTowardDes(int desRow,int desColumn) {
@@ -132,6 +131,7 @@ public class Aggressive implements Strategy{
         }
         else if(map[characterRow +down][characterColumn +right].getTileType() == TileType.MONSTER ||
                 map[characterRow +down][characterColumn +right].getTileType() == TileType.HERO){
+
             Characters target=map[characterRow+down][characterColumn+right].getCharacters();
             //attack the target
             boolean ifLive=theAggressive.attack(target);
@@ -159,9 +159,6 @@ public class Aggressive implements Strategy{
 
     @Override
     public void execute() {
-        //if dead, not execute
-        if(theAggressive.hitpoints<=0)
-            return;
 
         searchForHero();
         walkTowardDes(heroRow,heroColumn);

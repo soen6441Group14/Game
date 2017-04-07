@@ -123,6 +123,8 @@ public class Characters implements Serializable{
 	}
 
 	public void turn(){
+		if(this.hitpoints<=0)
+			return;
 		// the first thing when its turn is to execute the enchanted effect
 		executeEnchantedEffects();
 		//and then execute its behaviors, different between its strategies
