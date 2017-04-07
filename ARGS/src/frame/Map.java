@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +27,7 @@ import javax.swing.border.EtchedBorder;
 import Strategy.Aggressive;
 import Strategy.Friendly;
 import actionListener.PanelListener;
+import actionListener.AttackListener;
 import actionListener.MapListener;
 import enumclass.Orientation;
 import enumclass.TileType;
@@ -144,6 +146,7 @@ public class Map {
 
 	/*playing game*/
 	public Characters playingHero;
+	public Characters targetMonster;
 	public Campaigns playingCampaign;
 	public int numberMap; //record the maps num of selected campaign
 	public int playingIndex; //recoed the index of map the player is playing,start with 0
@@ -300,7 +303,8 @@ public class Map {
 				jButton.setBorderPainted(true);
 				jButton.setBounds(j * 33, i * 33, 32, 32); // j represents width, i represent height
 				jButton.addActionListener(new MapListener(Map.this,itemBox,characterBox,characterArrayList,itemArrayList));
-
+				jButton.addMouseListener(new AttackListener(Map.this));
+				
 				if(getOut(i, j, xHero, yHero,weaponRange) && k==2){
 					jButton.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 					jButton.setContentAreaFilled(false);
