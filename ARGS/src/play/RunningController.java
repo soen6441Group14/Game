@@ -28,7 +28,7 @@ public class RunningController implements ActionListener{
      * singleton pattern - private
      */
     private RunningController(){
-        centerTimer=new Timer(1500,this);
+        centerTimer=new Timer(2000,this);
         turnsCharacters=new ArrayList<Characters>();
     }
 

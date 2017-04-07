@@ -348,7 +348,7 @@ public class Characters implements Serializable{
 			if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
 				if(this.getInventory().get(0).getRange()==1){//melee weapon
 					 attackBonus = this.getAttackBonus()+this.getModStr();
-					 System.out.println(this.getInventory().get(0).getEnchantments().get(0));
+//					 System.out.println(this.getInventory().get(0).getEnchantments().get(0));
 				}
 				else{//ranged weapon
 					 attackBonus = this.getAttackBonus()+this.getModDex();
@@ -365,7 +365,7 @@ public class Characters implements Serializable{
 			
 			//deal with damage
 			if(attackBonus + d20>=target.getArmorClass()){
-				target.setHitpoints(target.getHitpoints()-getD10());//hitpoints reduce 1d10
+				target.setHitpoints(target.getHitpoints()-getD8()-Math.abs(this.getModStr()));//hitpoints reduce 1d8
 				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : hurt target");
 			}
 			else
@@ -395,8 +395,8 @@ public class Characters implements Serializable{
 		return live;
 	}
 	
-	public int getD10(){
-		return new Random().nextInt(10)+1;
+	public int getD8(){
+		return new Random().nextInt(8)+1;
 	}
 
 	public int getD20(){
