@@ -23,8 +23,6 @@ public class Aggressive implements Strategy{
     //objective - locate the hero
     public int heroRow,heroColumn;
 
-
-
     public Aggressive(Map map,Characters theCharacter){
         this.mapFrame=map;
         this.map = this.mapFrame.getMap();

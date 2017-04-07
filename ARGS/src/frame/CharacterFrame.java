@@ -505,10 +505,10 @@ public class CharacterFrame {
 			//编辑character时，会使backpack恢复默认值
 			if(name.getText().startsWith("P")||name.getText().startsWith("p"))
 			{
-				backpack.add(new Items("WEAPON2", 2,"damageBonus"));
 				backpack.add(new Items("BOOT2", 2,"dexterity"));
 				backpack.add(new Items("BELT2", 2,"strength"));
 				backpack.add(new Items("RING2", 2,"wisdom"));
+				backpack.add(new Items("EMPTY", 0," "));
 				backpack.add(new Items("EMPTY", 0," "));
 				backpack.add(new Items("EMPTY", 0," "));
 				backpack.add(new Items("EMPTY", 0," "));
