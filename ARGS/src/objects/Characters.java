@@ -339,7 +339,7 @@ public class Characters implements Serializable{
 	 * @param target  the target monster in the map
 	 * @return true if the target is live, false if the target has dead
 	 */
-	public boolean attack(Characters target){
+	public boolean attackOrLootDead(Characters target){
 		
 		int attackBonus;
 		int d20=getD20();
@@ -368,10 +368,10 @@ public class Characters implements Serializable{
 			//deal with damage
 			if(attackBonus + d20>=target.getArmorClass()){
 				target.setHitpoints(target.getHitpoints()-getD8()-Math.abs(this.getModStr()));//hitpoints reduce 1d8
-				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : hurt target");
+				System.out.println("[ "+this.getName()+" ] attackOrLootDead "+target.getName()+" : hurt target");
 			}
 			else
-				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : miss");
+				System.out.println("[ "+this.getName()+" ] attackOrLootDead "+target.getName()+" : miss");
 		
 		}
 		//if the target is dead body, loot items
@@ -396,6 +396,47 @@ public class Characters implements Serializable{
 
 		return live;
 	}
+
+	/**
+	 * The method is used when the user player attack target using attack mouse right button
+	 * actually, clickAttack() is a supplement of the attackOrLootDead()
+	 * NPC character just allowed to use attackOrDead() to attack target
+	 * userPlayer can use both method to attack target
+	 * @param target target of character
+	 */
+	public void clickAttack(Characters target){
+
+		int attackBonus;
+		int d20=getD20();
+
+		if(target.getHitpoints()>0){
+			if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
+				if(this.getInventory().get(0).getRange()==1){//melee weapon
+					attackBonus = this.getAttackBonus()+this.getModStr();
+				}
+				else{//ranged weapon
+					attackBonus = this.getAttackBonus()+this.getModDex();
+				}
+				//weapon with enchantment will damage enchantment bonus to target
+				if(this.getInventory().get(0).getEnchantments().size()>0 && attackBonus+d20>getArmorClass()){
+					int enchantBonus=this.getInventory().get(0).getValue();//from 1 to 5
+					target.addEnchantedEffectToCharacter(this.getInventory().get(0).getEnchantments(),enchantBonus);
+				}
+			}
+			else{// character don't have weapon
+				attackBonus = this.getAttackBonus();
+			}
+			//deal with damage
+			if(attackBonus + d20>=target.getArmorClass()){
+				target.setHitpoints(target.getHitpoints()-getD8()-Math.abs(this.getModStr()));//hitpoints reduce 1d8
+				System.out.println("[ "+this.getName()+" ] attackOrLootDead "+target.getName()+" : hurt target");
+			}
+			else
+				System.out.println("[ "+this.getName()+" ] attackOrLootDead "+target.getName()+" : miss");
+		}
+	}
+
+
 	
 	public int getD8(){
 		return new Random().nextInt(8)+1;

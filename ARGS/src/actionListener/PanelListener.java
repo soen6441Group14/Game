@@ -2,7 +2,7 @@ package actionListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
+
 import Strategy.Strategy;
 import enumclass.Orientation;
 import enumclass.TileType;
@@ -144,8 +144,10 @@ public class PanelListener implements KeyListener,Strategy{
 		 	isTurn=false;
 		 	System.out.println("[ User player ] you have finished your turn, other character turn");
 		 	boolean isRunning=RunningController.obtainRunningController().getTimerStatus();
-		 	if(!isRunning)
-		 	RunningController.obtainRunningController().startRun();
+		 	if(!isRunning){
+				RunningController.obtainRunningController().startRun();
+				AttackListener.setValid(false);
+			}
 		 }
 
 
@@ -186,7 +188,7 @@ public class PanelListener implements KeyListener,Strategy{
 					 //interactWithFriendly(target,hero);
 				 	hero.interactWithFriendly(target);
 				 else{
-				 	if(hero.attack(target)){}
+				 	if(hero.attackOrLootDead(target)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero][yHero+1] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -232,7 +234,7 @@ public class PanelListener implements KeyListener,Strategy{
 					//interactWithFriendly(target,hero);
 					hero.interactWithFriendly(target);
 				else{
-					if(hero.attack(target)){}
+					if(hero.attackOrLootDead(target)){}
 					else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero][yHero - 1] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -282,7 +284,7 @@ public class PanelListener implements KeyListener,Strategy{
 					// interactWithFriendly(target,hero);
 				 	hero.interactWithFriendly(target);
 				 else{
-				 	if(hero.attack(target)){}
+				 	if(hero.attackOrLootDead(target)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero-1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -333,7 +335,7 @@ public class PanelListener implements KeyListener,Strategy{
 					 //interactWithFriendly(target,hero);
 				 	hero.interactWithFriendly(target);
 				 else{
-				 	if(hero.attack(target)){}
+				 	if(hero.attackOrLootDead(target)){}
 				 	else{
 						map[xHero][yHero] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
 						map[xHero+1][yHero] = new Cells(TileType.HERO, numRows, numCols, hero);
@@ -452,8 +454,6 @@ public class PanelListener implements KeyListener,Strategy{
 			return false;
 	}
 
-
-
 	/*the strategy of human player*/
 
 	private int steps;
@@ -464,6 +464,7 @@ public class PanelListener implements KeyListener,Strategy{
 		//stop the auto-timer to let user input
 		RunningController.obtainRunningController().stopRun();
 		System.out.println("[ User play ] It is your turn - you can operate");
+		AttackListener.setValid(true);
 		isTurn=true;
 		steps=3;
 	}
