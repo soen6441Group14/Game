@@ -94,7 +94,7 @@ public class RunningController implements ActionListener{
         whoTurns.turn();
         if(userPlayer.getHitpoints()<=0){
             centerTimer.stop();
-            JOptionPane.showMessageDialog(null, "You have Died! Game Over !", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You have Died! Game Over!", "Prompt", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
         currentRunIndex++;
