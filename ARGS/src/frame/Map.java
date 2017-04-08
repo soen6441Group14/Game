@@ -7,7 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -146,7 +145,6 @@ public class Map {
 
 	/*playing game*/
 	public Characters playingHero;
-	public Characters targetMonster;
 	public Campaigns playingCampaign;
 	public int numberMap; //record the maps num of selected campaign
 	public int playingIndex; //recoed the index of map the player is playing,start with 0
@@ -219,6 +217,8 @@ public class Map {
 	public void setPlayingIndex(int playingIndex) {
 		this.playingIndex = playingIndex;
 	}
+
+
 
 	/**
 	 * initialize the map
@@ -303,8 +303,12 @@ public class Map {
 				jButton.setBorderPainted(true);
 				jButton.setBounds(j * 33, i * 33, 32, 32); // j represents width, i represent height
 				jButton.addActionListener(new MapListener(Map.this,itemBox,characterBox,characterArrayList,itemArrayList));
-				jButton.addMouseListener(new AttackListener(Map.this));
-				
+			//	jButton.addMouseListener(new AttackListener(Map.this));
+
+				if(k==2){
+					jButton.addMouseListener(new AttackListener(Map.this,playingHero));
+				}
+
 				if(getOut(i, j, xHero, yHero,weaponRange) && k==2){
 					jButton.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 					jButton.setContentAreaFilled(false);

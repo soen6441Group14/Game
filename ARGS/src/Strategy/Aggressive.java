@@ -141,8 +141,8 @@ public class Aggressive implements Strategy{
                 map[characterRow +down][characterColumn +right].getTileType() == TileType.HERO){
 
             Characters target=map[characterRow+down][characterColumn+right].getCharacters();
-            //attack the target
-            boolean ifLive=theAggressive.attack(target);
+            //attackOrLootDead the target
+            boolean ifLive=theAggressive.attackOrLootDead(target);
             attackTime--;
             if(target.getOrient()== Orientation.FRIENDLY)
                 target.setStrategy(new Aggressive(this.mapFrame,target));
@@ -165,13 +165,11 @@ public class Aggressive implements Strategy{
     }
 
 
-
     @Override
     public void execute() {
-
+        attackTime=1;
         searchForHero();
         walkTowardDes(heroRow,heroColumn);
-        System.out.println(theAggressive.getName()+"takes turns");
 
     }
 

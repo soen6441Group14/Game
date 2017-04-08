@@ -6,7 +6,6 @@ import frame.Map;
 import objects.Cells;
 import objects.Characters;
 import objects.Ground;
-import objects.Items;
 
 /**
  * The class is the implementation of strategy interface
@@ -96,8 +95,8 @@ public class ComputerPlayer implements Strategy{
         else if(map[playerRow+down][playerColumn +right].getTileType() == TileType.MONSTER ||
                 map[playerRow+down][playerColumn +right].getTileType() == TileType.HERO){
             Characters target=map[playerRow+down][playerColumn+right].getCharacters();
-            //attack the target
-            boolean ifLive=theComPlayer.attack(target);
+            //attackOrLootDead the target
+            boolean ifLive=theComPlayer.attackOrLootDead(target);
             if(!ifLive){
                 map[playerRow][playerColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
                 map[playerRow+down][playerColumn+right]=new Cells(TileType.MONSTER, numRows, numCols,theComPlayer);
