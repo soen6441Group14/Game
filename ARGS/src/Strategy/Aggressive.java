@@ -67,7 +67,7 @@ public class Aggressive implements Strategy{
 
         int steps = 3;
 
-
+        //check there is enough step and where char is in different row or column
         while (steps>0 && attackTime>0 && (desRow!=characterRow || desColumn!=characterColumn)) {
 
 

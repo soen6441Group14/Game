@@ -37,7 +37,7 @@ public class AttackListener extends MouseAdapter {
 			if(e.isMetaDown()){
 				//check the range
 				if(!(jButton.getBorder() instanceof EtchedBorder)){
-					System.out.println("[ Warning ] You target is outside the range you can attack");
+					System.out.println("[ Warning ] You target is outside the range that you can attack");
 				}
 				else{
 					row= (int) jButton.getClientProperty("Rows");
@@ -45,10 +45,8 @@ public class AttackListener extends MouseAdapter {
 					if(mapFrame.getMap()[row][column].getTileType()!=TileType.MONSTER){
 						System.out.println("[ Warning ] the target is not character");
 					}
-					else{
+					else
 						targetCharacter = mapFrame.getMap()[row][column].getCharacters();
-						this.userPlayer.clickAttack(targetCharacter);
-					}
 				}
 			}
 		}
