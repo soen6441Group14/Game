@@ -13,6 +13,7 @@ import dialog.ChangeItemDialog;
 import enumclass.Enchantment;
 import enumclass.Orientation;
 import Strategy.*;
+import frame.LoggingWindow;
 import frame.Map;
 
 /**
@@ -123,8 +124,12 @@ public class Characters implements Serializable{
 	}
 
 	public void turn(){
-		if(this.hitpoints<=0)
+		if(this.hitpoints<=0){
+			System.out.println("[ "+this.name+" ] has dead, so it can not takes turn -> next turn");
 			return;
+		}
+
+		System.out.println("[ "+this.name+" ] takes turn");
 		// the first thing when its turn is to execute the enchanted effect
 		executeEnchantedEffects();
 		//and then execute its behaviors, different between its strategies
@@ -157,15 +162,16 @@ public class Characters implements Serializable{
 		Enchantment unvoidEffect=null;
 
 		if(enchantedType==Enchantment.Freezing){
-			this.setStrategy(new Frozen(this)); //frozen的执行属于turn()中的
-			turnsLeft--;
-			System.out.println("[ "+this.getName()+" ] suffer Freezing enchantment, turnLeft - "+ turnsLeft);
 			if(turnsLeft==0){
 				unvoidEffect=Enchantment.Freezing;
 				recoverTheCharacterStrategy();
 			}
-			else
-				this.enchanted.replace(Enchantment.Freezing,turnsLeft+1,turnsLeft);//update the turns left
+			else{
+				this.setStrategy(new Frozen(this)); //frozen的执行属于turn()中的
+				turnsLeft--;
+				System.out.println("[ "+this.getName()+" ] suffer Freezing enchantment, turnLeft - "+ turnsLeft);
+				this.enchanted.replace(Enchantment.Freezing,turnsLeft+1,turnsLeft);
+			}
 		}
 		else if(enchantedType==Enchantment.Burning){
 			this.hitpoints-=enchantedBonus*5;
@@ -182,15 +188,16 @@ public class Characters implements Serializable{
 			unvoidEffect=Enchantment.Slaying;
 		}
 		else if(enchantedType==Enchantment.Frightening){
-			this.setStrategy(new Frightened(this.dependentMap,this,afraidCharacter));
-			turnsLeft--;
-			System.out.println("[ "+this.getName()+" ] suffer Frightening enchantment, turnLeft - "+ turnsLeft);
 			if(turnsLeft==0){
 				unvoidEffect=Enchantment.Frightening;
 				recoverTheCharacterStrategy();
 			}
-			else
+			else{
+				this.setStrategy(new Frightened(this.dependentMap,this,afraidCharacter));
+				turnsLeft--;
+				System.out.println("[ "+this.getName()+" ] suffer Frightening enchantment, turnLeft - "+ turnsLeft);
 				this.enchanted.replace(Enchantment.Frightening,turnsLeft+1,turnsLeft);
+			}
 		}
 		else if(enchantedType==Enchantment.Pacifying){
 			if(this.orient!=Orientation.PLAYER){
@@ -343,6 +350,8 @@ public class Characters implements Serializable{
 		
 		int attackBonus;
 		int d20=getD20();
+		int d8=getD8();
+		boolean meleeWeapon=false;
 		boolean live;
 		//if the target is live, damage it
 		if(target.getHitpoints()>0){
@@ -350,10 +359,12 @@ public class Characters implements Serializable{
 			if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
 				if(this.getInventory().get(0).getRange()==1){//melee weapon
 					 attackBonus = this.getAttackBonus()+this.getModStr();
+					 meleeWeapon=true;
 //					 System.out.println(this.getInventory().get(0).getEnchantments().get(0));
 				}
 				else{//ranged weapon
 					 attackBonus = this.getAttackBonus()+this.getModDex();
+					 meleeWeapon=false;
 				}
 				//weapon with enchantment will damage enchantment bonus to target
 				if(this.getInventory().get(0).getEnchantments().size()>0 && attackBonus+d20>getArmorClass()){
@@ -367,11 +378,11 @@ public class Characters implements Serializable{
 			
 			//deal with damage
 			if(attackBonus + d20>=target.getArmorClass()){
-				target.setHitpoints(target.getHitpoints()-getD8()-Math.abs(this.getModStr()));//hitpoints reduce 1d8
-				System.out.println("[ "+this.getName()+" ] attackOrLootDead "+target.getName()+" : hurt target");
+				target.setHitpoints(target.getHitpoints()-d8-Math.abs(this.getModStr()));//hitpoints reduce 1d8
+				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : hurt target");
 			}
 			else
-				System.out.println("[ "+this.getName()+" ] attackOrLootDead "+target.getName()+" : miss");
+				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : miss");
 		
 		}
 		//if the target is dead body, loot items
@@ -393,7 +404,7 @@ public class Characters implements Serializable{
 				}
 			}
 		}
-
+		LoggingWindow.getLoggingWindow().updateInfo(this,target,meleeWeapon,d20,d8);
 		return live;
 	}
 
@@ -408,14 +419,18 @@ public class Characters implements Serializable{
 
 		int attackBonus;
 		int d20=getD20();
+		int d8=getD8();
+		boolean meleeWeapon=false;
 
 		if(target.getHitpoints()>0){
 			if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
 				if(this.getInventory().get(0).getRange()==1){//melee weapon
 					attackBonus = this.getAttackBonus()+this.getModStr();
+					meleeWeapon=true;
 				}
 				else{//ranged weapon
 					attackBonus = this.getAttackBonus()+this.getModDex();
+					meleeWeapon=false;
 				}
 				//weapon with enchantment will damage enchantment bonus to target
 				if(this.getInventory().get(0).getEnchantments().size()>0 && attackBonus+d20>getArmorClass()){
@@ -428,11 +443,13 @@ public class Characters implements Serializable{
 			}
 			//deal with damage
 			if(attackBonus + d20>=target.getArmorClass()){
-				target.setHitpoints(target.getHitpoints()-getD8()-Math.abs(this.getModStr()));//hitpoints reduce 1d8
-				System.out.println("[ "+this.getName()+" ] attackOrLootDead "+target.getName()+" : hurt target");
+				target.setHitpoints(target.getHitpoints()-d8-Math.abs(this.getModStr()));//hitpoints reduce 1d8
+				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : hurt target");
 			}
 			else
-				System.out.println("[ "+this.getName()+" ] attackOrLootDead "+target.getName()+" : miss");
+				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : miss");
+
+			LoggingWindow.getLoggingWindow().updateInfo(this,target,meleeWeapon,d20,d8);
 		}
 	}
 
