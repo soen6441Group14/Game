@@ -31,4 +31,5 @@ public class LoggingWindow extends Frame{
     private final String StrMoStr="strength modifier : ";
     private final String attackTotalStr="Total : ";
 
+
 }

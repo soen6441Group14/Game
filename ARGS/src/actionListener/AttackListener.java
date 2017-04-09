@@ -45,8 +45,10 @@ public class AttackListener extends MouseAdapter {
 					if(mapFrame.getMap()[row][column].getTileType()!=TileType.MONSTER){
 						System.out.println("[ Warning ] the target is not character");
 					}
-					else
+					else{
 						targetCharacter = mapFrame.getMap()[row][column].getCharacters();
+						this.userPlayer.clickAttack(targetCharacter);
+					}
 				}
 			}
 		}
