@@ -28,6 +28,7 @@ public class RunningController implements ActionListener{
      * singleton pattern - private
      */
     private RunningController(){
+    	//timer set to 2 sec, do not decrease!
         centerTimer=new Timer(2000,this);
         turnsCharacters=new ArrayList<Characters>();
     }
@@ -94,7 +95,7 @@ public class RunningController implements ActionListener{
         whoTurns.turn();
         if(userPlayer.getHitpoints()<=0){
             centerTimer.stop();
-            JOptionPane.showMessageDialog(null, "You are dead ! Game Over !", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You have Died! Game Over!", "Prompt", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
         currentRunIndex++;
