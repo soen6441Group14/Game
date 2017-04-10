@@ -136,8 +136,9 @@ public class PanelListener implements KeyListener,Strategy{
 			}
 		 }
 
-		 if(steps>0)
-		 	System.out.println("[ User player ] you have "+steps+" steps left");
+		 if(steps>0){
+			 System.out.println("[ User player ] you have "+steps+" steps left");
+		 }
 		 else{
 		 	isTurn=false;
 		 	System.out.println("[ User player ] you have finished your turn, other character turn");
@@ -461,7 +462,7 @@ public class PanelListener implements KeyListener,Strategy{
 	public void execute() {
 		//stop the auto-timer to let user input
 		RunningController.obtainRunningController().stopRun();
-		System.out.println("[ User play ] It is your turn - you can operate");
+		System.out.println("[ User player ] It is your turn - you can operate");
 		AttackListener.setValid(true);
 		isTurn=true;
 		steps=3;

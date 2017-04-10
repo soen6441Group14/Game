@@ -10,7 +10,8 @@ import objects.Characters;
 
 public class AttackListener extends MouseAdapter {
 	// only when the userPlay strategy executes, it is valid
-	private static boolean valid;
+	public static boolean valid;
+	public static int attackTime;
 	private Characters userPlayer;
 
 
@@ -18,14 +19,14 @@ public class AttackListener extends MouseAdapter {
 	public int row,column;
 	public Characters targetCharacter = null;
 	
-	public AttackListener(Map map,Characters hero) {
+	public AttackListener(Map map,Characters hero){
 		this.mapFrame = map;
 		this.userPlayer=hero;
-		valid=false;
 	}
 
 	public static void setValid(boolean mouseListenerValid){
 		valid=mouseListenerValid;
+		attackTime=1;
 	}
 
 
@@ -47,10 +48,13 @@ public class AttackListener extends MouseAdapter {
 					else{
 						targetCharacter = mapFrame.getMap()[row][column].getCharacters();
 						this.userPlayer.clickAttack(targetCharacter);
+						attackTime--;
 					}
 				}
 			}
 		}
+		if(attackTime==0)
+			valid=false;
 	}
 
 }

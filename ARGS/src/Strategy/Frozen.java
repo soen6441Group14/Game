@@ -17,6 +17,6 @@ public class Frozen implements Strategy {
     }
     @Override
     public void execute() {
-        System.out.println("[ " + frozenedCharacter.getName() + " ] frozen status - It can not move !");
+        System.out.println("[ " + frozenedCharacter.getName() + " ] frozen status -  can not move !");
     }
 }

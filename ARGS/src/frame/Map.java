@@ -510,6 +510,8 @@ public class Map {
 				}
 
 				initCampaign();
+				LoggingWindow loggingWindow =LoggingWindow.getLoggingWindow();
+				loggingWindow.setVisible(true);
 			}
 		});
 		 
