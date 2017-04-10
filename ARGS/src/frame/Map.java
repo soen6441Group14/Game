@@ -326,8 +326,10 @@ public class Map {
 		if(k==2){
 			panel.repaint();
 		}
-		
-		
+//		if(k==2){
+//		Matrix matrix = new Matrix(map, campaigns.get(0).getCampaign().get(playingIndex).getName());
+//		campaigns.get(0).getCampaign().set(playingIndex, matrix);
+//		}
 	}
 	
 	public int[] getHeroLocation(){
