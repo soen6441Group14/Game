@@ -20,6 +20,8 @@ public class InventoryView implements Observer{
 	}
 	/**
 	 * update method of view to change the information
+	 * @param o is the observable 
+	 * @param arg is the extra parameter for passing
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
