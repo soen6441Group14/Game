@@ -77,8 +77,10 @@ public class SaveMapFrame {
 					allMaps.add(matrix);
 				}
 				else{
-					allMaps.remove(oldMap);
-					allMaps.add(matrix);
+					int index = allMaps.indexOf(oldMap);
+					allMaps.set(index, matrix);
+//					allMaps.remove(oldMap);
+//					allMaps.add(matrix);
 				}
 				
 				

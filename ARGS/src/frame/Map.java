@@ -76,6 +76,7 @@ public class Map {
 	public JButton jButton;
 	public JButton startGame = new JButton("Start Game");
 	public JButton inventoryInformation = new JButton("Inventory Information");
+	public JButton automation = new JButton("Automation");
 	public JPanel panel = new JPanel();
 	public JPanel panelContainer = new JPanel(); // contain the panel which contains the map
 	public JPanel showPanel = new JPanel(); //contain the item and character combo box 
@@ -97,12 +98,14 @@ public class Map {
 	public JMenu jMenuHelp = new JMenu("Help");
 	public JMenu jMenuSave = new JMenu("Save");
 	public JMenuItem saveMap = new JMenuItem("Save Map");
+	public JMenuItem saveCampaign = new JMenuItem("Save Campaign");
 	public JMenu jMenuLoad = new JMenu("Load");
 	public JMenuItem loadMap = new JMenuItem("Load Map");
+	public JMenuItem loadCampaign = new JMenuItem("Load Campaign");
 	public JMenuItem jMenuMap = new JMenuItem("Create a map");
 	public JMenuItem jMenuCharacter = new JMenuItem("Create/Edit a character");
 	public JMenuItem jMenuItem = new JMenuItem("Create/Edit an item");
-	public JMenuItem jMenuCampaign = new JMenuItem("Create/Edit a compaign");
+	public JMenuItem jMenuCampaign = new JMenuItem("Create/Edit a campaign");
 	public JMenuItem jMenuInstruction = new JMenuItem("Instruction");
 	
 	public JLabel name = new JLabel("Name");
@@ -323,6 +326,8 @@ public class Map {
 		if(k==2){
 			panel.repaint();
 		}
+		
+		
 	}
 	
 	public int[] getHeroLocation(){
@@ -521,7 +526,7 @@ public class Map {
 			}
 		};
 		
-			characterMapBox.addActionListener(actionListener);;
+			characterMapBox.addActionListener(actionListener);
 			
 		 
 		 //显示下拉框选中的人物的信息
@@ -600,6 +605,20 @@ public class Map {
 			}
 		});
 		
+		saveCampaign.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				System.out.println("save");
+				Campaigns newCampaign = new Campaigns(playingCampaign.getCampaign(), playingCampaign.getName(), playingIndex);
+				new SaveCampaignFrame(Map.this,jFrame,newCampaign,campaigns,playingIndex); //open SaveCampaignFrame
+				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
+			}
+		});
+		
 		//open the SaveMapFrame
 		saveMap.addActionListener(new ActionListener() {
 			@Override
@@ -633,6 +652,17 @@ public class Map {
 
 		});
 		
+		loadCampaign.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				new LoadCampaignFrame(Map.this,jFrame,campaigns); //open LoadCampaignFrame
+				jFrame.setEnabled(false);
+				panelContainer.requestFocus();
+			}
+		});
+		
 		//open the LoadMapFrame
 		loadMap.addActionListener(new ActionListener() {
 			@Override
@@ -651,7 +681,9 @@ public class Map {
 		jMenu.add(jMenuCharacter);
 		jMenu.add(jMenuItem);
 		jMenuSave.add(saveMap);
+		jMenuSave.add(saveCampaign);
 		jMenuLoad.add(loadMap);
+		jMenuLoad.add(loadCampaign);
 		jMenuBar.add(jMenu);
 		jMenuBar.add(jMenuSave);
 		jMenuBar.add(jMenuLoad);
@@ -677,6 +709,7 @@ public class Map {
 		showPanel.add(characterMapLabel);
 		showPanel.add(characterMapBox);
 		showPanel.add(inventoryInformation);
+		showPanel.add(automation);
 		characterPanel.setLayout(new FlowLayout(0, 30, 30));//0向左对齐，30代表左右间距，30代表上下间距
 		characterPanel.add(name);
 		characterPanel.add(namevValue);
@@ -847,9 +880,7 @@ public class Map {
 		RunningController runningController =RunningController.obtainRunningController();
 		runningController.enrollTurnsCharaters(characterTurn);
 		runningController.startRun();
-
 		drawMap(2);
-
 	}
 
 	/**

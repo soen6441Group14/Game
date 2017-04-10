@@ -33,6 +33,18 @@ public class LoadCampaign {
         return arrayList;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Campaigns> readEditCampaign() throws IOException, ClassNotFoundException{
+		
+		ArrayList<Campaigns> arrayList = new ArrayList<Campaigns>();
+		File input = new File("file/EditCampaigns.txt");
+        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(input));
+        arrayList = (ArrayList<Campaigns>) objectInputStream.readObject();
+        objectInputStream.close();
+        
+        return arrayList;
+	}
+	
 	/**
 	 * read the specific campaigns object which has the name with String name
 	 * @param allMaps ArrayList<Campaigns>
