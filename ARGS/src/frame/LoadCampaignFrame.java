@@ -17,12 +17,17 @@ import objects.Campaigns;
 import objects.Characters;
 import objects.Matrix;
 /**
- * 
+ * Load Campaign Frame
  * @author grey
  *
  */
 public class LoadCampaignFrame {
-
+/**
+ * constructor
+ * @param map  map class object
+ * @param jFrame2  main map frame
+ * @param campaigns  arraylist of campaigns
+ */
 	public LoadCampaignFrame(Map map, JFrame jFrame2, ArrayList<Campaigns> campaigns) {
 		
 		JFrame jFrame = new JFrame("Load the campaign");
@@ -68,7 +73,11 @@ public class LoadCampaignFrame {
 		});
 		
 	}
-	
+	/**
+	 * get hero's location
+	 * @param matrix the map that hero is on
+	 * @return hero object
+	 */
 	public Characters getHeroLocation(Matrix matrix){
 
 		Characters hero = null;

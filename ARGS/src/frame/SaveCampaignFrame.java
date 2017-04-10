@@ -12,11 +12,22 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import objects.Campaigns;
 import save.SaveCampaign;
-
+/**
+ * Save Campaign Frame
+ * @author grey
+ *
+ */
 public class SaveCampaignFrame {
 	
 	ArrayList<Campaigns> arrayListCampaigns = new ArrayList<Campaigns>();
-	
+	/**
+	 * constructor
+	 * @param map  map class object
+	 * @param jFrame2  main map frame
+	 * @param playingCampaign  the campaign that is showed on frame
+	 * @param campaigns		arraylist of all campaigns
+	 * @param playingIndex  the number of map that is showed on the map
+	 */
 	public SaveCampaignFrame(Map map, JFrame jFrame2, Campaigns playingCampaign, ArrayList<Campaigns> campaigns, int playingIndex) {
 		
 		

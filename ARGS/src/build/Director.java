@@ -10,10 +10,13 @@ import java.util.ArrayList;
 
 public class Director {
 	/**
-	 * The Director is to use a specific "build plan": the FighterBuilder
+	 * The Director is to use a specific "build plan": the FighterBuilder.
 	 */
 	private FighterBulider fighterBulider;
-	
+	/**
+	 * This method is setter method for builder
+	 * @param newFighterBuilder is of type FighterBuilder used for setter
+	 */
 	public void setBuilder(FighterBulider newFighterBuilder){
 		this.fighterBulider = newFighterBuilder;
 	}

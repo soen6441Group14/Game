@@ -51,10 +51,8 @@ import play.RunningController;
  * When the map was changed, the map will be repainted.
  * When player create or edit a map, character, item or campaign, then show the information on the panel
  *
-
  * @author grey,Tann
- * @version 2.0
-
+ * @version 3.0
  */
 
 public class Map {
@@ -336,7 +334,10 @@ public class Map {
 //		campaigns.get(0).getCampaign().set(playingIndex, matrix);
 //		}
 	}
-	
+	/**
+	 * get hero's location
+	 * @return hero's y and x coordinate
+	 */
 	public int[] getHeroLocation(){
 
 		int[] position = new int[2];
@@ -351,7 +352,15 @@ public class Map {
 			 }
 		return position;
 	}
-
+/**
+ * judge whether Jbutton is within the range of hero's weapon
+ * @param i  the x coordinate of Jbutton on map
+ * @param j	 the y coordinate of Jbutton on map
+ * @param xHero  the x coordinate of hero on map
+ * @param yHero	 the y coordinate of hero on map
+ * @param weaponRange  the range of weapon 
+ * @return  if the Jbutton is in the range of weapon of hero, return true, otherwise false
+ */
 	public boolean getOut(int i, int j, int xHero, int yHero, int weaponRange) {
 
 		if(i>=xHero-weaponRange&&i<=xHero+weaponRange&&j>=yHero-weaponRange&&j<=yHero+weaponRange)
@@ -791,7 +800,10 @@ public class Map {
 		jFrame.setLocationRelativeTo(null);// put the screen in the center
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
+	/**
+	 * get all the characters on the map 
+	 * @return  the selected character
+	 */
 	public Characters getCharacterMap() {
 		Characters characters = null;
 		for(int i=0;i<numRows;i++)
@@ -812,7 +824,7 @@ public class Map {
 	
 	
 	/**
-	 *  * The method is used to verify the map
+	 * The method is used to verify the map
 	 * in the creation of maps, an entry,exit,hero should be existed
 	 * @param flagEntry  number of entry
 	 * @param flagExit	number of exit
@@ -1043,13 +1055,15 @@ public class Map {
 	}
 	
 	/**
-	 * 
+	 * get random number 1-20
 	 * @return d20
 	 */
 	public int getD20(){
 		return new Random().nextInt(20)+1;
 	}
-
+	/**
+	 * initial characters's strategy on the map
+	 */
 	public void initialCharactersStrategy(){
 		for(Characters character:characterTurn){
 			if(character.getOrient()== Orientation.HOSTILE){
@@ -1062,7 +1076,9 @@ public class Map {
 				character.setStrategy(keyListener);
 		}
 	}
-
+	/**
+	 * set dependency for character
+	 */
 	public void initialCharactersDependency(){
 		for(Characters character:characterTurn){
 			character.setDependentMap(Map.this);
