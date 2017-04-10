@@ -24,6 +24,11 @@ public class Aggressive implements Strategy{
     //objective - locate the hero
     public int heroRow,heroColumn;
 
+    /**
+     * The constructor of aggressive strategy
+     * @param map the mapFrame
+     * @param theCharacter the aggressive character
+     */
     public Aggressive(Map map,Characters theCharacter){
         this.mapFrame=map;
         this.map = this.mapFrame.getMap();
@@ -34,6 +39,9 @@ public class Aggressive implements Strategy{
         locateTheAggressive();
     }
 
+    /**
+     * the method is used to locate the aggressive in the map
+     */
     public void locateTheAggressive(){
         for(int row=0;row<numRows;row++){
             for(int col=0;col<numCols;col++){
@@ -49,6 +57,9 @@ public class Aggressive implements Strategy{
         System.out.println("The aggressive locate: "+characterRow+","+characterColumn);
     }
 
+    /**
+     * the method is used to search the hero, because the target of aggressive is hero
+     */
     public void searchForHero(){
         for(int row=0;row <numRows;row++){
             for(int col=0;col<numCols;col++){
@@ -64,6 +75,12 @@ public class Aggressive implements Strategy{
 
     private int attackTime=1;
 
+    /**
+     * The method is used by the aggressive to walk towards the hero
+     * the destination of aggressive is hero
+     * @param desColumn column of hero
+     * @param desRow  row of hero
+     */
     public void walkTowardDes(int desRow,int desColumn) {
 
         int steps = 3;
@@ -115,7 +132,13 @@ public class Aggressive implements Strategy{
 
     }
 
-
+    /**
+     * the method is used to move by one step
+     * down+right=1 -> to make sure only one step is waled
+     * @param down  walk one step towards down, -1 means walk up
+     * @param right walk one step towards right, -1 means walk left
+     * @return true , walk forward
+     */
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
 
@@ -166,6 +189,10 @@ public class Aggressive implements Strategy{
     }
 
 
+    /**
+     * the method implements the execute() in Strategy interface
+     * @see Strategy
+     */
     @Override
     public void execute() {
         attackTime=1;

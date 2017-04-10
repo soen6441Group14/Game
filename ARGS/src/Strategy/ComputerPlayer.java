@@ -23,6 +23,12 @@ public class ComputerPlayer implements Strategy{
     public int hostileRow,hostileCol;
     public int exitRow,exitCol;
 
+
+    /**
+     * The constructor
+     * @param map the mapFrame
+     * @param theComPlayer the computerPlayer
+     */
     public ComputerPlayer(Map map,Characters theComPlayer){
 
         this.mapFrame=map;
@@ -33,6 +39,9 @@ public class ComputerPlayer implements Strategy{
         this.theComPlayer=theComPlayer;
     }
 
+    /**
+     * the method is used to locate the computer player--hero in the map
+     */
     public void locateTheComPlayer(){
         for(int row=0; row<numRows;row++){
             for(int col=0; col<numCols;col++){
@@ -47,6 +56,10 @@ public class ComputerPlayer implements Strategy{
     }
 
 
+    /**
+     * The method is used to search the hostile in the map
+     * because the target of computer hero is to kill them
+     */
     public boolean searchForHostiles(){
         boolean isHostile=false;
 
@@ -67,6 +80,9 @@ public class ComputerPlayer implements Strategy{
         return isHostile;
     }
 
+    /**
+     * The method is used to search the 
+     */
     public void searchForExit(){
         for(int row=0;row<numRows;row++){
             for(int col=0;col<numCols;col++){

@@ -20,7 +20,14 @@ import org.junit.runners.Suite;
         TestTankBuilder.class,
         TestFreezing.class,
         TestFrightening.class,
-        TestPacifying.class
+        TestPacifying.class,
+        TestAttackRoll.class,
+        TestCharacters.class,
+        TestAggressive.class,
+        TestFriendly.class,
+        TestFrightenedStrategy.class,
+        TestFrozenStrategy.class
+        
 })
 public class JunitTestSuite {
 }
