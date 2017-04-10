@@ -13,15 +13,17 @@ public class Campaigns implements Serializable{
 	
 	public ArrayList<Matrix> campaign;
 	public String name;
+	public int playingIndex;
 	
 	/**
 	 * The constructor method
 	 * @param campaign 	single campaign
 	 * @param name 		the name of campaign 
 	 */
-	public Campaigns(ArrayList<Matrix> campaign,String name){
+	public Campaigns(ArrayList<Matrix> campaign,String name,int playingIndex){
 		this.campaign = campaign;
 		this.name = name;
+		this.playingIndex = playingIndex;
 	}
 	
 	/**

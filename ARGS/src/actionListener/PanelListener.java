@@ -2,7 +2,6 @@ package actionListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import Strategy.Strategy;
 import enumclass.Orientation;
 import enumclass.TileType;
@@ -13,7 +12,6 @@ import objects.Ground;
 import objects.Items;
 import objects.Entry;
 import play.RunningController;
-
 import javax.swing.JOptionPane;
 
 /**

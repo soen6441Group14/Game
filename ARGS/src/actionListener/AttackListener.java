@@ -4,7 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
-
 import enumclass.TileType;
 import frame.Map;
 import objects.Characters;

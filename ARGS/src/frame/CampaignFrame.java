@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import load.LoadCampaign;
 import load.LoadMap;
 import objects.Campaigns;
@@ -139,7 +138,7 @@ public class CampaignFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				boolean flag = save(campaignArraylist);
-				System.err.println(flag);
+				System.out.println(flag);
 				
 				//在主界面显示campaigns  drawCampaigns();
 				// display the campaigns in the main frame
@@ -162,11 +161,12 @@ public class CampaignFrame {
 		//if oldCampaign exit,delete original campaign and add new campaign. if not, just add new campaign
 		if(editCampaigns == null)//create
 		{
-			editCampaigns = new Campaigns(campaign, campaignName.getText());
+			editCampaigns = new Campaigns(campaign, campaignName.getText(),0);
 			campaignArraylist.add(editCampaigns);
 		}
 		else{//edit
 			int index = campaignArraylist.indexOf(editCampaigns);
+//			System.out.println("index: "+ index);
 			campaignArraylist.set(index,editCampaigns);
 			flag = true;
 		}

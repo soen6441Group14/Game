@@ -2,7 +2,6 @@ package play;
 
 import enumclass.Orientation;
 import objects.Characters;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
