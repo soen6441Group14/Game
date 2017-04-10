@@ -193,7 +193,7 @@ public class TestPanelListener {
         
         player.setLevel(1);
         
-        testMap.initCampaign();
+//        testMap.initCampaign();
         
         panelListener=new PanelListener(testMap,3);
         panelListener.exitFromMap(player);
