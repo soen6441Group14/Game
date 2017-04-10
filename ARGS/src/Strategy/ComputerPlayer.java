@@ -26,6 +26,14 @@ public class ComputerPlayer implements Strategy{
     public int playingIndex;
     public int numberMap;
 
+
+
+    /**
+     * The constructor
+     * @param map the mapFrame
+     * @param numberMap map index
+     */
+
     public ComputerPlayer(Map map,int numberMap){
         this.mapFrame=map;
         this.numberMap=numberMap;
@@ -44,6 +52,9 @@ public class ComputerPlayer implements Strategy{
         getEntry();
     }
 
+    /**
+     * the method is used to locate the computer player--hero in the map
+     */
     public void locateTheComPlayer(){
         for(int row=0; row<numRows;row++){
             for(int col=0; col<numCols;col++){
@@ -72,16 +83,7 @@ public class ComputerPlayer implements Strategy{
         }
     }
 
-    public void searchForExit(){
-        for(int row=0;row<numRows;row++){
-            for(int col=0;col<numCols;col++){
-                if(map[row][col].getTileType()==TileType.EXIT){
-                    exitRow=row;
-                    exitCol=col;
-                }
-            }
-        }
-    }
+
 
     /**
      * The method is to recover the original entry after character standing on the entry
@@ -94,6 +96,10 @@ public class ComputerPlayer implements Strategy{
     }
 
 
+    /**
+     * The method is used to search the hostile in the map
+     * because the target of computer hero is to kill them
+     */
     public boolean searchForHostiles(){
         boolean isHostile=false;
 
@@ -113,6 +119,22 @@ public class ComputerPlayer implements Strategy{
 
         return isHostile;
     }
+
+
+    /**
+     * The method is used to search the 
+     */
+    public void searchForExit(){
+        for(int row=0;row<numRows;row++){
+            for(int col=0;col<numCols;col++){
+                if(map[row][col].getTileType()==TileType.EXIT){
+                    exitRow=row;
+                    exitCol=col;
+                }
+            }
+        }
+    }
+
 
 
     public boolean moveOneStep(int down, int right){
