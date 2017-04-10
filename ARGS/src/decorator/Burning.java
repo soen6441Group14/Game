@@ -7,6 +7,7 @@ import enumclass.Enchantment;
  * 
  * @author grey
  * @see WeaponDecorator
+ * @version 3.0
  */
 public class Burning extends WeaponDecorator {
 /**
