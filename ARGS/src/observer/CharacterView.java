@@ -20,6 +20,8 @@ public class CharacterView implements Observer{
 	}
 	/**
 	 * update method of view to change the information
+	 * @param o is the observable pattern
+	 * @param arg is the extra parameter that can be passed
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
