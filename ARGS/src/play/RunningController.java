@@ -90,11 +90,7 @@ public class RunningController implements ActionListener{
     /**
      * The method is to find the user player for every map
      * in order to check user play's live every turn
-<<<<<<< HEAD
      * @param charactersList arraylist that contains all character on the map
-=======
-     * @param charactersList arraylist
->>>>>>> branch 'master' of https://github.com/soen6441Group14/Game.git
      */
     public void findUsersPlayer(ArrayList<Characters> charactersList){
         for(Characters cha:charactersList){
