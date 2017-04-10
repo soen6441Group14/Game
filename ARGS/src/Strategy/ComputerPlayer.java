@@ -123,7 +123,7 @@ public class ComputerPlayer implements Strategy{
 
 
     /**
-     * The method is used to search the 
+     * The method is used to search the exit door fn the map
      */
     public void searchForExit(){
         for(int row=0;row<numRows;row++){
@@ -137,7 +137,7 @@ public class ComputerPlayer implements Strategy{
     }
 
 
-
+    
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
 
