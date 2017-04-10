@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import Strategy.Aggressive;
+import Strategy.ComputerPlayer;
 import Strategy.Friendly;
 import actionListener.PanelListener;
 import actionListener.AttackListener;
@@ -154,6 +155,8 @@ public class Map {
 	
 	public ActionListener actionListener;
 	public PanelListener keyListener ;
+
+	public int isAuto; //0 means auto-playing; 1 means non-auto-playing
 
 
 
@@ -488,8 +491,31 @@ public class Map {
 		jFrame.setBounds(0, 0, width, height);
 
 		 drawMap(1); //initialize map the first
-		 
-		
+
+		automation.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isAuto=1-isAuto;
+				if(isAuto==1){
+					for(Characters characters:characterTurn){
+						if(characters.getStrategy() instanceof PanelListener){
+							characters.setStrategy(new ComputerPlayer(Map.this,numberMap));
+							break;
+						}
+					}
+					automation.setText("cancel auto");
+				}
+				else if(isAuto==0){
+					for(Characters characters:characterTurn){
+						if(characters.getStrategy()instanceof ComputerPlayer){
+							characters.setStrategy(keyListener);
+							break;
+						}
+					}
+					automation.setText("automation");
+				}
+			}
+		});
 		 
 		 startGame.addActionListener(new ActionListener() {
 			
@@ -653,6 +679,7 @@ public class Map {
 			}
 
 		});
+
 		
 		loadCampaign.addActionListener(new ActionListener() {
 			
@@ -762,7 +789,7 @@ public class Map {
 		jFrame.setLocationRelativeTo(null);// put the screen in the center
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 	public Characters getCharacterMap() {
 		Characters characters = null;
 		for(int i=0;i<numRows;i++)
