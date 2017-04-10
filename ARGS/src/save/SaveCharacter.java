@@ -25,7 +25,6 @@ public class SaveCharacter {
         objectOutputStream.flush();
         objectOutputStream.close();
 	}
-	
 
 
 }

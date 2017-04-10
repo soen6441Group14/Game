@@ -40,6 +40,7 @@ public class MapListener implements ActionListener{
 	ArrayList<Items> itemArrayList;
 	
 	int x,y,numRows,numCols;
+
 	/**
 	 * map listener constructor method
 	 * @param map 	the map object from the main frame
@@ -55,8 +56,10 @@ public class MapListener implements ActionListener{
 		this.characterArrayList = characterArrayList;
 		this.itemArrayList = itemArrayList;
 	}
+
 	/**
 	 * override method to implement action event
+	 * @param e actionEvent
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -163,7 +166,6 @@ public class MapListener implements ActionListener{
 			}
 			}
 			});
-	
 	}
 
 	

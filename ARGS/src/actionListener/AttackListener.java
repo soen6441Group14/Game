@@ -21,7 +21,6 @@ public class AttackListener extends MouseAdapter {
 	public static int attackTime;
 	private Characters userPlayer;
 
-
 	public Map mapFrame;
 	public int row,column;
 	public Characters targetCharacter = null;
@@ -31,11 +30,11 @@ public class AttackListener extends MouseAdapter {
 	 * @param map  map class 
 	 * @param hero hero object
 	 */
-
 	public AttackListener(Map map,Characters hero){
 		this.mapFrame = map;
 		this.userPlayer=hero;
 	}
+
 	/**
 	 * make sure that the target clicked on is valid
 	 * @param mouseListenerValid  valid or not
@@ -45,7 +44,10 @@ public class AttackListener extends MouseAdapter {
 		attackTime=1;
 	}
 
-	
+	/**
+	 * Th method is used to mouse click
+	 * @param e mouseEvent
+	 */
 	public void mouseClicked(MouseEvent e){
 		if(valid){ //check validation
 			JButton jButton = (JButton) e.getSource();
