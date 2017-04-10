@@ -62,7 +62,6 @@ public class PanelListener implements KeyListener,Strategy{
 	 * @param map  map class object
 	 * @param numberMap  the total map number in one campaign
 	 */
-
 	public PanelListener(Map map, int numberMap) {
 		this.mapFrame = map;
 		this.numberMap = numberMap;
@@ -365,7 +364,6 @@ public class PanelListener implements KeyListener,Strategy{
 	 * get the location of hero in the map
 	 * @return the X and Y in the int[]
 	 */
-	
 	public int[] getHeroLocation(){
 
 		int[] position = new int[2];
@@ -412,7 +410,6 @@ public class PanelListener implements KeyListener,Strategy{
 	 * If the objective"kill all hostile monsters" is not completed, no map change, prompt information
 	 * @param hero the character object of hero
 	 */
-	
 	public void exitFromMap(Characters hero){
 		if(!checkCompleteObjective())
 			JOptionPane.showMessageDialog(null, "you need to kill all hostile monsters", "Prompt", JOptionPane.INFORMATION_MESSAGE);
@@ -467,11 +464,12 @@ public class PanelListener implements KeyListener,Strategy{
 
 	private int steps;
 	private boolean isTurn=false;
+
 /**
  * override method to execute human player strategy
  */
 	@Override
-	public void execute() {
+	public void execute(){
 		//stop the auto-timer to let user input
 		RunningController.obtainRunningController().stopRun();
 		System.out.println("[ User player ] It is your turn - you can operate");

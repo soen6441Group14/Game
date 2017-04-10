@@ -38,6 +38,9 @@ public class LoggingWindow extends Frame{
     private final String damageModifierStr="Strength modifier :";
     private final String damageToTalStr="Damage Total :";
 
+    /**
+     * Constructor
+     */
     private LoggingWindow(){
 
         this.setSize(200,300);
@@ -92,12 +95,23 @@ public class LoggingWindow extends Frame{
         this.add(jPanel);
     }
 
+    /**
+     * the getter of logging window
+     */
     public static LoggingWindow getLoggingWindow(){
         if(loggingWindow==null)
             loggingWindow=new LoggingWindow();
         return loggingWindow;
     }
 
+    /**
+     * the method is used to update the information of logging window
+     * @param attacked the character attacked
+     * @param attacking the character who attacks others
+     * @param weapType true if the melee ,false if the ranged weapon
+     * @param d20 the random number of d20
+     * @param d8 the random number of d8
+     */
     public void updateInfo(Characters attacking, Characters attacked,boolean weapType,int d20 , int d8){
         attackingCharacter.setText(attacking.getName()+attackStr+attacked.getName());
         if(weapType){
