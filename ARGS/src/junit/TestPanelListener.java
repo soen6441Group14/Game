@@ -102,17 +102,23 @@ public class TestPanelListener {
     
     @Test
     public void testLootItem(){
-        Items item1=new Items("Weapon1",1);
-        Items item2=new Items("Ring1",1);
+        Items item1=new Items("Weapon1",1,"");
+        Items item2=new Items("Ring1",1,"");
         ArrayList<Items>testbackpack=new ArrayList<Items>();
         for(int i=0;i<10;i++){
-            Items empty=new Items("EMPTY",0);
+            Items empty=new Items("EMPTY",0,"");
             testbackpack.add(empty);
         }
         player.setBackpack(testbackpack);
         //loot item
-        panelListener.lootItem(item1,player);
-        panelListener.lootItem(item2,player);
+             // panelListener.lootItem(item1,player);
+             //panelListener.lootItem(item2,player);
+        
+        //begin testing..
+        player.lootItem(item1);
+        player.lootItem(item2);
+        //...end testing
+        
         int i=0;
         for(Items items: player.backpack){
             if(!items.getName().equals("EMPTY"))
@@ -124,10 +130,10 @@ public class TestPanelListener {
 
     @Test
     public void testInteractWithChest(){
-        Items item1=new Items("Armor1",1);
+        Items item1=new Items("Armor1",1,"");
         ArrayList<Items>testbackpack=new ArrayList<Items>();
         for(int i=0;i<10;i++){
-            Items empty=new Items("EMPTY",0);
+            Items empty=new Items("EMPTY",0,"");
             testbackpack.add(empty);
         }
         player.setBackpack(testbackpack);
@@ -144,10 +150,10 @@ public class TestPanelListener {
     @Test
     public void testInteractWithChest2(){
 
-        Items item2=new Items("Helmet1",1);
+        Items item2=new Items("Helmet1",1,"");
         ArrayList<Items>testbackpack=new ArrayList<Items>();
         for(int i=0;i<10;i++){
-            Items empty=new Items("EMPTY",0);
+            Items empty=new Items("EMPTY",0,"");
             testbackpack.add(empty);
         }
         player.setBackpack(testbackpack);
@@ -173,20 +179,28 @@ public class TestPanelListener {
         Matrix matrix1=new Matrix(testCells,"matrix1");
         Matrix matrix2=new Matrix(testCells2,"matrix2");
         Matrix matrix3=new Matrix(testCells,"matrix3");
+        
         ArrayList<Matrix>testMatricArray=new ArrayList<Matrix>();
         testMatricArray.add(matrix1);
         testMatricArray.add(matrix2);
         testMatricArray.add(matrix3);
+        
         Campaigns testCampaign=new Campaigns(testMatricArray,"campaign1");
+        
         testMap.playingCampaign=testCampaign;
+        
         testMap.playingHero=player;
+        
         player.setLevel(1);
+        
         testMap.initCampaign();
+        
         panelListener=new PanelListener(testMap,3);
         panelListener.exitFromMap(player);
 
         Assert.assertEquals(2,player.getLevel());
         Assert.assertEquals(testCells2,panelListener.map);
+        
 
     }
 }
