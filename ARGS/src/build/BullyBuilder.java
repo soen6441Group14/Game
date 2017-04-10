@@ -13,7 +13,7 @@ public class BullyBuilder extends FighterBulider{
 	 * This method overrides the FighterBuilder sort method
 	 * by ordering the stats towards bully character using
 	 * D20 rules
-	 * @param arrayList is the stat rolls
+	 * @param arrayList is the stat rolls.
 	 */
 	@Override
 	void sort(ArrayList<Integer> arrayList) {

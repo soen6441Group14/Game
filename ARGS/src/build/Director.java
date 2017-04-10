@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Director {
 	/**
-	 * The Director is to use a specific "build plan": the FighterBuilder
+	 * The Director is to use a specific "build plan": the FighterBuilder.
 	 */
 	private FighterBulider fighterBulider;
 	/**
