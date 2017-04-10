@@ -775,6 +775,10 @@ public class Characters implements Serializable{
 		this.backpack = backpack;
 	}
 
+	public Strategy getStrategy() {
+		return this.strategy;
+	}
+
 	/**
 	 * @param thestrategy the strategy to set to character
 	 */
