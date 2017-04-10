@@ -12,12 +12,16 @@ public class Frozen implements Strategy {
 
     public Characters frozenedCharacter;
 
+    /**
+     * Constructor
+     * @param theCharacter the frozen character
+     */
     public Frozen(Characters theCharacter){
         this.frozenedCharacter=theCharacter;
     }
     
     /** 
-     * This method executes the frozen status on the player
+     * This method implements the execute() in Strategy interface
      */
     @Override
     public void execute() {

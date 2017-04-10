@@ -19,7 +19,7 @@ public class SaveCharacter {
 	 * @throws IOException  no file exception
 	 */
 	public void saveCharacter(ArrayList<Characters> arrayList) throws IOException{
-		File output = new File("ARGS/file/Characters.txt");
+		File output = new File("file/Characters.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(output));
         objectOutputStream.writeObject(arrayList);
         objectOutputStream.flush();

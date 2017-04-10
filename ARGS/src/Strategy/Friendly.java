@@ -21,6 +21,11 @@ public class Friendly implements Strategy{
     public int characterRow, characterColumn;
     public Characters theFriendly;
 
+    /**
+     * The constructor
+     * @param map the mapFrame
+     * @param theCharacter the friendly
+     */
     public Friendly(Map map,Characters theCharacter){
         this.mapFrame=map;
         this.map = this.mapFrame.getMap();
@@ -31,6 +36,9 @@ public class Friendly implements Strategy{
         locateTheFriendly();
     }
 
+    /**
+     * The method is used to locate the friendly character
+     */
     public void locateTheFriendly(){
         for(int row=0;row<numRows;row++){
             for(int col=0;col<numCols;col++){
@@ -45,6 +53,12 @@ public class Friendly implements Strategy{
         }
     }
 
+    /**
+     * The method is used to move one step by the friendly
+     * @param down move down, -1 if move up
+     * @param right  move right ,-1 if move left
+     * @return  whether the movement is successful
+     */
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
         if(characterRow+down<0||characterRow+down>numRows-1||characterColumn+right<0||characterColumn+right>numCols-1)
@@ -78,6 +92,9 @@ public class Friendly implements Strategy{
 
 
 
+    /**
+     * The method implements the execute() in Strategy interface
+     */
     @Override
     public void execute() {
 
