@@ -103,40 +103,23 @@ public class ItemFrame {
 		
 		range.setColumns(5);
 		
-//		itemName.setSize(new Dimension(100, 30));
 		itemName.setColumns(10);
-//		shieldarmorClassValue.setSize(new Dimension(100, 30));
 		shieldarmorClassValue.setColumns(5);
-//		armorarmorClassValue.setSize(new Dimension(100, 30));
 		armorarmorClassValue.setColumns(5);
-//		ringarmorClassValue.setSize(new Dimension(100, 30));
 		ringarmorClassValue.setColumns(5);
-//		bootarmorClassValue.setSize(new Dimension(100, 30));
 		bootarmorClassValue.setColumns(5);
-//		helmetarmorClassValue.setSize(new Dimension(100, 30));
 		helmetarmorClassValue.setColumns(5);
 		
-//		intelligenceValue.setSize(new Dimension(100, 30));
 		intelligenceValue.setColumns(5);
-//		ringwisdomValue.setSize(new Dimension(100, 30));
 		ringwisdomValue.setColumns(5);
-//		helmetwisdomValue.setSize(new Dimension(100, 30));
 		helmetwisdomValue.setColumns(5);
-//		ringstrengthValue.setSize(new Dimension(100, 30));
 		ringstrengthValue.setColumns(5);
-//		beltstrengthValue.setSize(new Dimension(100, 30));
 		beltstrengthValue.setColumns(5);
-//		ringconstitutionValue.setSize(new Dimension(100, 30));
 		ringconstitutionValue.setColumns(5);
-//		beltconstitutionValue.setSize(new Dimension(100, 30));
 		beltconstitutionValue.setColumns(5);
-//		charismaValue.setSize(new Dimension(100, 30));
 		charismaValue.setColumns(5);
-//		dexterityValue.setSize(new Dimension(100, 30));
 		dexterityValue.setColumns(5);
-//		attackBonusValue.setSize(new Dimension(100, 30));
 		attackBonusValue.setColumns(5);
-//		damageBonusValue.setSize(new Dimension(100, 30));
 		damageBonusValue.setColumns(5);
 		
 
