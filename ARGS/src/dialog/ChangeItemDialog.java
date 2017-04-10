@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * The class is to construct a dialog to change the items with friendly monsters
  * @version 2.0
  */
+@SuppressWarnings("serial")
 public class ChangeItemDialog extends JDialog{
 
     private JPanel centerView;
@@ -28,8 +29,9 @@ public class ChangeItemDialog extends JDialog{
      * constructor
      * to construct the view
      * to add actionListener
+     * @param itemsNameList arraylist which contains all items
      */
-    public ChangeItemDialog(ArrayList<String>itemsNameList) {
+    public ChangeItemDialog(ArrayList<String> itemsNameList) {
 
         this.itemsList=itemsNameList;
 
@@ -96,6 +98,7 @@ public class ChangeItemDialog extends JDialog{
 
     /**
      * The method is to change the ArrayList to String Array
+     * @return string array which contains all the item
      */
     public String[] obtainItemsNames(){
         String[] itemsNames=new String[itemsList.size()];

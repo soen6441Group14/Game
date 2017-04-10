@@ -84,8 +84,8 @@ public class CharacterFrame {
 	 * constructor method
 	 * @param map        the Map object
 	 * @param jFrame2    the main frame
-	 * @param characterArrayList
-	 * @param itemArrayList
+	 * @param characterArrayList  arraylist of all characters
+	 * @param itemArrayList  arraylist of all items
 	 */
 	public CharacterFrame(Map map, JFrame jFrame2, ArrayList<Characters> characterArrayList, ArrayList<Items> itemArrayList){
 		JFrame jFrame = new JFrame("Character");

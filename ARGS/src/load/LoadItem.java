@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import objects.Items;
 /**
- * LoadItem class contains methods which return Items or ArrayList<Items>
+ * LoadItem class contains methods which return Items or ArrayList of items
  * @author grey
  * @version 2.0
  */
@@ -17,7 +17,7 @@ public class LoadItem {
 	/**
 	 * when we create a character, we need to choose items from file to equip the character
 	 * @param string name
-	 * @param itemArrayList ArrayList<Items>
+	 * @param itemArrayList ArrayList of items
 	 * @return Items object
 	 */
 	//在创建人物时，多选框选择一个item，则返回对应姓名的名字和值的字符串。读取人物时也需要
@@ -34,9 +34,9 @@ public class LoadItem {
 	}
 	/**
 	 * display all the items which are created
-	 * @return ArrayList<Items>
-	 * @throws IOException
-	 * @throws ClassNotFoundException
+	 * @return ArrayList of items
+	 * @throws IOException no file exception
+	 * @throws ClassNotFoundException not class found
 	 */
 	//显示主界面的下拉框中的物品列表
 	@SuppressWarnings("unchecked")

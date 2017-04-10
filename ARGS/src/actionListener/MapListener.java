@@ -24,7 +24,7 @@ import load.LoadItem;
  * Maplistener class implements actionlisener, 
  * when button on the map was clicked, then we call this class
  * @author grey
- * @version 2.0
+ * @version 3.0
  */
 
 public class MapListener implements ActionListener{
@@ -55,7 +55,9 @@ public class MapListener implements ActionListener{
 		this.characterArrayList = characterArrayList;
 		this.itemArrayList = itemArrayList;
 	}
-	
+	/**
+	 * override method to implement action event
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jButton = (JButton) e.getSource();

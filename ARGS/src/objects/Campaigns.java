@@ -19,6 +19,7 @@ public class Campaigns implements Serializable{
 	 * The constructor method
 	 * @param campaign 	single campaign
 	 * @param name 		the name of campaign 
+	 * @param playingIndex the number of map that is showed on the map
 	 */
 	public Campaigns(ArrayList<Matrix> campaign,String name,int playingIndex){
 		this.campaign = campaign;
@@ -34,7 +35,7 @@ public class Campaigns implements Serializable{
 		return campaign;
 	}
 	/**
-	 * setCampaign(ArrayList<Matrix> campaign)
+	 * setCampaign(ArrayList of Matrix campaign)
 	 * @param campaign 	single campaign
 	 */
 	public void setCampaign(ArrayList<Matrix> campaign) {

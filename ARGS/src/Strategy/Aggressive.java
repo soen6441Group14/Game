@@ -133,7 +133,7 @@ public class Aggressive implements Strategy{
 
     /**
      * the method is used to move by one step
-     * down+right=1 -> to make sure only one step is waled
+     * down+right=1, to make sure only one step is operated
      * @param down  walk one step towards down, -1 means walk up
      * @param right walk one step towards right, -1 means walk left
      * @return true , if walking is successful

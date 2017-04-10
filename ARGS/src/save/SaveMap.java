@@ -15,8 +15,8 @@ import objects.Matrix;
 public class SaveMap {
 	/**
 	 * save method
-	 * @param allMaps  ArrayList<Matrix>
-	 * @throws IOException
+	 * @param allMaps  ArrayList of Matrix
+	 * @throws IOException no file exception
 	 */
 	// 在保存地图时调用，将创建好的Cells二位数组保存在mapName文件中
 	public void saveMap(ArrayList<Matrix> allMaps) throws IOException{

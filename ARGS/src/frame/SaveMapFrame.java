@@ -30,7 +30,7 @@ public class SaveMapFrame {
 	 * @param map2 		Map object
 	 * @param map		Cells[][]
 	 * @param jFrame2   main frame
-	 * @param allMaps   ArrayList<Matrix>
+	 * @param allMaps   ArrayList of Matrix
 	 */
 	public SaveMapFrame(Map map2, Cells[][] map, JFrame jFrame2, ArrayList<Matrix> allMaps){
 		JFrame jFrame = new JFrame("Save the map");

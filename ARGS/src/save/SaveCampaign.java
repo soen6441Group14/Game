@@ -15,8 +15,8 @@ import objects.Campaigns;
 public class SaveCampaign {
 /**
  * 	save method
- * @param campaignArraylist  ArrayList<Campaigns>
- * @throws IOException
+ * @param campaignArraylist  ArrayList of Campaigns
+ * @throws IOException  no file exception
  */
 public void saveCampaign(ArrayList<Campaigns> campaignArraylist) throws IOException{
 		

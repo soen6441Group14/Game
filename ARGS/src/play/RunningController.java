@@ -34,6 +34,7 @@ public class RunningController implements ActionListener{
 
     /**
      * The method is to obtain the instance of solo instance of the class outside the class
+     * @return RunningController
      */
     public static RunningController obtainRunningController(){
         if(runningController==null)
@@ -41,11 +42,19 @@ public class RunningController implements ActionListener{
         return runningController;
     }
 
-    /* Timer control */
+    /**
+     * Timer control method
+     * starts timer
+     */
 
     public void startRun(){
         this.centerTimer.start();
     }
+    
+    /**
+     * Timer control method
+     * stops timer
+     */
 
     public void stopRun(){
         this.centerTimer.stop();
@@ -57,11 +66,18 @@ public class RunningController implements ActionListener{
     //to record the user player
     private Characters userPlayer;
 
-
+    /**
+     * This method get the status of the timer
+     * @return true if timer is running
+     */
     public boolean getTimerStatus(){
         return centerTimer.isRunning();
     }
 
+    /**
+     * Is a method to pass the turn from map
+     * @param turnMoveCharacters arraylist
+     */
     public void enrollTurnsCharaters(ArrayList<Characters> turnMoveCharacters){
         this.turnsCharacters=null;
         this.userPlayer=null;
@@ -74,6 +90,11 @@ public class RunningController implements ActionListener{
     /**
      * The method is to find the user player for every map
      * in order to check user play's live every turn
+<<<<<<< HEAD
+     * @param charactersList arraylist that contains all character on the map
+=======
+     * @param charactersList arraylist
+>>>>>>> branch 'master' of https://github.com/soen6441Group14/Game.git
      */
     public void findUsersPlayer(ArrayList<Characters> charactersList){
         for(Characters cha:charactersList){
@@ -87,6 +108,7 @@ public class RunningController implements ActionListener{
     /**
      * The method will handle the event from timer
      * The method will automatically be invoked every delay time
+     * @param e which is an ActionEvent
      */
     @Override
     public void actionPerformed(ActionEvent e) {

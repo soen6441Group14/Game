@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import objects.Campaigns;
 /**
- * LoadCampaign class contains methods which get ArrayList<Campaigns> or Campaigns
+ * LoadCampaign class contains methods which get ArrayList of Campaigns or Campaigns
  * @author grey
  *@version 2.0
  */
@@ -17,7 +17,7 @@ public class LoadCampaign {
 	Campaigns campaigns;
 	/**
 	 * read all the campaigns which are created 
-	 * @return ArrayList<Campaigns>
+	 * @return ArrayList of Campaigns
 	 * @throws IOException IOException
 	 * @throws ClassNotFoundException ClassNotFoundException
 	 */
@@ -47,7 +47,7 @@ public class LoadCampaign {
 	
 	/**
 	 * read the specific campaigns object which has the name with String name
-	 * @param allMaps ArrayList<Campaigns>
+	 * @param allMaps ArrayList of Campaigns
 	 * @param name name
 	 * @return Campaigns object
 	 */

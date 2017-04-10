@@ -16,8 +16,8 @@ public class SaveItem {
 
 	/**
 	 * save method
-	 * @param arrayList  ArrayList<Items>
-	 * @throws IOException
+	 * @param arrayList  ArrayList of items
+	 * @throws IOException no file exception
 	 */
 	public void saveItem(ArrayList<Items> arrayList) throws IOException{
 		
