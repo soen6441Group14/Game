@@ -97,6 +97,7 @@ public class LoggingWindow extends Frame{
 
     /**
      * the getter of logging window
+     * @return LoggingWindow
      */
     public static LoggingWindow getLoggingWindow(){
         if(loggingWindow==null)
