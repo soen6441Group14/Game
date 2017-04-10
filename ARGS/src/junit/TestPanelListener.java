@@ -185,7 +185,7 @@ public class TestPanelListener {
         testMatricArray.add(matrix2);
         testMatricArray.add(matrix3);
         
-        Campaigns testCampaign=new Campaigns(testMatricArray,"campaign1");
+        Campaigns testCampaign=new Campaigns(testMatricArray,"campaign1",0);
         
         testMap.playingCampaign=testCampaign;
         

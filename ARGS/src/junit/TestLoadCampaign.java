@@ -22,7 +22,7 @@ public class TestLoadCampaign {
 		ArrayList<Matrix> maps = new ArrayList<>();
 		maps.add(matrix);
 		
-		Campaigns campaigns = new Campaigns(maps, "CAMPAIGN1");
+		Campaigns campaigns = new Campaigns(maps, "CAMPAIGN1",0);
 		allMaps.add(campaigns);
 	}
 
