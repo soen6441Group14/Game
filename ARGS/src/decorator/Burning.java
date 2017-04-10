@@ -1,7 +1,13 @@
 package decorator;
 
 import enumclass.Enchantment;
-
+/**
+ * This is part of the decorator pattern which implements the Burning 
+ * enchantment of the weapons
+ * 
+ * @author grey
+ * @see WeaponDecorator
+ */
 public class Burning extends WeaponDecorator {
 
 	public Burning(Weapon decoratedWeapon) {
