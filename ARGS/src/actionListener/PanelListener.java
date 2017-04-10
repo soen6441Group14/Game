@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 /**
  * This is the class that listen to the panel in the map frame
  *  @author grey
- *	@version 2.0	
+ *	@version 3.0	
  *
  */
 
@@ -34,15 +34,24 @@ public class PanelListener implements KeyListener,Strategy{
 	int yHero;
 	Characters hero = null;
 	
-
+/**
+ * get hero object
+ * @return Characters
+ */
 	public Characters getHero() {
 		return hero;
 	}
-
+/**
+ * get hero's x coordinate
+ * @return x coordinate
+ */
 	public int getxHero() {
 		return xHero;
 	}
-
+/**
+ * get hero's y coordinate
+ * @return y coordinate
+ */
 	public int getyHero() {
 		return yHero;
 	}
@@ -50,8 +59,8 @@ public class PanelListener implements KeyListener,Strategy{
 
 	/**
 	 * The constructor method to initialize the panelListener class
-	 * @param map
-	 * @param numberMap
+	 * @param map  map class object
+	 * @param numberMap  the total map number in one campaign
 	 */
 
 	public PanelListener(Map map, int numberMap) {
@@ -433,6 +442,7 @@ public class PanelListener implements KeyListener,Strategy{
 	/**
 	 * The method is to check whether the objective is completed or not
 	 * if the objective is completed, set the objective as true
+	 * @return check whether there are any monsters on the map
 	 */
 	public boolean checkCompleteObjective(){
 		int count=0;
@@ -457,7 +467,9 @@ public class PanelListener implements KeyListener,Strategy{
 
 	private int steps;
 	private boolean isTurn=false;
-
+/**
+ * override method to execute human player strategy
+ */
 	@Override
 	public void execute() {
 		//stop the auto-timer to let user input

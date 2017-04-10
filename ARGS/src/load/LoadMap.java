@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import objects.Cells;
 import objects.Matrix;
 /**
- * LoadMap contains method that return Matrix or ArrayList<Matrix> or Cells[][]
+ * LoadMap contains method that return Matrix or ArrayList of Matrix or Cells[][]
  * @author grey
  *@version 2.0
  */
@@ -19,10 +19,10 @@ public class LoadMap {
 	
 	/**
 	 * when we create a campaign, we need to get the specific map with the name of Stirng
-	 * @param allMaps ArrayList<Matrix>
+	 * @param allMaps ArrayList of Matrix
 	 * @param string name
 	 * @return  Matrix object
-	 * @throws IOException
+	 * @throws IOException no Matrix return
 	 */
 	public Matrix loadMap2(ArrayList<Matrix> allMaps, String string) throws IOException{
 		for(Matrix matrix: allMaps)
@@ -39,9 +39,9 @@ public class LoadMap {
 	}
 	/**
 	 * display all the maps which are created
-	 * @return ArrayList<Matrix>
-	 * @throws IOException
-	 * @throws ClassNotFoundException
+	 * @return ArrayList of Matrix
+	 * @throws IOException no file exception
+	 * @throws ClassNotFoundException not class found
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Matrix> readMap() throws IOException, ClassNotFoundException{
@@ -56,10 +56,10 @@ public class LoadMap {
 	}
 /**
  * when we load a map, we can get the Cells[][] by searching the name in the arraylist of maps
- * @param allMaps ArrayList<Matrix>
+ * @param allMaps ArrayList of Matrix
  * @param string3 name
  * @return Cells[][]
- * @throws IOException
+ * @throws IOException no Cells[][] found
  */
 	// 在读取地图时调用，根据输入的名字，加载不同的地图
 	public Cells[][] loadMap(ArrayList<Matrix> allMaps, String string3) throws IOException{

@@ -17,6 +17,8 @@ public class Adaptor  {
 
     /**
      * constructor
+     * @param targetedMatrix  the specific map
+     * @param player the hero object
      */
     public Adaptor(Cells[][] targetedMatrix,Characters player){
         this.adaptTarget=targetedMatrix;
@@ -75,6 +77,7 @@ public class Adaptor  {
 
     /**
      * The method is used to adapt the items on the map, based on the level of player
+     * @param targetItems the item you loot
      */
     private void adaptItems(Items targetItems){
 

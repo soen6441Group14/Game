@@ -218,8 +218,10 @@ public class Map {
 	}
 
 	/**
-	 * The setter to set the index of playing map in the campaign
+	 * 	 * The setter to set the index of playing map in the campaign
+	 * @param playingIndex    the index of map that is showed on the map
 	 */
+
 	public void setPlayingIndex(int playingIndex) {
 		this.playingIndex = playingIndex;
 	}

@@ -16,7 +16,11 @@ import load.LoadCampaign;
 import objects.Campaigns;
 import objects.Characters;
 import objects.Matrix;
-
+/**
+ * 
+ * @author grey
+ *
+ */
 public class LoadCampaignFrame {
 
 	public LoadCampaignFrame(Map map, JFrame jFrame2, ArrayList<Campaigns> campaigns) {

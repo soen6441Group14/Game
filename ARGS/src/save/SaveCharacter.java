@@ -15,8 +15,8 @@ import objects.Characters;
 public class SaveCharacter {
 	/**
 	 * save method
-	 * @param arrayList ArrayList<Characters>
-	 * @throws IOException
+	 * @param arrayList ArrayList of Characters
+	 * @throws IOException  no file exception
 	 */
 	public void saveCharacter(ArrayList<Characters> arrayList) throws IOException{
 		File output = new File("file/Characters.txt");

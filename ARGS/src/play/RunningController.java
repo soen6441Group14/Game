@@ -34,6 +34,7 @@ public class RunningController implements ActionListener{
 
     /**
      * The method is to obtain the instance of solo instance of the class outside the class
+     * @return RunningController
      */
     public static RunningController obtainRunningController(){
         if(runningController==null)
@@ -74,6 +75,7 @@ public class RunningController implements ActionListener{
     /**
      * The method is to find the user player for every map
      * in order to check user play's live every turn
+     * @param charactersList arraylist that contains all character on the map
      */
     public void findUsersPlayer(ArrayList<Characters> charactersList){
         for(Characters cha:charactersList){

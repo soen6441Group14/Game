@@ -34,10 +34,10 @@ public class CampaignFrame {
 	JComboBox<String> jComboBox = new JComboBox<String>();
 	/**
 	 * constructor method, when the CampaignFrame is called,  it will invoke 
-	 * @param map
-	 * @param jFrame2
-	 * @param allMaps
-	 * @param campaignArraylist
+	 * @param map  map class object
+	 * @param jFrame2  main map frame
+	 * @param allMaps  arraylist of all maps
+	 * @param campaignArraylist  arraylist of all campaigns
 	 */
 	public CampaignFrame(Map map, JFrame jFrame2,ArrayList<Matrix> allMaps, ArrayList<Campaigns> campaignArraylist){
 		JFrame jFrame = new JFrame("Items");

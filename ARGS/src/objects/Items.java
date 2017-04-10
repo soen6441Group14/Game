@@ -24,6 +24,7 @@ public class Items implements Serializable {
  * constructor method
  * @param name name
  * @param value value
+ * @param bonusType the attribute that weapon influences
  */
 	    public Items(String name,int value,String bonusType) {
 	        this.name = name;

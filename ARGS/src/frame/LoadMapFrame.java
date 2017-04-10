@@ -30,7 +30,7 @@ public class LoadMapFrame {
 	 * constructor method
 	 * @param map	Map object
 	 * @param jFrame2  main frame
-	 * @param allMaps  ArrayList<Matrix>
+	 * @param allMaps  ArrayList of Matrix
 	 */
 	public LoadMapFrame(Map map, JFrame jFrame2, ArrayList<Matrix> allMaps){
 		JFrame jFrame = new JFrame("Load the map");

@@ -15,6 +15,7 @@ public abstract class FighterBulider {
 	protected Scores scores;
 	/**
 	 * Get the constructed Scores from the Builder
+	 * @return Scores object
 	 */
 	public Scores getScores(){
 		return scores;

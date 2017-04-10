@@ -32,7 +32,7 @@ public class InventoryFrame {
 	/**
 	 * constructor method
 	 * @param map 		the main map object
-	 * @param jFrame2 
+	 * @param jFrame2   the main map frame
 	 * @param characterMapArrayList	 arraylist that contains all the character in the map
 	 * @param character  the character that you select
 	 */
@@ -192,8 +192,8 @@ public class InventoryFrame {
 	 * @param backpackString backpack item name
 	 * @param invetoryString inventory item name
 	 * @param inventoryValue inventory item value
-	 * @param rangeInventory 
-	 * @param arrayListInventory 
+	 * @param rangeInventory  range value
+	 * @param arrayListInventory  arraylist of weapon's enchantments
 	 */
 	public void setBackpackValue(Characters oldCharacter, String backpackString, String invetoryString,
 			int inventoryValue, ArrayList<Enchantment> arrayListInventory, int rangeInventory) {

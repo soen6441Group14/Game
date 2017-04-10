@@ -99,6 +99,7 @@ public class ComputerPlayer implements Strategy{
     /**
      * The method is used to search the hostile in the map
      * because the target of computer hero is to kill them
+     * @return whether there is hostile monster
      */
     public boolean searchForHostiles(){
         boolean isHostile=false;

@@ -12,7 +12,7 @@ import objects.Characters;
  * This class implements the range factor of determining whether 
  * the character can attack or not
  * @author Tann chen, grey
- * @version 2.0
+ * @version 3.0
  */
 
 public class AttackListener extends MouseAdapter {
@@ -25,18 +25,25 @@ public class AttackListener extends MouseAdapter {
 	public Map mapFrame;
 	public int row,column;
 	public Characters targetCharacter = null;
-	
+	/**
+	 * constructor
+	 * @param map  map class 
+	 * @param hero hero object
+	 */
 	public AttackListener(Map map,Characters hero){
 		this.mapFrame = map;
 		this.userPlayer=hero;
 	}
-
+	/**
+	 * make sure that the target clicked on is valid
+	 * @param mouseListenerValid  valid or not
+	 */
 	public static void setValid(boolean mouseListenerValid){
 		valid=mouseListenerValid;
 		attackTime=1;
 	}
 
-
+	
 	public void mouseClicked(MouseEvent e){
 		if(valid){ //check validation
 			JButton jButton = (JButton) e.getSource();

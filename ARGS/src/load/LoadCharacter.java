@@ -38,7 +38,7 @@ public class LoadCharacter {
 	/**
 	 * when we create the map, we need to add specific character with the name on the JComBox by using this method
 	 * @param string  name
-	 * @param characterArrayList  ArrayList<Characters>
+	 * @param characterArrayList  ArrayList of Characters
 	 * @return Characters object
 	 * @throws IOException  IOException
 	 */
@@ -57,7 +57,7 @@ public class LoadCharacter {
 	
 	/**
 	 * read all characters which are created
-	 * @return ArrayList<Characters> 
+	 * @return ArrayList of Characters
 	 * @throws IOException  IOException
 	 * @throws ClassNotFoundException ClassNotFoundException
 	 */
@@ -76,10 +76,10 @@ public class LoadCharacter {
 	
 	/**
 	 * display all the items in the backpack of Player
-	 * @param characterArrayList
-	 * @param character 
-	 * @return ArrayList<Items>
-	 * @throws IOException
+	 * @param characterArrayList arraylist of all characters
+	 * @param character  one of character
+	 * @return ArrayList of items
+	 * @throws IOException  no arraylist return
 	 */
 	//显示主界面的backpack items
 	public ArrayList<Items> readBackpack(ArrayList<Characters> characterArrayList, Characters character) throws IOException{
