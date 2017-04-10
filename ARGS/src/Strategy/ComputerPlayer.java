@@ -136,7 +136,12 @@ public class ComputerPlayer implements Strategy{
     }
 
 
-    
+    /**
+     * The method is used by computer player to move one step in the map
+     * @param down move down, -1 if move up
+     * @param right move right, -1 if move left
+     * @return whether it is successful or not
+     */
     public boolean moveOneStep(int down, int right){
         boolean flag=false;
 
@@ -191,7 +196,12 @@ public class ComputerPlayer implements Strategy{
     }
 
 
-
+    /**
+     * The method is used to move towards destination
+     * for the computer player, the destination is hotsile and exit door
+     * @param desRow  row
+     * @param desColumn  column
+     */
     public void walkTowardDes(int desRow,int desColumn) {
 
         //check there is enough step and where char is in different row or column
@@ -245,6 +255,9 @@ public class ComputerPlayer implements Strategy{
     private int steps = 3;
     private int attackTime=1;
 
+    /**
+     * The method implements the execute() in Strategy interface
+     */
     @Override
     public void execute() {
 

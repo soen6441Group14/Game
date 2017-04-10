@@ -25,7 +25,8 @@ public class AttackListener extends MouseAdapter {
 	public Map mapFrame;
 	public int row,column;
 	public Characters targetCharacter = null;
-	
+
+
 	public AttackListener(Map map,Characters hero){
 		this.mapFrame = map;
 		this.userPlayer=hero;

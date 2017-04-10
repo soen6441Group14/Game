@@ -20,7 +20,7 @@ public class SaveCampaign {
  */
 public void saveCampaign(ArrayList<Campaigns> campaignArraylist) throws IOException{
 		
-		File output = new File("ARGS/file/Campaigns.txt");
+		File output = new File("file/Campaigns.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(output));
         objectOutputStream.writeObject(campaignArraylist);
         objectOutputStream.flush();
@@ -29,7 +29,7 @@ public void saveCampaign(ArrayList<Campaigns> campaignArraylist) throws IOExcept
 
 public void saveEditCampaign(ArrayList<Campaigns> campaignArraylist) throws IOException{
 	
-	File output = new File("ARGS/file/EditCampaigns.txt");
+	File output = new File("file/EditCampaigns.txt");
     ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(output));
     objectOutputStream.writeObject(campaignArraylist);
     objectOutputStream.flush();
