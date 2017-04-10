@@ -1,6 +1,5 @@
 package Strategy;
 
-import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
 import objects.Cells;

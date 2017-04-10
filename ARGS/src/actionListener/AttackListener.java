@@ -8,6 +8,13 @@ import enumclass.TileType;
 import frame.Map;
 import objects.Characters;
 
+/**
+ * This class implements the range factor of determining whether 
+ * the character can attack or not
+ * @author Tann chen, grey
+ * @version 2.0
+ */
+
 public class AttackListener extends MouseAdapter {
 	// only when the userPlay strategy executes, it is valid
 	public static boolean valid;

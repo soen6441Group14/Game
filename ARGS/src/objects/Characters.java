@@ -452,7 +452,44 @@ public class Characters implements Serializable{
 			LoggingWindow.getLoggingWindow().updateInfo(this,target,meleeWeapon,d20,d8);
 		}
 	}
+	//refactoring ... do not use yet!
+	public void attackCalculation(Characters target, int d20roll, int d8roll){
+		//
+				int attackBonus;
+				int d20=d20roll;
+				int d8=d8roll;
+				boolean meleeWeapon=false;
 
+				if(target.getHitpoints()>0){
+					if(!this.getInventory().get(0).getName().equals("EMPTY")){//weapon is not null
+						if(this.getInventory().get(0).getRange()==1){//melee weapon
+							attackBonus = this.getAttackBonus()+this.getModStr();
+							meleeWeapon=true;
+						}
+						else{//ranged weapon
+							attackBonus = this.getAttackBonus()+this.getModDex();
+							meleeWeapon=false;
+						}
+						//weapon with enchantment will damage enchantment bonus to target
+						if(this.getInventory().get(0).getEnchantments().size()>0 && attackBonus+d20>getArmorClass()){
+							int enchantBonus=this.getInventory().get(0).getValue();//from 1 to 5
+							target.addEnchantedEffectToCharacter(this.getInventory().get(0).getEnchantments(),enchantBonus);
+						}
+					}
+					else{// character don't have weapon
+						attackBonus = this.getAttackBonus();
+					}
+					//deal with damage
+					if(attackBonus + d20>=target.getArmorClass()){
+						target.setHitpoints(target.getHitpoints()-d8-Math.abs(this.getModStr()));//hitpoints reduce 1d8
+						System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : hurt target");
+					}
+					else
+						System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : miss");
+
+					LoggingWindow.getLoggingWindow().updateInfo(this,target,meleeWeapon,d20,d8);
+				}
+			}
 
 	
 	public int getD8(){

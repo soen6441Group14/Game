@@ -15,6 +15,10 @@ public class Frozen implements Strategy {
     public Frozen(Characters theCharacter){
         this.frozenedCharacter=theCharacter;
     }
+    
+    /** 
+     * This method executes the frozen status on the player
+     */
     @Override
     public void execute() {
         System.out.println("[ " + frozenedCharacter.getName() + " ] frozen status -  can not move !");
