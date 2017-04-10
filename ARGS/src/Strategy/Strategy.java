@@ -6,6 +6,10 @@ package Strategy;
  */
 public interface Strategy {
 
+    /**
+     * The method is the abstract method
+     * It will be implemented in concrete classes
+     */
     public void execute();
 
 }

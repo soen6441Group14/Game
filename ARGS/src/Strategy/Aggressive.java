@@ -34,7 +34,6 @@ public class Aggressive implements Strategy{
         this.map = this.mapFrame.getMap();
         this.numRows = this.mapFrame.getNumRows();
         this.numCols = this.mapFrame.getNumCols();
-
         this.theAggressive=theCharacter;
         locateTheAggressive();
     }
@@ -137,7 +136,7 @@ public class Aggressive implements Strategy{
      * down+right=1, to make sure only one step is operated
      * @param down  walk one step towards down, -1 means walk up
      * @param right walk one step towards right, -1 means walk left
-     * @return true , walk forward
+     * @return true , if walking is successful
      */
     public boolean moveOneStep(int down, int right){
         boolean flag=false;

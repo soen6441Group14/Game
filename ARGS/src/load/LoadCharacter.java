@@ -65,7 +65,7 @@ public class LoadCharacter {
 	public ArrayList<Characters> readCharacter() throws IOException, ClassNotFoundException{
 		
 		ArrayList<Characters> arrayList = new ArrayList<Characters>();
-		File input = new File("ARGS/file/Characters.txt");
+		File input = new File("file/Characters.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(input));
         arrayList = (ArrayList<Characters>) objectInputStream.readObject();
         objectInputStream.close();
