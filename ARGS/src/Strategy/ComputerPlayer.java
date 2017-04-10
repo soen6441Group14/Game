@@ -122,7 +122,7 @@ public class ComputerPlayer implements Strategy{
 
 
     /**
-     * The method is used to search the 
+     * The method is used to search
      */
     public void searchForExit(){
         for(int row=0;row<numRows;row++){
