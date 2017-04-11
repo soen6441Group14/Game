@@ -2,7 +2,7 @@ package actionListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import Strategy.Strategy;
+import strategy.Strategy;
 import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
@@ -38,7 +38,7 @@ public class PanelListener implements KeyListener,Strategy{
  * get hero object
  * @return Characters
  */
-	public Characters getHero() {
+	public Characters getHero(){
 		return hero;
 	}
 /**
@@ -62,7 +62,7 @@ public class PanelListener implements KeyListener,Strategy{
 	 * @param map  map class object
 	 * @param numberMap  the total map number in one campaign
 	 */
-	public PanelListener(Map map, int numberMap) {
+	public PanelListener(Map map, int numberMap){
 		this.mapFrame = map;
 		this.numberMap = numberMap;
 		setListeningMatrix();
@@ -149,15 +149,13 @@ public class PanelListener implements KeyListener,Strategy{
 		 }
 		 else{
 		 	isTurn=false;
-		 	System.out.println("[ User player ] you have finished your turn, other character turn");
+		 	System.out.println("[ User player ] you have finished your turn, other character is turning");
 		 	boolean isRunning=RunningController.obtainRunningController().getTimerStatus();
 		 	if(!isRunning){
 				RunningController.obtainRunningController().startRun();
 				AttackListener.setValid(false);
 			}
 		 }
-
-
 	}
 
 	/**
@@ -430,7 +428,7 @@ public class PanelListener implements KeyListener,Strategy{
 			} else {
 				mapFrame.changeMap();
 				setListeningMatrix();
-				mapFrame.showOnMap(); //TODO:hero locateion定位错误的原因是changemap先
+				mapFrame.showOnMap();
 			}
 		}
 

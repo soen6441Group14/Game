@@ -1,4 +1,4 @@
-package Strategy;
+package strategy;
 
 import objects.Characters;
 
@@ -21,7 +21,7 @@ public class Frozen implements Strategy {
     }
     
     /** 
-     * This method implements the execute() in Strategy interface
+     * This method implements the execute() in strategy interface
      */
     @Override
     public void execute() {

@@ -1,4 +1,4 @@
-package Strategy;
+package strategy;
 
 /**
  *The interface is to abstract the behaviors of different kind of character in the game

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import Strategy.Frightened;
+import strategy.Frightened;
 import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;

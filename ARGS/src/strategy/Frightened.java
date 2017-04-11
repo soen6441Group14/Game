@@ -1,4 +1,4 @@
-package Strategy;
+package strategy;
 
 import enumclass.TileType;
 import frame.Map;
@@ -12,7 +12,7 @@ import objects.Items;
  * The class describes the strategy of execution for the character who are frightened in the game
  * @author Tann chen
  */
-public class Frightened implements Strategy {
+public class Frightened implements Strategy{
 
     public Map mapFrame;
     public Cells[][] map;
@@ -168,7 +168,7 @@ public class Frightened implements Strategy {
 
 
     /**
-     * The method implements the execute() in Strategy interface
+     * The method implements the execute() in strategy interface
      */
     @Override
     public void execute() {

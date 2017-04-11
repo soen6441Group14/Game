@@ -1,9 +1,11 @@
-package Strategy;
+package strategy;
 
 import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
 import objects.*;
+
+import javax.swing.*;
 
 /**
  * The class is the implementation of strategy interface
@@ -48,8 +50,7 @@ public class ComputerPlayer implements Strategy{
         this.numRows = this.mapFrame.getNumRows();
         this.numCols = this.mapFrame.getNumCols();
         this.playingIndex = this.mapFrame.getPlayingIndex();
-        locateTheComPlayer();
-        getEntry();
+        getEntry(); //TODO:必须在showonMap 前否则无效
     }
 
     /**
@@ -131,9 +132,29 @@ public class ComputerPlayer implements Strategy{
                 if(map[row][col].getTileType()==TileType.EXIT){
                     exitRow=row;
                     exitCol=col;
+                    break;
                 }
             }
         }
+    }
+
+    /**
+     * The method is to exit from the exit of the map
+     * If the objective"kill all hostile monsters" is not completed, no map change, prompt information
+     * @param hero the character object of hero
+     */
+    public void exitFromMap(Characters hero){
+            int level = hero.getLevel();
+            hero.setLevel(level+1);
+            System.out.println("map index"+playingIndex);
+            if (playingIndex >= numberMap) {
+                JOptionPane.showMessageDialog(null, "you successfully pass the campaign", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+                mapFrame.panel.setVisible(false);
+            }else {
+                mapFrame.changeMap();
+                setListeningMatrix();
+                mapFrame.showOnMap();
+            }
     }
 
 
@@ -144,6 +165,9 @@ public class ComputerPlayer implements Strategy{
      * @return whether it is successful or not
      */
     public boolean moveOneStep(int down, int right){
+
+        locateTheComPlayer();
+
         boolean flag=false;
 
         if(playerRow+down<0||playerRow+down>numRows-1||playerColumn+right<0||playerColumn+right>numCols-1)
@@ -151,10 +175,8 @@ public class ComputerPlayer implements Strategy{
 
         if(map[playerRow+down][playerColumn+right].getTileType() == TileType.GROUND){
             map[playerRow][playerColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-            map[playerRow+down][playerColumn +right] = new Cells(TileType.HERO, numRows, numCols,theComPlayer);
+            map[playerRow+down][playerColumn+right] = new Cells(TileType.HERO, numRows, numCols,theComPlayer);
             flag=true;
-            playerRow=playerRow+down;
-            playerColumn=playerColumn+right;
         }
         else if(map[playerRow+down][playerColumn+right].getTileType() == TileType.CHEST){
             Items item = map[playerRow+down][playerColumn+right].getItems();
@@ -163,26 +185,28 @@ public class ComputerPlayer implements Strategy{
             map[playerRow][playerColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
             map[playerRow+down][playerColumn+right] = new Cells(TileType.HERO, numRows, numCols,theComPlayer);
         }
-        else if(map[playerRow+down][playerColumn +right].getTileType() == TileType.MONSTER){
+        else if(map[playerRow+down][playerColumn+right].getTileType() == TileType.MONSTER){
             Characters target=map[playerRow+down][playerColumn+right].getCharacters();
             if(target.getOrient()==Orientation.HOSTILE){
                 //attackOrLootDead the target
                 boolean ifLive=theComPlayer.attackOrLootDead(target);
-                attackTime--;
                 if(!ifLive){
                     map[playerRow][playerColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-                    map[playerRow+down][playerColumn+right]=new Cells(TileType.MONSTER, numRows, numCols,theComPlayer);
+                    map[playerRow+down][playerColumn+right]=new Cells(TileType.HERO, numRows, numCols,theComPlayer);
                     mapFrame.updateCharacterList();
+                    flag=true;
                 }
-                flag=true;
-                playerRow=playerRow+down;
-                playerColumn=playerColumn+right;
+                else{
+                    attackTime--;
+                }
             }
         }
         else if (map[playerRow+down][playerColumn+right].getTileType() == TileType.EXIT) {
             if(!searchForHostiles()){
                 map[playerRow][playerColumn]=new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
-                System.out.println("[" +theComPlayer.getName()+" ] objective is achieved -> he is going to next map");
+                JOptionPane.showMessageDialog(null, "objective is achieved,you are going to next map", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+                exitFromMap(theComPlayer);
+                steps=0;
             }
         }
 
@@ -203,10 +227,10 @@ public class ComputerPlayer implements Strategy{
      * @param desRow  row
      * @param desColumn  column
      */
-    public void walkTowardDes(int desRow,int desColumn) {
+    public void walkTowardDes(int desRow,int desColumn){
 
         //check there is enough step and where char is in different row or column
-        while (steps>0 && attackTime>0 && (desRow!=playerRow || desColumn!=playerColumn)) {
+        while (steps>0 && attackTime>0 && (desRow!=playerRow || desColumn!=playerColumn)){
 
 
             while (desRow>playerRow && steps>0 ){
@@ -219,7 +243,6 @@ public class ComputerPlayer implements Strategy{
                     break;
             }
 
-
             while (desColumn>playerColumn && steps>0){
                 boolean flag=moveOneStep(0,1);
                 if(flag){
@@ -228,7 +251,6 @@ public class ComputerPlayer implements Strategy{
                 else
                     break;
             }
-
 
             while (desRow<playerRow && steps>0){
                 boolean flag=moveOneStep(-1,0);
@@ -257,10 +279,10 @@ public class ComputerPlayer implements Strategy{
     private int attackTime=1;
 
     /**
-     * The method implements the execute() in Strategy interface
+     * The method implements the execute() in strategy interface
      */
     @Override
-    public void execute() {
+    public void execute(){
 
         attackTime=1;
         steps=3;
@@ -270,14 +292,13 @@ public class ComputerPlayer implements Strategy{
         if(searchForHostiles()){
             desRow=hostileRow;
             desCol=hostileCol;
-            System.out.println("destination**row"+desRow);
-            System.out.println("destination**col"+desCol);
         }
         else{
             searchForExit();
             desRow=exitRow;
             desCol=exitCol;
         }
+        System.out.println("destination:"+desRow+","+desCol);
 
         walkTowardDes(desRow,desCol);
     }
