@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
-import Strategy.Strategy;
+import strategy.Strategy;
 import dialog.ChangeItemDialog;
 import enumclass.Enchantment;
 import enumclass.Orientation;
-import Strategy.*;
+import strategy.*;
 import frame.LoggingWindow;
 import frame.Map;
 
@@ -241,8 +241,13 @@ public class Characters implements Serializable{
 			this.setStrategy(new Friendly(this.dependentMap,this));
 		else if(this.orient==Orientation.HOSTILE)
 			this.setStrategy(new Aggressive(this.dependentMap,this));
-		else if(this.orient==Orientation.PLAYER)
-			this.setStrategy(this.dependentMap.keyListener);
+		else if(this.orient==Orientation.PLAYER){
+			int isAuto=dependentMap.getIsAuto();
+			if(isAuto==0)
+				this.setStrategy(this.dependentMap.keyListener);
+			else if(isAuto==1)
+				this.setStrategy(new ComputerPlayer(this.dependentMap,this.dependentMap.numberMap));
+		}
 	}
 
 	public void frightenByCharacter(Characters afraidCha){
@@ -383,6 +388,8 @@ public class Characters implements Serializable{
 			}
 			else
 				System.out.println("[ "+this.getName()+" ] attack "+target.getName()+" : miss");
+			//show attack info
+			LoggingWindow.getLoggingWindow().updateInfo(this,target,meleeWeapon,d20,d8);
 		
 		}
 		//if the target is dead body, loot items
@@ -404,7 +411,7 @@ public class Characters implements Serializable{
 				}
 			}
 		}
-		LoggingWindow.getLoggingWindow().updateInfo(this,target,meleeWeapon,d20,d8);
+
 		return live;
 	}
 

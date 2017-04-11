@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import Strategy.Frozen;
+import strategy.Frozen;
 import enumclass.Orientation;
 import objects.Characters;
 import objects.Items;

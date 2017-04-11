@@ -1,4 +1,4 @@
-package Strategy;
+package strategy;
 
 
 import enumclass.Orientation;
@@ -189,7 +189,7 @@ public class Aggressive implements Strategy{
 
 
     /**
-     * the method implements the execute() in Strategy interface
+     * the method implements the execute() in strategy interface
      * @see Strategy
      */
     @Override

@@ -4,6 +4,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
+
+import enumclass.Orientation;
 import enumclass.TileType;
 import frame.Map;
 import objects.Characters;
@@ -65,8 +67,13 @@ public class AttackListener extends MouseAdapter {
 					}
 					else{
 						targetCharacter = mapFrame.getMap()[row][column].getCharacters();
-						this.userPlayer.clickAttack(targetCharacter);
-						attackTime--;
+						if(targetCharacter.getOrient()== Orientation.FRIENDLY){
+							System.out.println("[ Warning ] the target is Friendly");
+						}
+						else{
+							this.userPlayer.clickAttack(targetCharacter);
+							attackTime--;
+						}
 					}
 				}
 			}

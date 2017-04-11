@@ -23,9 +23,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
-import Strategy.Aggressive;
-import Strategy.ComputerPlayer;
-import Strategy.Friendly;
+import strategy.Aggressive;
+import strategy.ComputerPlayer;
+import strategy.Friendly;
 import actionListener.PanelListener;
 import actionListener.AttackListener;
 import actionListener.MapListener;
@@ -224,7 +224,13 @@ public class Map {
 		this.playingIndex = playingIndex;
 	}
 
-
+	/**
+	 * Getter - isAuto
+	 * @return  whether it is auto-controlled or not
+	 */
+	public int getIsAuto() {
+		return isAuto;
+	}
 
 	/**
 	 * initialize the map

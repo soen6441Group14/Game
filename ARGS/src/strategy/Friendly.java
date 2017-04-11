@@ -1,4 +1,4 @@
-package Strategy;
+package strategy;
 
 import enumclass.TileType;
 import frame.Map;
@@ -93,7 +93,7 @@ public class Friendly implements Strategy{
 
 
     /**
-     * The method implements the execute() in Strategy interface
+     * The method implements the execute() in strategy interface
      */
     @Override
     public void execute() {
