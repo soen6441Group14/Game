@@ -13,7 +13,7 @@ import objects.Cells;
 import objects.Characters;
 import objects.Ground;
 import objects.Items;
-
+/* test frightened strategy functionality*/
 public class TestFrightenedStrategy {
 	static ArrayList<Items> inventory = new ArrayList<>();
 	static ArrayList<Items> backpack = new ArrayList<>();
