@@ -9,7 +9,7 @@ import load.LoadCampaign;
 import objects.Campaigns;
 import objects.Cells;
 import objects.Matrix;
-
+/* test load campaign functionality*/
 public class TestLoadCampaign {
 	static ArrayList<Campaigns> allMaps = new ArrayList<>();
 
