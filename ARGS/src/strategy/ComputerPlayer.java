@@ -50,7 +50,7 @@ public class ComputerPlayer implements Strategy{
         this.numRows = this.mapFrame.getNumRows();
         this.numCols = this.mapFrame.getNumCols();
         this.playingIndex = this.mapFrame.getPlayingIndex();
-        getEntry(); //TODO:必须在showonMap 前否则无效
+        getEntry(); //TODO:å¿…é¡»åœ¨showonMap å‰�å�¦åˆ™æ— æ•ˆ
     }
 
     /**
@@ -148,7 +148,7 @@ public class ComputerPlayer implements Strategy{
             hero.setLevel(level+1);
             System.out.println("map index"+playingIndex);
             if (playingIndex >= numberMap) {
-                JOptionPane.showMessageDialog(null, "you successfully pass the campaign", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "you successfully finished the campaign!", "Prompt", JOptionPane.INFORMATION_MESSAGE);
                 mapFrame.panel.setVisible(false);
             }else {
                 mapFrame.changeMap();
