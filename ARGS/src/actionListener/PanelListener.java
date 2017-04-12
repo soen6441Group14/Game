@@ -145,11 +145,11 @@ public class PanelListener implements KeyListener,Strategy{
 		 }
 
 		 if(steps>0){
-			 System.out.println("[ User player ] you have "+steps+" steps left");
+			 System.out.println("[ User player ] you have "+steps+" steps remaining");
 		 }
 		 else{
 		 	isTurn=false;
-		 	System.out.println("[ User player ] you have finished your turn, other character is turning");
+		 	System.out.println("[ User player ] you have finished your turn, other characters taking their turn");
 		 	boolean isRunning=RunningController.obtainRunningController().getTimerStatus();
 		 	if(!isRunning){
 				RunningController.obtainRunningController().startRun();
@@ -349,7 +349,7 @@ public class PanelListener implements KeyListener,Strategy{
 				 }
 			 }
 			 else if(map[xHero+1][yHero].getTileType() == TileType.EXIT){
-				 exitFromMap(hero);//TODO:这是个需要考虑的问题
+				 exitFromMap(hero);//TODO:è¿™æ˜¯ä¸ªéœ€è¦�è€ƒè™‘çš„é—®é¢˜
 			 }
 			 recoverTheEntry(xHero,yHero);
 			 flag = true;
@@ -410,13 +410,13 @@ public class PanelListener implements KeyListener,Strategy{
 	 */
 	public void exitFromMap(Characters hero){
 		if(!checkCompleteObjective())
-			JOptionPane.showMessageDialog(null, "you need to kill all hostile monsters", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "you need to kill all the hostile monsters", "Prompt", JOptionPane.INFORMATION_MESSAGE);
 		else {
 			int level = hero.getLevel();
 			hero.setLevel(level+1);
 			System.out.println("map index"+playingIndex);
 			if (playingIndex >= numberMap) {
-				JOptionPane.showMessageDialog(null, "you successfully pass the campaign", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "you successfully finished the campaign!", "Prompt", JOptionPane.INFORMATION_MESSAGE);
 
 //				mapFrame.panelContainer.requestFocus(false);
 //				mapFrame.removePanelContainer();
@@ -470,7 +470,7 @@ public class PanelListener implements KeyListener,Strategy{
 	public void execute(){
 		//stop the auto-timer to let user input
 		RunningController.obtainRunningController().stopRun();
-		System.out.println("[ User player ] It is your turn - you can operate");
+		System.out.println("[ User player ] It is your turn - you can make a move");
 		AttackListener.setValid(true);
 		isTurn=true;
 		steps=3;
