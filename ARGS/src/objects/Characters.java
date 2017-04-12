@@ -125,11 +125,11 @@ public class Characters implements Serializable{
 
 	public void turn(){
 		if(this.hitpoints<=0){
-			System.out.println("[ "+this.name+" ] has dead, so it can not takes turn -> next turn");
+			System.out.println("[ "+this.name+" ] has died, so it can not take a turn -> next turn");
 			return;
 		}
 
-		System.out.println("[ "+this.name+" ] takes turn");
+		System.out.println("[ "+this.name+" ] takes a turn");
 		// the first thing when its turn is to execute the enchanted effect
 		executeEnchantedEffects();
 		//and then execute its behaviors, different between its strategies
