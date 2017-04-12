@@ -12,6 +12,7 @@ import enumclass.Orientation;
 import objects.Characters;
 import objects.Items;
 
+/* test characters functionality*/
 public class TestCharacters {
 	
 	static ArrayList<Items> inventory = new ArrayList<>();

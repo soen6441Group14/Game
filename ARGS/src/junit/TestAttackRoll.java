@@ -11,6 +11,7 @@ import enumclass.Orientation;
 import objects.Characters;
 import objects.Items;
 
+/* testing attackroll*/
 public class TestAttackRoll {
 
 	Characters player, mons;

@@ -14,6 +14,7 @@ import frame.Map;
 import objects.Characters;
 import objects.Items;
 
+/* test characterframe functionality*/
 public class TestCharacterFrame {
 	Map map;
 	JFrame jFrame = new JFrame();

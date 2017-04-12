@@ -12,6 +12,7 @@ import build.BullyBuilder;
 import build.Director;
 import build.Scores;
 
+/* test bully builder funactionality*/
 public class TestBullyBuilder {
 	static ArrayList<Integer> arrayList = new ArrayList<>();
 	Director director;

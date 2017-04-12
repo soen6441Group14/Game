@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import load.LoadItem;
 import objects.Items;
-
+/* test load item functionality*/
 public class TestLoadItem {
 	
 	LoadItem loadItem = new LoadItem();

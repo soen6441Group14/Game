@@ -15,7 +15,7 @@ import frame.InventoryFrame;
 import frame.Map;
 import objects.Characters;
 import objects.Items;
-
+/* test inventory frame functionality*/
 public class TestInventoryFrame {
 	
 	Map map;

@@ -14,6 +14,7 @@ import objects.Characters;
 import objects.Ground;
 import objects.Items;
 
+/* Testing Aggressive character functionality*/
 public class TestAggressive {
 	static ArrayList<Items> inventory = new ArrayList<>();
 	static ArrayList<Items> backpack = new ArrayList<>();

@@ -8,7 +8,7 @@ import decorator.Empty;
 import decorator.Frightening;
 import decorator.Weapon;
 import enumclass.Enchantment;
-
+/* test frightening functionality*/
 public class TestFrightening {
 	static Weapon weapon = new Empty();
 	

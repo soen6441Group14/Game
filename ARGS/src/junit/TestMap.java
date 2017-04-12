@@ -14,7 +14,7 @@ import objects.Entry;
 import objects.Exit;
 import objects.Ground;
 import objects.Items;
-
+/* test map functionality*/
 public class TestMap {
 	
 	static Map testmap = new Map("Map1",10,10);

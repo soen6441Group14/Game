@@ -14,6 +14,7 @@ import play.Adaptor;
 
 import java.util.ArrayList;
 
+/*Testing adapter functionality*/
 public class TestAdaptor {
 
     Cells[][] testCells;

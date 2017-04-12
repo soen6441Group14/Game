@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import load.LoadCharacter;
 import objects.Characters;
-
+/* test load char functionality*/
 public class TestLoadChar {
 
 	Characters singleChar;
