@@ -28,10 +28,7 @@ public class SaveCampaignFrame {
 	 * @param campaigns		arraylist of all campaigns
 	 * @param playingIndex  the number of map that is showed on the map
 	 */
-	public SaveCampaignFrame(Map map, JFrame jFrame2, Campaigns playingCampaign, ArrayList<Campaigns> campaigns, int playingIndex) {
-		
-		
-		
+	public SaveCampaignFrame(Map map, JFrame jFrame2, Campaigns playingCampaign, ArrayList<Campaigns> campaigns, int playingIndex){
 		JFrame jFrame = new JFrame("Save the campaign");
 		JButton jButton = new JButton("Save");
 		
@@ -53,8 +50,7 @@ public class SaveCampaignFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-			
+
 //				playingCampaign.playingIndex = playingIndex;
 //				System.out.println("playingIndex: "+newCampaign.playingIndex );
 //				campaigns.set(0,newCampaign);

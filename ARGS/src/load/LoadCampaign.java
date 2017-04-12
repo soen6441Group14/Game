@@ -44,6 +44,18 @@ public class LoadCampaign {
         
         return arrayList;
 	}
+
+	public Campaigns readGameRecord() throws IOException, ClassNotFoundException{
+
+		Campaigns recordCampaign=null;
+
+		File input = new File("file/playingGame.txt");
+		ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(input));
+		recordCampaign = (Campaigns) objectInputStream.readObject();
+		objectInputStream.close();
+
+		return recordCampaign;
+	}
 	
 	/**
 	 * read the specific campaigns object which has the name with String name

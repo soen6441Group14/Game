@@ -23,6 +23,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+
+import save.SaveCampaign;
 import strategy.Aggressive;
 import strategy.ComputerPlayer;
 import strategy.Friendly;
@@ -97,10 +99,12 @@ public class Map {
 	public JMenu jMenuHelp = new JMenu("Help");
 	public JMenu jMenuSave = new JMenu("Save");
 	public JMenuItem saveMap = new JMenuItem("Save Map");
-	public JMenuItem saveCampaign = new JMenuItem("Save Campaign");
+	public JMenuItem savePlaying = new JMenuItem("Save Playing");
+	public JMenuItem saveGame = new JMenuItem("Save Game");
 	public JMenu jMenuLoad = new JMenu("Load");
 	public JMenuItem loadMap = new JMenuItem("Load Map");
-	public JMenuItem loadCampaign = new JMenuItem("Load Campaign");
+	public JMenuItem loadPlaying = new JMenuItem("Load Playing");
+	public JMenuItem loadGame = new JMenuItem("Load Game");
 	public JMenuItem jMenuMap = new JMenuItem("Create a map");
 	public JMenuItem jMenuCharacter = new JMenuItem("Create/Edit a character");
 	public JMenuItem jMenuItem = new JMenuItem("Create/Edit an item");
@@ -650,17 +654,39 @@ public class Map {
 			}
 		});
 		
-		saveCampaign.addActionListener(new ActionListener() {
-			
+		savePlaying.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				System.out.println("save");
 				Campaigns newCampaign = new Campaigns(playingCampaign.getCampaign(), playingCampaign.getName(), playingIndex);
 				new SaveCampaignFrame(Map.this,jFrame,newCampaign,campaigns,playingIndex); //open SaveCampaignFrame
 				jFrame.setEnabled(false);
 				panelContainer.requestFocus();
+				System.out.println("save playing ");
+			}
+		});
+
+		saveGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				RunningController.obtainRunningController().stopRun();
+				removeCharacterDependency();
+				removeCharacterStrategy();
+				String matrixName=Map.this.playingCampaign.getCampaign().get(Map.this.playingIndex).getName();
+				Matrix recordMatrix=new Matrix(Map.this.getMap(),matrixName);
+				ArrayList<Matrix>recordMatrixList=new ArrayList<Matrix>();
+				recordMatrixList.add(recordMatrix);
+				for(int i=Map.this.playingIndex+1; i<Map.this.playingCampaign.getCampaign().size();i++){
+					recordMatrixList.add(Map.this.playingCampaign.getCampaign().get(i));
+				}
+				Campaigns recordCamp=new Campaigns(recordMatrixList,"playingGame",0);
+				try {
+					new SaveCampaign().saveplayingGame(recordCamp);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				System.out.println("Save successfully!");
 			}
 		});
 		
@@ -698,7 +724,7 @@ public class Map {
 		});
 
 		
-		loadCampaign.addActionListener(new ActionListener() {
+		loadPlaying.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -706,6 +732,55 @@ public class Map {
 				new LoadCampaignFrame(Map.this,jFrame,campaigns); //open LoadCampaignFrame
 				jFrame.setEnabled(false);
 				panelContainer.requestFocus();
+			}
+		});
+
+		loadGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO:111
+				Campaigns recordGame=null;
+				try {
+					recordGame = new LoadCampaign().readGameRecord();
+				} catch (ClassNotFoundException | IOException e1) {
+					e1.printStackTrace();
+				}
+				//initialization
+				playingHero=null;
+				playingCampaign=null;
+				playingIndex=0;
+				//set playingCampaign info
+				Map.this.playingCampaign=recordGame;
+				Cells[][] firstMap=Map.this.playingCampaign.getCampaign().get(0).getMap();
+				numRows = firstMap[0][0].getX();
+				numCols = firstMap[0][0].getY();
+				//to get playingHero info
+				for(int row=0; row<numRows; row++){
+					for(int col=0; col<numCols; col++){
+						if(firstMap[row][col].getTileType()==TileType.HERO){
+							Map.this.playingHero=firstMap[row][col].getCharacters();
+							break;
+						}
+					}
+				}
+				setMap(firstMap, numRows, numCols);
+				updateCharacterList();
+				numberMap = playingCampaign.getCampaign().size()-1;
+				keyListener = new PanelListener(Map.this,numberMap);
+				panelContainer.addKeyListener(keyListener);
+				panelContainer.requestFocus();
+				characterTurn.clear();
+				characterTurnMove();
+				initialCharactersStrategy();
+				initialCharactersDependency();
+
+				RunningController runningController =RunningController.obtainRunningController();
+				runningController.enrollTurnsCharaters(characterTurn);
+				runningController.startRun();
+				drawMap(2);
+				LoggingWindow loggingWindow =LoggingWindow.getLoggingWindow();
+				loggingWindow.setVisible(true);
+
 			}
 		});
 		
@@ -727,9 +802,11 @@ public class Map {
 		jMenu.add(jMenuCharacter);
 		jMenu.add(jMenuItem);
 		jMenuSave.add(saveMap);
-		jMenuSave.add(saveCampaign);
+		jMenuSave.add(savePlaying);
+		jMenuSave.add(saveGame);
 		jMenuLoad.add(loadMap);
-		jMenuLoad.add(loadCampaign);
+		jMenuLoad.add(loadPlaying);
+		jMenuLoad.add(loadGame);
 		jMenuBar.add(jMenu);
 		jMenuBar.add(jMenuSave);
 		jMenuBar.add(jMenuLoad);
@@ -1089,6 +1166,22 @@ public class Map {
 		for(Characters character:characterTurn){
 			character.setDependentMap(Map.this);
 		}
+	}
+
+	/**
+	 * the method is to remove the character's dependent map
+	 */
+	public void removeCharacterDependency(){
+		for(Characters character : characterTurn)
+			character.dependentMap=null;
+	}
+
+	/**
+	 * the method is to remove the strategy for everyone
+	 */
+	public void removeCharacterStrategy(){
+		for(Characters character:characterTurn)
+			character.strategy=null;
 	}
 
 }
