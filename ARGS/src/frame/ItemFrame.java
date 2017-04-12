@@ -286,7 +286,7 @@ public class ItemFrame {
 				oldItems = new LoadItem().loadItem(itemName.getText(), itemArrayList);
 				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(0));
 				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(1));
-				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(2));
+//				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(2));
 //				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(3));
 //				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(4));
 //				System.out.println(oldItems.getName()+"  "+oldItems.getEnchantments().get(5));
