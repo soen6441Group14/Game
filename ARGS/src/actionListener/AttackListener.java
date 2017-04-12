@@ -57,7 +57,7 @@ public class AttackListener extends MouseAdapter {
 			if(e.isMetaDown()){
 				//check the range
 				if(!(jButton.getBorder() instanceof EtchedBorder)){
-					System.out.println("[ Warning ] You target is outside the range that you can attack");
+					System.out.println("[ Warning ] You target is outside of the range that you can attack");
 				}
 				else{
 					row= (int) jButton.getClientProperty("Rows");
