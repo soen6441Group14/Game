@@ -10,7 +10,7 @@ import decorator.Freezing;
 import decorator.Slaying;
 import decorator.Weapon;
 import enumclass.Enchantment;
-
+/* test freezing functionality*/
 public class TestFreezing {
 	static Weapon weapon = new Empty();
 	
