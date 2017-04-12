@@ -9,7 +9,7 @@ import strategy.Frozen;
 import enumclass.Orientation;
 import objects.Characters;
 import objects.Items;
-
+/* test frozen functionality*/
 public class TestFrozenStrategy {
 	static ArrayList<Items> inventory = new ArrayList<>();
 	static ArrayList<Items> backpack = new ArrayList<>();
