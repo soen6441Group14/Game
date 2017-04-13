@@ -203,6 +203,7 @@ public class Characters implements Serializable{
 			if(this.orient!=Orientation.PLAYER){
 				this.setStrategy(new Friendly(this.dependentMap,this));
 				System.out.println("[ "+this.getName()+" ] suffer Pacifying enchantment, turnLeft - become Friendly");
+				this.setOrient(Orientation.FRIENDLY);
 			}
 			unvoidEffect=Enchantment.Pacifying;
 		}

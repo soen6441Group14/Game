@@ -167,8 +167,10 @@ public class Aggressive implements Strategy{
             //attackOrLootDead the target
             boolean ifLive=theAggressive.attackOrLootDead(target);
             attackTime--;
-            if(target.getOrient()== Orientation.FRIENDLY)
+            if(target.getOrient()== Orientation.FRIENDLY){
                 target.setStrategy(new Aggressive(this.mapFrame,target));
+                target.setOrient(Orientation.HOSTILE);
+            }
             if(!ifLive){
                 map[characterRow][characterColumn] = new Cells(TileType.GROUND, numRows, numCols, new Ground(TileType.GROUND));
                 map[characterRow+down][characterColumn+right]=new Cells(TileType.MONSTER, numRows, numCols,theAggressive);
